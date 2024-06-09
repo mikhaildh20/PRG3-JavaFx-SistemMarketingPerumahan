@@ -5,8 +5,11 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     requires com.dlsc.formsfx;
     requires java.sql;
 
+    exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah to javafx.fxml;
-    exports org.radianite.prg3javafxsistemmarketingperumahan;
     exports org.radianite.prg3javafxsistemmarketingperumahan.App;
     opens org.radianite.prg3javafxsistemmarketingperumahan.App to javafx.fxml;
+    exports org.radianite.prg3javafxsistemmarketingperumahan.Models;
+    opens org.radianite.prg3javafxsistemmarketingperumahan.Models to javafx.fxml;
+
 }

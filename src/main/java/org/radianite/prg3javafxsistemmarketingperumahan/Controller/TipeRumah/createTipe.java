@@ -2,9 +2,7 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
@@ -17,7 +15,6 @@ public class createTipe implements Initializable {
     @FXML
     private TextField txtId,txtName;
     Library lib = new Library();
-    Database connect = new Database();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         txtId.setText(lib.generateID("ms_tipe_rumah","TRM","id_tipe"));
@@ -26,6 +23,7 @@ public class createTipe implements Initializable {
 
     public void onClickSave(MouseEvent mouseEvent) {
         try{
+            Database connect = new Database();
             String query="EXEC sp_inputTipeRumah ?,?";
             connect.pstat = connect.conn.prepareStatement(query);
             connect.pstat.setString(1,txtId.getText());
@@ -38,11 +36,11 @@ public class createTipe implements Initializable {
         }catch (SQLException ex){
             System.out.println("Error: "+ex.getMessage());
         }
+
     }
 
     public void clear(){
         txtId.setText(lib.generateID("ms_tipe_rumah","TRM","id_tipe"));
-        txtId.setDisable(true);
         txtName.setText("");
     }
 }
