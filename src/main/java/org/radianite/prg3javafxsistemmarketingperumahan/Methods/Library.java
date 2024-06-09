@@ -7,11 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 
 public class Library {
@@ -112,5 +116,18 @@ public class Library {
 
     public void deleteData(String sp, String id) {
         confirmBox(sp, id);
+    }
+
+    public File imageChooser(Button button){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images Files","*.png","*.jpg","*.jpeg"));
+
+        Stage stage = (Stage) button.getScene().getWindow();
+
+        return fileChooser.showOpenDialog(stage);
+    }
+
+    public byte[] imageToByte(File file) throws IOException {
+        return Files.readAllBytes(file.toPath());
     }
 }
