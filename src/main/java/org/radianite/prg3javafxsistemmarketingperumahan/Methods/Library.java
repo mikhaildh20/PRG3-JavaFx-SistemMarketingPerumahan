@@ -1,6 +1,5 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Methods;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

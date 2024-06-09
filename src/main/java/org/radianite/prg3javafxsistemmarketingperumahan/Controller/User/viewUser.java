@@ -47,7 +47,7 @@ public class viewUser extends Library implements Initializable {
 
             {
                 btnUpdate.setOnAction(event -> {
-//                    loadPage(event,"updateTipe",listData.get(getIndex()));
+                    loadPage(event,"updateUser",listUser.get(getIndex()));
                 });
 
                 btnDelete.setOnAction(event -> {

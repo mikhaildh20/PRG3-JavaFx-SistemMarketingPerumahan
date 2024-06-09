@@ -11,7 +11,6 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Perumahan;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Role;
-import org.radianite.prg3javafxsistemmarketingperumahan.Models.TipeRumah;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.net.URL;
@@ -39,6 +38,7 @@ public class updateUser extends Library implements Initializable {
         loadPerumahan();
         loadRole();
         txtUsn.setDisable(true);
+        txtPass.setDisable(true);
         rbMale.setToggleGroup(group);
         rbFemale.setToggleGroup(group);
         cbResidence.setCellFactory(param->new javafx.scene.control.ListCell<Perumahan>(){
@@ -90,6 +90,8 @@ public class updateUser extends Library implements Initializable {
     public void setDataList(User data){
         txtUsn.setText(data.getUsn());
         txtPass.setText(data.getPass());
+        setPSelectedCbBox(data.getIdp());
+        setRSelectedCbBox(data.getIdr());
         txtName.setText(data.getName());
         txtEmail.setText(data.getEmail());
         txtAddress.setText(data.getAddress());
@@ -97,7 +99,23 @@ public class updateUser extends Library implements Initializable {
         txtAge.setText(data.getAge().toString());
     }
 
-    public void toggleRadio(String val){
+    private void setPSelectedCbBox(String data){
+        for (Perumahan item : cbResidence.getItems()){
+            if (item.getId().equals(data)){
+                cbResidence.getSelectionModel().select(item);
+            }
+        }
+    }
+
+    private void setRSelectedCbBox(String data){
+        for (Role item : cbRole.getItems()){
+            if (item.getId().equals(data)){
+                cbRole.getSelectionModel().select(item);
+            }
+        }
+    }
+
+    private void toggleRadio(String val){
         for (Toggle toggle : group.getToggles()) {
             RadioButton radioButton = (RadioButton) toggle;
             if (radioButton.getText().equals(val)) {
@@ -108,7 +126,7 @@ public class updateUser extends Library implements Initializable {
     }
 
 
-    public void clear(){
+    private void clear(){
         txtUsn.setText("");
         txtPass.setText("");
         txtName.setText("");
@@ -118,7 +136,7 @@ public class updateUser extends Library implements Initializable {
         txtAge.setText("");
     }
 
-    public void loadRole(){
+    private void loadRole(){
         try{
             Database connect = new Database();
             connect.stat = connect.conn.createStatement();
@@ -137,7 +155,7 @@ public class updateUser extends Library implements Initializable {
         cbRole.setItems(listRole);
     }
 
-    public void loadPerumahan(){
+    private void loadPerumahan(){
         try{
             Database connect = new Database();
             connect.stat = connect.conn.createStatement();
@@ -157,5 +175,27 @@ public class updateUser extends Library implements Initializable {
     }
 
     public void onActionUpdate(ActionEvent event) {
+        Toggle selected = group.getSelectedToggle();
+        RadioButton val = (RadioButton) selected;
+        try{
+            Database connect = new Database();
+            String query = "EXEC sp_updateUser ?,?,?,?,?,?,?,?,?";
+            connect.pstat = connect.conn.prepareStatement(query);
+            connect.pstat.setString(1,txtUsn.getText());
+            connect.pstat.setString(2,txtPass.getText());
+            connect.pstat.setString(3,cbResidence.getSelectionModel().getSelectedItem().getId());
+            connect.pstat.setString(4,cbRole.getSelectionModel().getSelectedItem().getId());
+            connect.pstat.setString(5,txtName.getText());
+            connect.pstat.setString(6,txtEmail.getText());
+            connect.pstat.setString(7,txtAddress.getText());
+            connect.pstat.setString(8,val.getText());
+            connect.pstat.setString(9,txtAge.getText());
+            connect.pstat.executeUpdate();
+            connect.pstat.close();
+            successBox();
+            loadPage(event,"viewUser");
+        }catch (SQLException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }
     }
 }
