@@ -1,10 +1,18 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Methods;
 
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class Library {
@@ -42,7 +50,7 @@ public class Library {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("INFORMATION");
         alert.setHeaderText(null);
-        alert.setContentText("Data has been stored successfully.");
+        alert.setContentText("Operation has been done successfully.");
         alert.showAndWait();
     }
 
@@ -87,5 +95,19 @@ public class Library {
                 }
             }
         });
+    }
+
+    public void loadPage(ActionEvent event, String page){
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+
+        Parent root = null;
+        try{
+            root = FXMLLoader.load(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/"+page+".fxml"));
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

@@ -11,13 +11,12 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class createTipe implements Initializable {
+public class createTipe extends Library implements Initializable {
     @FXML
     private TextField txtId,txtName;
-    Library lib = new Library();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        txtId.setText(lib.generateID("ms_tipe_rumah","TRM","id_tipe"));
+        txtId.setText(generateID("ms_tipe_rumah","TRM","id_tipe"));
         txtId.setDisable(true);
     }
 
@@ -31,7 +30,7 @@ public class createTipe implements Initializable {
             connect.pstat.executeUpdate();
             connect.pstat.close();
             connect.conn.close();
-            lib.successBox();
+            successBox();
             clear();
         }catch (SQLException ex){
             System.out.println("Error: "+ex.getMessage());
@@ -40,7 +39,7 @@ public class createTipe implements Initializable {
     }
 
     public void clear(){
-        txtId.setText(lib.generateID("ms_tipe_rumah","TRM","id_tipe"));
+        txtId.setText(generateID("ms_tipe_rumah","TRM","id_tipe"));
         txtName.setText("");
     }
 }

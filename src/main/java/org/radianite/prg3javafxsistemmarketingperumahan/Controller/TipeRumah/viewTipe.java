@@ -2,26 +2,30 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.TipeRumah;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class viewTipe implements Initializable {
-    Library lib = new Library();
-
+public class viewTipe extends Library implements Initializable {
     @FXML
     private TableView tableView;
     @FXML
@@ -30,10 +34,6 @@ public class viewTipe implements Initializable {
     private TableColumn<TipeRumah, Void> colAction;
 
     private ObservableList<TipeRumah> listData = FXCollections.observableArrayList();
-
-    public void onClickAdd(MouseEvent mouseEvent) {
-        // Implement the add functionality
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,8 +46,7 @@ public class viewTipe implements Initializable {
 
             {
                 btnUpdate.setOnAction(event -> {
-
-                    // Implement the update functionality
+                    loadPage(event,"updateTipe",listData.get(getIndex()));
                 });
 
                 btnDelete.setOnAction(event -> {
@@ -91,6 +90,28 @@ public class viewTipe implements Initializable {
     }
 
     private void deleteData(String id) {
-        lib.confirmBox("sp_deleteTipeRumah", id);
+        confirmBox("sp_deleteTipeRumah", id);
+    }
+
+    public void onActionAdd(ActionEvent event) {
+        loadPage(event, "inputTipe");
+    }
+
+    public void loadPage(ActionEvent event, String page, TipeRumah data){
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/" + page + ".fxml"));
+            Parent root = loader.load();
+
+            updateTipe controller = loader.getController();
+            controller.setDataList(data);
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
