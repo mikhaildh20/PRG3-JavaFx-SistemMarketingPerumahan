@@ -110,4 +110,8 @@ public class Library {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    public void deleteData(String sp, String id) {
+        confirmBox(sp, id);
+    }
 }

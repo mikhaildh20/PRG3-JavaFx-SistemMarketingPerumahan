@@ -50,7 +50,7 @@ public class viewTipe extends Library implements Initializable {
                 });
 
                 btnDelete.setOnAction(event -> {
-                    deleteData(listData.get(getIndex()).getId());
+                    deleteData("sp_deleteTipeRumah",listData.get(getIndex()).getId());
                     loadData();
                 });
             }
@@ -89,9 +89,6 @@ public class viewTipe extends Library implements Initializable {
         tableView.setItems(listData);
     }
 
-    private void deleteData(String id) {
-        confirmBox("sp_deleteTipeRumah", id);
-    }
 
     public void onActionAdd(ActionEvent event) {
         loadPage(event, "inputTipe");
