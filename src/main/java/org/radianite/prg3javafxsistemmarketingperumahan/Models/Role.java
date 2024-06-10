@@ -1,7 +1,7 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Models;
 
 public class Role {
-    String id,name;
+    private String id,name;
 
     public Role(String id, String name) {
         this.id = id;

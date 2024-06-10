@@ -89,6 +89,10 @@ CREATE TABLE ms_ruko(
 	status INT
 )
 
+SELECT * FROM ms_ruko
+EXEC sp_viewRuko
+
+
 CREATE TABLE ms_kavling(
 	id_kavling VARCHAR(10) PRIMARY KEY,
 	id_perumahan VARCHAR(10) FOREIGN KEY REFERENCES ms_perumahan(id_perumahan),
@@ -101,6 +105,7 @@ CREATE TABLE ms_kavling(
 	status INT
 )
 
+EXEC sp_viewKavling
 SELECT * FROM ms_kavling
 
 -- Transaction --
@@ -358,14 +363,6 @@ BEGIN
 	UPDATE ms_kavling SET status=0 WHERE id_kavling=@id
 END
 
--- User Defined Function --
-
--- Trigger --
-
-
-
-
-
 SELECT * FROM ms_user
 
 CREATE PROCEDURE sp_viewUser
@@ -377,3 +374,23 @@ BEGIN
 		JOIN ms_perumahan p ON p.id_perumahan = u.id_perumahan
 		JOIN ms_role r ON r.id_role = u.id_role
 END
+
+CREATE PROCEDURE sp_viewKavling
+AS
+BEGIN
+	SELECT k.*,p.nama_perumahan FROM ms_kavling k
+	JOIN ms_perumahan p ON p.id_perumahan = k.id_perumahan
+END
+
+CREATE PROCEDURE sp_viewRuko
+AS
+BEGIN
+	SELECT r.*,p.nama_perumahan FROM ms_ruko r
+	JOIN ms_perumahan p ON p.id_perumahan = r.id_perumahan
+END
+
+-- User Defined Function --
+
+-- Trigger --
+
+

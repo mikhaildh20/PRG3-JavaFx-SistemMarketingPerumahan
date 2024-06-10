@@ -1,9 +1,9 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Models;
 
 public class User {
-    String usn,pass,idp,idr,name,email,address,gender;
-    Integer age;
-    String PName,RName;
+    private String usn,pass,idp,idr,name,email,address,gender;
+    private Integer age;
+    private String PName,RName;
 
     public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age) {
         this.usn = usn;

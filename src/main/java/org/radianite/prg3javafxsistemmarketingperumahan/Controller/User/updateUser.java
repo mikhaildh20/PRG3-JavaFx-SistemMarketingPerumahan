@@ -126,16 +126,6 @@ public class updateUser extends Library implements Initializable {
     }
 
 
-    private void clear(){
-        txtUsn.setText("");
-        txtPass.setText("");
-        txtName.setText("");
-        txtEmail.setText("");
-        txtAddress.setText("");
-        group.selectToggle(null);
-        txtAge.setText("");
-    }
-
     private void loadRole(){
         try{
             Database connect = new Database();

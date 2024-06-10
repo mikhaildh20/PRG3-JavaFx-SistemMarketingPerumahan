@@ -4,6 +4,7 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
 
     requires com.dlsc.formsfx;
     requires java.sql;
+    requires java.desktop;
 
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah to javafx.fxml;

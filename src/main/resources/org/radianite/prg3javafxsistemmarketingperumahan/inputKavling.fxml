@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Kavling.createKavling">
    <children>
       <AnchorPane layoutX="41.0" layoutY="31.0" prefHeight="338.0" prefWidth="517.0">
@@ -28,12 +27,10 @@
             <TextField fx:id="txtDP" layoutX="334.0" layoutY="64.0" />
             <Label layoutX="272.0" layoutY="106.0" text="Price" />
             <TextField fx:id="txtPrice" layoutX="334.0" layoutY="102.0" />
-            <Label layoutX="272.0" layoutY="145.0" text="Availablity" />
-            <Label fx:id="LabFile" layoutX="334.0" layoutY="185.0" text="Choose file here" />
+            <Label fx:id="LabFile" layoutX="338.0" layoutY="148.0" text="Choose file here" />
             <ComboBox fx:id="cbResidence" layoutX="85.0" layoutY="102.0" prefWidth="150.0" />
-            <Button fx:id="btnFile" layoutX="272.0" layoutY="181.0" mnemonicParsing="false" onAction="#onActionFile" prefHeight="26.0" prefWidth="54.0" text="File" />
+            <Button fx:id="btnFile" layoutX="271.0" layoutY="143.0" mnemonicParsing="false" onAction="#onActionFile" prefHeight="26.0" prefWidth="54.0" text="File" />
             <Button layoutX="215.0" layoutY="254.0" mnemonicParsing="false" onAction="#onActionSave" prefHeight="26.0" prefWidth="86.0" text="Save" />
-            <TextField fx:id="txtAva" layoutX="334.0" layoutY="141.0" />
          </children>
       </AnchorPane>
    </children>

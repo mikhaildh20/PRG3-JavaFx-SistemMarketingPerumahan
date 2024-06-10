@@ -1,7 +1,7 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Models;
 
 public class Perumahan {
-    String id,name;
+    private String id,name;
 
     public Perumahan(String id, String name) {
         this.id = id;

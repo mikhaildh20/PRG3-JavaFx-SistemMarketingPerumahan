@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class createKavling extends Library implements Initializable {
     @FXML
-    private TextField txtId,txtBlok,txtWide,txtDP,txtPrice,txtAva;
+    private TextField txtId,txtBlok,txtWide,txtDP,txtPrice;
     @FXML
     private ComboBox<Perumahan> cbResidence;
     @FXML
@@ -35,9 +35,7 @@ public class createKavling extends Library implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadPerum();
         txtId.setDisable(true);
-        txtAva.setDisable(true);
         txtId.setText(generateID("ms_kavling","KVL","id_kavling"));
-        txtAva.setText("Available");
         cbResidence.setCellFactory(param->new javafx.scene.control.ListCell<Perumahan>(){
             protected void updateItem(Perumahan item,boolean empty){
                 super.updateItem(item,empty);
@@ -93,7 +91,7 @@ public class createKavling extends Library implements Initializable {
         LabFile.setText(file.getName());
     }
 
-    public void onActionSave(ActionEvent event) {
+    public void onActionSave(ActionEvent event){
         try{
             Database connect = new Database();
             String query = "EXEC sp_inputKavling ?,?,?,?,?,?,?";

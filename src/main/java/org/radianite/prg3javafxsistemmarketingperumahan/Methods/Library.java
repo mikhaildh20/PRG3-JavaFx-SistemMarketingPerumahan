@@ -9,14 +9,20 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.SQLException;
+import java.io.ByteArrayOutputStream;
 
 public class Library {
     String query,imported,base;
@@ -130,4 +136,31 @@ public class Library {
     public byte[] imageToByte(File file) throws IOException {
         return Files.readAllBytes(file.toPath());
     }
+
+    public Image convertToImage(byte[] imageData) {
+        if (imageData != null) {
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+            return new Image(bis);
+        } else {
+            return null;
+        }
+    }
+
+    public byte[] convertImageToBytes(Image image) throws IOException {
+        PixelReader pixelReader = image.getPixelReader();
+        int width = (int) image.getWidth();
+        int height = (int) image.getHeight();
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int argb = pixelReader.getArgb(x, y);
+                bufferedImage.setRGB(x, y, argb);
+            }
+        }
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", bos);
+        return bos.toByteArray();
+    }
+
+
 }
