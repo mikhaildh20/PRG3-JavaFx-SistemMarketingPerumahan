@@ -12,6 +12,8 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.User to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Kavling;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Kavling to javafx.fxml;
+    exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko;
+    opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.App;
     opens org.radianite.prg3javafxsistemmarketingperumahan.App to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.Models;

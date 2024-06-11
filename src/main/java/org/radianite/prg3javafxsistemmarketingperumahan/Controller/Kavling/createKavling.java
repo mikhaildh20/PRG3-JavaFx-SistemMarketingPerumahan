@@ -65,6 +65,7 @@ public class createKavling extends Library implements Initializable {
         txtWide.setText("");
         txtDP.setText("");
         txtPrice.setText("");
+        file=null;
         LabFile.setText("Choose file here");
     }
 
