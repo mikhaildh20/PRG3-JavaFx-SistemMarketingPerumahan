@@ -29,7 +29,6 @@ public class createRuko extends Library implements Initializable {
     @FXML
     private Button btnFile;
     File file;
-
     private ObservableList<Perumahan> listPerum = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
