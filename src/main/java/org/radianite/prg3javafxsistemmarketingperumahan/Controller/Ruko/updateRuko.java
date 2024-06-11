@@ -61,7 +61,7 @@ public class updateRuko extends Library implements Initializable {
 
     public void setDataList(Ruko data){
         txtId.setText(data.getId());
-        setPSelectedCbBox(data.getId());
+        setPSelectedCbBox(data.getIdp());
         txtBlok.setText(data.getBlok());
         txtElec.setText(data.getElectric().toString());
         txtToilet.setText(data.getToilet().toString());
