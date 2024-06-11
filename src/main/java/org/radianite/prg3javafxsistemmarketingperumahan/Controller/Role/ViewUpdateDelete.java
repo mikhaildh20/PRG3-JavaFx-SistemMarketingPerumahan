@@ -85,7 +85,7 @@ public class ViewUpdateDelete implements Initializable {
     }
 
     public class TableCellWithButton extends TableCell<Role, Void> {
-        private final Button editButton = new Button("Edit");
+        private final Button editButton = new Button("Edit");   
         private final Button deleteButton = new Button("Delete");
 
         public TableCellWithButton() {
