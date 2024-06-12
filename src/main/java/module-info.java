@@ -25,4 +25,5 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role to javafx.fxml;
 
+
 }

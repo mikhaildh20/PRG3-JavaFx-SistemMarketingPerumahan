@@ -10,12 +10,14 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/Master/Role/View.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/App/Login.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), 465, 500);
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Input Obat");
         stage.setScene(scene);
+
         stage.show();
+
     }
 
 
