@@ -84,7 +84,6 @@ public class LoginController implements Initializable {
         // Combine Translate and Fade transitions for GroupWelcome and groupLoginFild
         ParallelTransition parallelTransitionGroup = new ParallelTransition(
                 parallelTransition, translateGroupLogin, fadeGroupLogin, fadeLabelLogin);
-
         // Create FadeTransitions for images
         FadeTransition fadeGambar1 = new FadeTransition();
         fadeGambar1.setNode(Image1);
