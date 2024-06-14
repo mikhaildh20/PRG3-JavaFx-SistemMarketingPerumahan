@@ -161,6 +161,4 @@ public class Library {
         ImageIO.write(bufferedImage, "png", bos);
         return bos.toByteArray();
     }
-
-
 }

@@ -35,7 +35,7 @@ public class createKavling extends Library implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadPerum();
         txtId.setDisable(true);
-        txtId.setText(generateID("ms_kavling","KVL","id_kavling"));
+        txtId.setText(generateID("ms_kavling","KVG","id_kavling"));
         cbResidence.setCellFactory(param->new javafx.scene.control.ListCell<Perumahan>(){
             protected void updateItem(Perumahan item,boolean empty){
                 super.updateItem(item,empty);
@@ -108,7 +108,7 @@ public class createKavling extends Library implements Initializable {
             connect.pstat.close();
             successBox();
             clear();
-            txtId.setText(generateID("ms_kavling","KVL","id_kavling"));
+            txtId.setText(generateID("ms_kavling","KVG","id_kavling"));
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());
         }

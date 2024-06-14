@@ -53,9 +53,9 @@ CREATE TABLE ms_user(
 	alamat VARCHAR(25),
 	jenis_kelamin VARCHAR(20),
 	umur INT,
+	photo VARBINARY(MAX),
 	status INT
 )
-
 
 
 CREATE TABLE ms_rumah(
@@ -155,10 +155,11 @@ CREATE PROCEDURE sp_inputUser
 	@email VARCHAR(30),
 	@alamat VARCHAR(25),
 	@jenis_kelamin VARCHAR(20),
-	@umur INT
+	@umur INT,
+	@photo VARBINARY(MAX)
 AS
 BEGIN
-	INSERT INTO ms_user VALUES(@usn,@pass,@idp,@idr,@name,@email,@alamat,@jenis_kelamin,@umur,1)
+	INSERT INTO ms_user VALUES(@usn,@pass,@idp,@idr,@name,@email,@alamat,@jenis_kelamin,@umur,@photo,1)
 END
 
 CREATE PROCEDURE sp_inputRumah
@@ -251,10 +252,11 @@ CREATE PROCEDURE sp_updateUser
 	@email VARCHAR(30),
 	@alamat VARCHAR(25),
 	@jenis_kelamin VARCHAR(20),
-	@umur INT
+	@umur INT,
+	@photo VARBINARY(MAX)
 AS
 BEGIN
-	UPDATE ms_user SET password=@pass,id_perumahan=@idp,id_role=@idr,nama_lengkap=@name,email=@email,alamat=@alamat,jenis_kelamin=@jenis_kelamin,umur=@umur WHERE username=@usn
+	UPDATE ms_user SET password=@pass,id_perumahan=@idp,id_role=@idr,nama_lengkap=@name,email=@email,alamat=@alamat,jenis_kelamin=@jenis_kelamin,umur=@umur,photo=@photo WHERE username=@usn
 END
 
 CREATE PROCEDURE sp_updateRumah
@@ -287,9 +289,8 @@ CREATE PROCEDURE sp_updateRuko
 	@harga MONEY
 AS
 BEGIN
-	UPDATE ms_ruko SET id_perumahan=@idp,foto_ruko=@foto,blok=@blok,daya_listrik=@listrik,jml_kmr_mdn=@kmr_mdn,descrption=@desc,harga_sewa=harga_sewa WHERE id_ruko = @id
+	UPDATE ms_ruko SET id_perumahan=@idp,foto_ruko=@foto,blok=@blok,daya_listrik=@listrik,jml_kmr_mdn=@kmr_mdn,descrption=@desc,harga_sewa=@harga WHERE id_ruko = @id
 END
-
 
 CREATE PROCEDURE sp_updateKavling
 	@id VARCHAR(10),
@@ -369,7 +370,7 @@ CREATE PROCEDURE sp_viewUser
 AS
 BEGIN
 	SELECT u.username,u.password,u.id_perumahan,u.id_role,u.nama_lengkap
-		,u.email,u.alamat,u.jenis_kelamin,u.umur,u.status,p.nama_perumahan,r.nama_role 
+		,u.email,u.alamat,u.jenis_kelamin,u.umur,u.photo,u.status,p.nama_perumahan,r.nama_role 
 		FROM ms_user u
 		JOIN ms_perumahan p ON p.id_perumahan = u.id_perumahan
 		JOIN ms_role r ON r.id_role = u.id_role
