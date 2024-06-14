@@ -1,8 +1,11 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Models;
 
+import javafx.scene.image.Image;
+
 public class User {
     private String usn,pass,idp,idr,name,email,address,gender;
     private Integer age;
+    private Image foto;
     private String PName,RName;
 
     public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age) {
@@ -17,7 +20,7 @@ public class User {
         this.age = age;
     }
 
-    public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age, String pName, String rName) {
+    public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age,Image foto, String pName, String rName) {
         this.usn = usn;
         this.pass = pass;
         this.idp = idp;
@@ -27,6 +30,7 @@ public class User {
         this.address = address;
         this.gender = gender;
         this.age = age;
+        this.foto = foto;
         this.PName = pName;
         this.RName = rName;
     }
@@ -73,5 +77,9 @@ public class User {
 
     public Integer getAge() {
         return age;
+    }
+
+    public Image getFoto() {
+        return foto;
     }
 }

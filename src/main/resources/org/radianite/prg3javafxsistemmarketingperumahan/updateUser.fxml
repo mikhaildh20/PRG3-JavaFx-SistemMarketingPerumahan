@@ -9,17 +9,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="466.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.User.updateUser">
+<AnchorPane prefHeight="466.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.User.updateUser">
    <children>
-      <AnchorPane layoutX="42.0" layoutY="40.0" prefHeight="397.0" prefWidth="534.0">
+      <AnchorPane layoutX="32.0" layoutY="30.0" prefHeight="397.0" prefWidth="761.0">
          <children>
-            <Label layoutX="245.0" layoutY="27.0" text="User">
+            <Label layoutX="359.0" layoutY="35.0" text="User">
                <font>
                   <Font name="Arial Black" size="17.0" />
                </font>
             </Label>
-            <Button layoutX="211.0" layoutY="335.0" mnemonicParsing="false" onAction="#onActionUpdate" prefHeight="26.0" prefWidth="111.0" text="Update" />
+            <Button layoutX="325.0" layoutY="300.0" mnemonicParsing="false" onAction="#onActionUpdate" prefHeight="26.0" prefWidth="111.0" text="Update" />
             <Label layoutX="26.0" layoutY="93.0" text="Username">
                <font>
                   <Font name="Arial" size="12.0" />
@@ -38,43 +37,45 @@
                </font>
             </Label>
             <ComboBox fx:id="cbResidence" layoutX="116.0" layoutY="181.0" prefWidth="150.0" />
-            <Label layoutX="26.0" layoutY="229.0" text="Role">
+            <Label layoutX="26.0" layoutY="242.0" text="Role">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbRole" layoutX="115.0" layoutY="224.0" prefWidth="150.0" />
-            <Label layoutX="299.0" layoutY="93.0" text="Email">
+            <ComboBox fx:id="cbRole" layoutX="115.0" layoutY="232.0" prefWidth="150.0" />
+            <Label layoutX="290.0" layoutY="138.0" text="Email">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="txtEmail" layoutX="358.0" layoutY="88.0" />
-            <Label layoutX="299.0" layoutY="139.0" text="Address">
+            <TextField fx:id="txtEmail" layoutX="349.0" layoutY="133.0" />
+            <Label layoutX="290.0" layoutY="184.0" text="Address">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <TextArea fx:id="txtAddress" layoutX="357.0" layoutY="138.0" prefHeight="70.0" prefWidth="150.0" />
-            <Label layoutX="303.0" layoutY="229.0" text="Gender">
+            <TextArea fx:id="txtAddress" layoutX="348.0" layoutY="183.0" prefHeight="79.0" prefWidth="150.0" />
+            <Label layoutX="534.0" layoutY="94.0" text="Gender">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <RadioButton fx:id="rbMale" layoutX="358.0" layoutY="229.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="62.0" text="Male" />
-            <RadioButton fx:id="rbFemale" layoutX="433.0" layoutY="228.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="62.0" text="Female" />
-            <Label layoutX="34.0" layoutY="276.0" text="Name">
+            <RadioButton fx:id="rbMale" layoutX="589.0" layoutY="94.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="62.0" text="Male" />
+            <RadioButton fx:id="rbFemale" layoutX="664.0" layoutY="93.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="62.0" text="Female" />
+            <Label layoutX="289.0" layoutY="93.0" text="Name">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="txtName" layoutX="114.0" layoutY="271.0" />
-            <Label layoutX="312.0" layoutY="276.0" text="Age">
+            <TextField fx:id="txtName" layoutX="347.0" layoutY="88.0" />
+            <Label layoutX="543.0" layoutY="143.0" text="Age">
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="txtAge" layoutX="357.0" layoutY="271.0" />
+            <TextField fx:id="txtAge" layoutX="588.0" layoutY="138.0" />
+            <Button fx:id="btnFile" layoutX="539.0" layoutY="181.0" mnemonicParsing="false" onAction="#onActionFile" prefHeight="25.0" prefWidth="53.0" text="File" />
+            <Label fx:id="LabFile" layoutX="606.0" layoutY="185.0" prefHeight="17.0" prefWidth="128.0" text="Change file here.." />
          </children>
       </AnchorPane>
    </children>
