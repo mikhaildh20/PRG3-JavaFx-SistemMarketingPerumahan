@@ -11,12 +11,10 @@ import java.sql.SQLException;
 public class Update {
 
     @FXML
-    private TextField idRoleField; // Ganti dari idTipeRumahField menjadi idRoleField
+    private TextField idRoleField;
     @FXML
-    private TextField namaField; // Ganti dari namaField menjadi namaRoleField
-    // Tambahkan field lainnya sesuai kebutuhan
-
-    private Role role; // Ganti dari TipeRumah menjadi Role
+    private TextField namaField;
+    private Role role;
     private Database connection = new Database();
     public Update() {
 

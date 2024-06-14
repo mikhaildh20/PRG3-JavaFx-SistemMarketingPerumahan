@@ -1,19 +1,29 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.App;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Agen.DashbordAgenController;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Manager.DashbordManagerController;
+import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -35,10 +45,19 @@ public class LoginController implements Initializable {
     private AnchorPane TextLogin;
     @FXML
     private Text imageLogin;
+    @FXML
+    TextField usernameField;
+    @FXML
+    TextField passwordField;
+
+    Database conection = new Database();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Set initial positions and opacities
+        AnimasiLogin();
+    }
+
+    private void AnimasiLogin() {
         GroupWelcome.setTranslateX(-500);
         groupLoginFild.setTranslateY(-100);
         Image2.setOpacity(0.0);
@@ -84,6 +103,7 @@ public class LoginController implements Initializable {
         // Combine Translate and Fade transitions for GroupWelcome and groupLoginFild
         ParallelTransition parallelTransitionGroup = new ParallelTransition(
                 parallelTransition, translateGroupLogin, fadeGroupLogin, fadeLabelLogin);
+
         // Create FadeTransitions for images
         FadeTransition fadeGambar1 = new FadeTransition();
         fadeGambar1.setNode(Image1);
@@ -156,4 +176,118 @@ public class LoginController implements Initializable {
         // Start transitions
         parallelTransitionGroup.play();
     }
+
+    @FXML
+    public void labelloginclick() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/viewRuko.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setTitle("App");
+            stage.setScene(scene);
+            stage.show();
+            imageLogin.getScene().getWindow().hide();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void tombolLoginClick() throws SQLException {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        String query = "SELECT * FROM ms_user WHERE username = ? AND password = ?";
+
+        // ArrayList untuk menyimpan data pengguna
+        ArrayList<User> userList = new ArrayList<>();
+
+        try {
+            // Menggunakan PreparedStatement untuk mencegah SQL injection
+            conection.pstat = conection.conn.prepareStatement(query);
+            conection.pstat.setString(1, username);
+            conection.pstat.setString(2, password);
+            conection.result = conection.pstat.executeQuery();
+
+            // Memeriksa apakah result set kosong
+            if (!conection.result.isBeforeFirst()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Login Failed");
+                alert.setContentText("Username or Password is incorrect");
+                alert.showAndWait();
+                return;
+            } else {
+                String idr = "";
+                // Iterasi melalui result set dan menambahkan data ke ArrayList
+                while (conection.result.next()) {
+                    String usn = conection.result.getString("username");
+                    String pass = conection.result.getString("password");
+                    String idp = conection.result.getString("id_perumahan");
+                    idr = conection.result.getString("id_role");
+                    String name = conection.result.getString("nama_lengkap");
+                    String email = conection.result.getString("email");
+                    String address = conection.result.getString("alamat");
+                    String gender = conection.result.getString("jenis_kelamin");
+                    int age = conection.result.getInt("umur");
+
+                    userList.add(new User(usn, pass, idp, idr, name, email, address, gender, age));
+                }
+
+                String queryRole = "SELECT nama_role FROM ms_role WHERE id_role = ?";
+                conection.pstat = conection.conn.prepareStatement(queryRole);
+                conection.pstat.setString(1, idr);
+                conection.result = conection.pstat.executeQuery();
+                conection.result.next();
+                String roleName = conection.result.getString("nama_role");
+
+                // Mengatur tahap berikutnya setelah menyimpan data di ArrayList
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/" + roleName + "/Dasbord.fxml"));
+                    Parent root = fxmlLoader.load();
+
+                    if (roleName.equals("Admin")) {
+                        DashbordAdminController controller = fxmlLoader.getController();
+                        controller.setUsersAdmin(userList); // Mengirim data user ke controller
+                    } else if (roleName.equals("Manager")) {
+                        DashbordManagerController controller = fxmlLoader.getController();
+                        controller.setUsersManager(userList); // Mengirim data user ke controller
+                    } else if (roleName.equals("Agen")) {
+                        DashbordAgenController controller = fxmlLoader.getController();
+                        controller.setUsersAgen(userList); // Mengirim data user ke controller
+                    }
+
+
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setTitle("App");
+                    stage.setScene(scene);
+                    stage.show();
+
+                    usernameField.getScene().getWindow().hide();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            // Menutup resources
+            if (conection.result != null) {
+                try {
+                    conection.result.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if (conection.pstat != null) {
+                try {
+                    conection.pstat.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
 }
+
+

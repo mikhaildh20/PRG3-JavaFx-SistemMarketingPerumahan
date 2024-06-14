@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="1200.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Agen.DashbordAgenController">
+   <children>
+      <AnchorPane layoutX="32.0" layoutY="48.0" prefHeight="1106.44" prefWidth="353.98" style="-fx-background-color: #050C9C; -fx-background-radius: 12;">
+         <children>
+            <AnchorPane layoutX="43.0" layoutY="217.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-color: #EEEEEE; -fx-background-radius: 10;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="416.0" layoutY="514.0" prefHeight="640.68" prefWidth="290.97" style="-fx-background-color: #3572EF; -fx-background-radius: 13;" />
+      <AnchorPane layoutX="416.0" layoutY="163.0" prefHeight="260.34" prefWidth="945.17" style="-fx-background-color: #3572EF; -fx-background-radius: 10;" />
+      <AnchorPane layoutX="743.0" layoutY="514.0" prefHeight="640.68" prefWidth="290.97" style="-fx-background-color: #3572EF; -fx-background-radius: 13;" />
+      <AnchorPane layoutX="1071.0" layoutY="514.0" prefHeight="640.68" prefWidth="290.97" style="-fx-background-color: #3572EF; -fx-background-radius: 13;" />
+      <AnchorPane layoutX="1402.0" layoutY="203.0" prefHeight="538.98" prefWidth="487.41" style="-fx-background-color: #D9D9D9; -fx-background-radius: 10;" />
+      <AnchorPane layoutX="1402.0" layoutY="801.0" prefHeight="353.9" prefWidth="488.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 10;" />
+      <Text layoutX="416.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase History">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="416.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashbord">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="416.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal" />
+      <Text layoutX="1402.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Income">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="1402.0" layoutY="788.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chart">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

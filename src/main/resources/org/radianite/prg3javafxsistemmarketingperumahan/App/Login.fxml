@@ -41,9 +41,9 @@
             </ImageView>
             <AnchorPane fx:id="groupLoginFild" layoutX="1073.0" layoutY="396.0" prefHeight="274.0" prefWidth="406.0">
                <children>
-                  <TextField layoutX="26.0" layoutY="21.0" prefHeight="54.0" prefWidth="360.0" promptText="Username" style="-fx-background-color: #e8e8e8;" />
-                  <TextField layoutX="25.0" layoutY="89.0" prefHeight="54.0" prefWidth="360.0" promptText="Password" style="-fx-background-color: #e8e8e8;" />
-                  <Button layoutX="26.0" layoutY="206.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="360.0" style="-fx-background-radius: 50; -fx-background-color: #00a9ff;" text="Sign In" textFill="WHITE">
+                  <TextField fx:id="usernameField" layoutX="26.0" layoutY="21.0" prefHeight="54.0" prefWidth="360.0" promptText="Username" style="-fx-background-color: #e8e8e8;" />
+                  <TextField fx:id="passwordField" layoutX="25.0" layoutY="89.0" prefHeight="54.0" prefWidth="360.0" promptText="Password" style="-fx-background-color: #e8e8e8;" />
+                  <Button fx:id="btnSignIn" layoutX="26.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#tombolLoginClick" prefHeight="54.0" prefWidth="360.0" style="-fx-background-radius: 50; -fx-background-color: #00a9ff;" text="Sign In" textFill="WHITE">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -51,9 +51,9 @@
                   <CheckBox layoutX="44.0" layoutY="163.0" mnemonicParsing="false" text="Show Pasword" textFill="#797777" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="TextLogin" layoutX="1096.0" layoutY="143.0" prefHeight="312.0" prefWidth="360.0">
+            <AnchorPane fx:id="TextLogin" layoutX="1096.0" layoutY="143.0" prefHeight="274.0" prefWidth="360.0">
                <children>
-                  <Label fx:id="labelLogin" layoutX="58.0" layoutY="97.0" text="Login Account" textFill="#00a9ff">
+                  <Label fx:id="labelLogin" layoutX="58.0" layoutY="97.0" onMouseClicked="#labelloginclick" text="Login Account" textFill="#00a9ff">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>

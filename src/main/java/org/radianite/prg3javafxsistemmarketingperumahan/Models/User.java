@@ -8,6 +8,7 @@ public class User {
     private Image foto;
     private String PName,RName;
 
+    public User(){}
     public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age) {
         this.usn = usn;
         this.pass = pass;
