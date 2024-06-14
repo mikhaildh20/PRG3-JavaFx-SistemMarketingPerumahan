@@ -12,7 +12,7 @@ CREATE TABLE ms_developer(
 
 INSERT INTO ms_developer VALUES('DVL001','GenG',1)
 INSERT INTO ms_developer VALUES('DVL002','Liquid',1)
-
+SELECT * FROM ms_developer
 
 CREATE TABLE ms_perumahan(
 	id_perumahan VARCHAR(10) PRIMARY KEY,
@@ -23,6 +23,7 @@ CREATE TABLE ms_perumahan(
 
 INSERT INTO ms_perumahan VALUES('PRM001','DVL001','Emerald',1)
 INSERT INTO ms_perumahan VALUES('PRM002','DVL002','Acropolis',1)
+SELECT * FROM ms_perumahan
 
 CREATE TABLE ms_tipe_rumah(
 	id_tipe VARCHAR(10) PRIMARY KEY,
@@ -129,6 +130,8 @@ AS
 BEGIN
 	INSERT INTO ms_perumahan VALUES(@id,@idf,@nama,1)
 END
+
+SELECT * FROM ms_perumahan
 
 CREATE PROCEDURE sp_inputTipeRumah
 	@id VARCHAR(10),
@@ -390,6 +393,13 @@ BEGIN
 	JOIN ms_perumahan p ON p.id_perumahan = r.id_perumahan
 END
 
+CREATE PROCEDURE sp_viewPerumahan
+AS
+BEGIN
+	SELECT p.*,d.nama_developer
+	FROM ms_perumahan p
+	JOIN ms_developer d ON d.id_developer = p.id_developer
+END
 -- User Defined Function --
 
 -- Trigger --

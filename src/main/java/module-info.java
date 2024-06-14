@@ -24,12 +24,6 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Rumah to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role to javafx.fxml;
-    exports org.radianite.prg3javafxsistemmarketingperumahan.App.Admin;
-    opens org.radianite.prg3javafxsistemmarketingperumahan.App.Admin to javafx.fxml;
-    exports org.radianite.prg3javafxsistemmarketingperumahan.App.Agen;
-    opens org.radianite.prg3javafxsistemmarketingperumahan.App.Agen to javafx.fxml;
-    exports org.radianite.prg3javafxsistemmarketingperumahan.App.Manager;
-    opens org.radianite.prg3javafxsistemmarketingperumahan.App.Manager to javafx.fxml;
 
 
 }
