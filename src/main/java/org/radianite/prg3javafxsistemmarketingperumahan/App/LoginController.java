@@ -80,7 +80,6 @@ public class LoginController implements Initializable {
         // Combine TranslateTransition and FadeTransition using ParallelTransition
         ParallelTransition parallelTransition = new ParallelTransition(translateTransition, fadeTransition);
 
-        // Create TranslateTransition for groupLoginFild
         TranslateTransition translateGroupLogin = new TranslateTransition();
         translateGroupLogin.setNode(groupLoginFild);
         translateGroupLogin.setDuration(Duration.seconds(2));
@@ -196,7 +195,7 @@ public class LoginController implements Initializable {
     public void tombolLoginClick() throws SQLException {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        String query = "SELECT * FROM ms_user WHERE username = ? AND password = ?";
+        String query = "SELECT * FROM ms_user WHERE username = ?  AND password = ?";
 
         // ArrayList untuk menyimpan data pengguna
         ArrayList<User> userList = new ArrayList<>();

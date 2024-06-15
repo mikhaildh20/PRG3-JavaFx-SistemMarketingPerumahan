@@ -16,7 +16,7 @@ public class DashbordAgenController {
     public void setUsersAgen(List<User> users) {
         this.users = users;
         if (users != null && !users.isEmpty()) {
-            texttest.setText(users.get(0).getName()+" (Agen)"); // Misal menampilkan nama user pertama
+            texttest.setText(users.get(0).getName()+" (Agen)");
         }
     }
 
