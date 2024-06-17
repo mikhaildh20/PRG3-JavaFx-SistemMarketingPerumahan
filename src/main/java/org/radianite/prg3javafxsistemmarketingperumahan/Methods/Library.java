@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import java.io.ByteArrayOutputStream;
 
 public class Library {
-    String query,imported,base;
+    private String query,imported,base;
     public Library(){
 
     }
