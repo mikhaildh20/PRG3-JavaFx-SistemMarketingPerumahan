@@ -11,9 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.AncoreDasboardUtama;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.SQLException;
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 public class Library {
     private String query,imported,base;
@@ -160,5 +164,28 @@ public class Library {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, "png", bos);
         return bos.toByteArray();
+    }
+
+    public AnchorPane loadFXMLWithController(String fxmlPath, List<User> users) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            AnchorPane pane = loader.load();
+
+
+            // Mendapatkan controller yang terkait dengan FXML
+            AncoreDasboardUtama controller = loader.getController();
+
+            // Mengirimkan data ke controller
+            if (controller != null) {
+                controller.setUsersAdmin(users);
+            } else {
+                System.err.println("Controller is null!");
+            }
+
+            return pane;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
