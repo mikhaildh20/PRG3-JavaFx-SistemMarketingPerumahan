@@ -10,8 +10,6 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah to javafx.fxml;
    exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.User;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.User to javafx.fxml;
-    exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Kavling;
-    opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Kavling to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.App;
@@ -32,6 +30,9 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     opens org.radianite.prg3javafxsistemmarketingperumahan.App.Agen to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.App.Manager;
     opens org.radianite.prg3javafxsistemmarketingperumahan.App.Manager to javafx.fxml;
-
+    exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRuko;
+    opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRuko to javafx.fxml;
+    exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank;
+    opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank to javafx.fxml;
 
 }

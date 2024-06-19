@@ -92,6 +92,10 @@ public class updatePerumahan extends Library implements Initializable {
     }
 
     public void onActionUpdate(ActionEvent actionEvent) {
+        if (txtNama.getText().isEmpty()){
+            fillBox();
+            return;
+        }
         try{
             Database connect = new Database();
             String query = "EXEC sp_updatePerumahan ?,?,?";

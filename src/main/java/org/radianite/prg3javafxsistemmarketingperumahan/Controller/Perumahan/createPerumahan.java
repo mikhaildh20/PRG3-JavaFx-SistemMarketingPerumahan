@@ -79,6 +79,10 @@ public class createPerumahan extends Library implements Initializable {
     }
 
     public void onActionSave(ActionEvent actionEvent) {
+        if (txtNama.getText().isEmpty()){
+            fillBox();
+            return;
+        }
         try{
             Database connect = new Database();
             String query = "EXEC sp_inputPerumahan ?,?,?";
