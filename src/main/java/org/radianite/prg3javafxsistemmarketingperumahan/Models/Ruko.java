@@ -23,6 +23,12 @@ public class Ruko {
         this.namaperum = namaperum;
     }
 
+    public Ruko(String id,String blok, Double rent) {
+        this.id = id;
+        this.blok = blok;
+        this.rent = rent;
+    }
+
     public String getId() {
         return id;
     }

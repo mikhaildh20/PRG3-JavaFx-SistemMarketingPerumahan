@@ -123,7 +123,8 @@ CREATE TABLE tr_ruko(
 	periode_sewa INT,
 	total_pembayaran MONEY,
 	dokumen_kontrak VARBINARY(MAX),
-	status_kontrak INT
+	status_kontrak INT,
+	tgl_expired DATE
 )
 
 CREATE TABLE tr_kavling(
@@ -478,7 +479,7 @@ END
 
 -- SP Transaction
 -- RUKO
-CREATE PROCEDURE sp_inputTrRuko
+ALTER PROCEDURE sp_inputTrRuko
 	@id VARCHAR(10),
 	@idr VARCHAR(10),
 	@uname VARCHAR(20),
@@ -488,12 +489,24 @@ CREATE PROCEDURE sp_inputTrRuko
 	@jns VARCHAR(20),
 	@periode INT,
 	@total MONEY,
-	@dokumen VARBINARY(MAX)
+	@dokumen VARBINARY(MAX),
+	@expired DATE
 AS
 BEGIN
-	INSERT INTO tr_ruko VALUES(@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@periode,@total,@dokumen,1)
+	INSERT INTO tr_ruko VALUES(@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@periode,@total,@dokumen,1,@expired)
 END
 
+ALTER PROCEDURE sp_statusRuko
+AS
+BEGIN
+	UPDATE ms_ruko SET ketersediaan = 1 WHERE id_ruko IN (SELECT id_ruko FROM tr_ruko WHERE GETDATE() > tgl_expired);
+	UPDATE tr_ruko SET status_kontrak = 0 WHERE GETDATE() > tgl_expired
+END
+
+SELECT * FROM ms_user
+SELECT * FROM ms_ruko
+SELECT * FROM tr_ruko
+DELETE FROM tr_ruko
 
 -- Kavlling
 -- Tunai/Lunas
