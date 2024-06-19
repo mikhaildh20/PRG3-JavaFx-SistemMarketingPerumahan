@@ -91,6 +91,10 @@ public class createRuko extends Library implements Initializable {
     }
 
     public void onActionSave(ActionEvent actionEvent) {
+        if (isEmpty()){
+            fillBox();
+            return;
+        }
         try{
             Database connect = new Database();
             String query = "EXEC sp_inputRuko ?,?,?,?,?,?,?,?";
@@ -111,5 +115,12 @@ public class createRuko extends Library implements Initializable {
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());
         }
+    }
+
+    public boolean isEmpty(){
+        if (file == null || txtBlok.getText().isEmpty() || txtElec.getText().isEmpty() || txtToilet.getText().isEmpty() || txtDesc.getText().isEmpty() || txtRent.getText().isEmpty()){
+            return true;
+        }
+        return false;
     }
 }

@@ -103,6 +103,11 @@ public class updateKavling extends Library implements Initializable {
     }
 
     public void onActionUpdate(ActionEvent actionEvent) throws IOException {
+        if (isEmpty())
+        {
+            fillBox();
+            return;
+        }
         try {
             Database connect = new Database();
             String query = "EXEC sp_updateKavling ?,?,?,?,?,?,?";
@@ -121,5 +126,12 @@ public class updateKavling extends Library implements Initializable {
         }catch (SQLException ex){
             System.out.println("Error: "+ex.getMessage());
         }
+    }
+
+    public boolean isEmpty(){
+        if (txtBlok.getText().isEmpty() || txtWide.getText().isEmpty() || txtDP.getText().isEmpty() || txtPrice.getText().isEmpty()){
+            return true;
+        }
+        return false;
     }
 }

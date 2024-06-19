@@ -76,6 +76,14 @@ public class Library {
         alert.showAndWait();
     }
 
+    public void fillBox(){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("WARNING");
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill all the data!");
+        alert.showAndWait();
+    }
+
     public void errorBox(){
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("ERROR");

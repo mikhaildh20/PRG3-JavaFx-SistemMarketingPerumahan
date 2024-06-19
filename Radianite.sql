@@ -503,10 +503,11 @@ BEGIN
 	UPDATE tr_ruko SET status_kontrak = 0 WHERE GETDATE() > tgl_expired
 END
 
+EXEC sp_statusRuko
+
 SELECT * FROM ms_user
 SELECT * FROM ms_ruko
 SELECT * FROM tr_ruko
-DELETE FROM tr_ruko
 
 -- Kavlling
 -- Tunai/Lunas

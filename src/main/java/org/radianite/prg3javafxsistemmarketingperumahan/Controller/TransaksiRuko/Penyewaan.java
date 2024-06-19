@@ -95,6 +95,11 @@ public class Penyewaan extends Library implements Initializable {
     }
 
     public void onActionAdd(ActionEvent actionEvent) {
+        if (isEmpty())
+        {
+            fillBox();
+            return;
+        }
         LocalDate date = LocalDate.now();
         date = date.plusMonths(Integer.parseInt(txtPeriode.getText()));
         java.sql.Date sqlDate = java.sql.Date.valueOf(date);
@@ -122,6 +127,14 @@ public class Penyewaan extends Library implements Initializable {
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());
         }
+    }
+
+    public boolean isEmpty()
+    {
+        if (txtNIK.getText().isEmpty() || txtNama.getText().isEmpty() || txtTelp.getText().isEmpty() || txtPeriode.getText().isEmpty() || txtTotal.getText().isEmpty() || file == null){
+            return true;
+        }
+        return false;
     }
 
     public void clear(){

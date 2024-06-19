@@ -139,6 +139,11 @@ public class createUser extends Library implements Initializable {
     }
 
     public void onActionSave(ActionEvent actionEvent) {
+        if (isEmpty())
+        {
+            fillBox();
+            return;
+        }
         Toggle selected = group.getSelectedToggle();
         RadioButton val = (RadioButton) selected;
         try{
@@ -162,6 +167,14 @@ public class createUser extends Library implements Initializable {
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());
         }
+    }
+
+    public boolean isEmpty()
+    {
+        if (txtUsn.getText().isEmpty() || txtPass.getText().isEmpty() || txtName.getText().isEmpty() || txtEmail.getText().isEmpty() || txtAddress.getText().isEmpty() || !rbMale.isSelected() && !rbFemale.isSelected() || txtAge.getText().isEmpty() || file == null){
+            return true;
+        }
+        return false;
     }
 
     public void onActionFile(ActionEvent actionEvent) {
