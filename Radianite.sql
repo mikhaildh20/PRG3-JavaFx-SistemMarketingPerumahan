@@ -496,6 +496,7 @@ BEGIN
 	INSERT INTO tr_ruko VALUES(@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@periode,@total,@dokumen,1,@expired)
 END
 
+-- SP load app
 ALTER PROCEDURE sp_statusRuko
 AS
 BEGIN
