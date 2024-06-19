@@ -93,22 +93,15 @@ CREATE TABLE ms_ruko(
 SELECT * FROM ms_ruko
 EXEC sp_viewRuko
 
-
-CREATE TABLE ms_kavling(
-	id_kavling VARCHAR(10) PRIMARY KEY,
-	id_perumahan VARCHAR(10) FOREIGN KEY REFERENCES ms_perumahan(id_perumahan),
-	foto_sekitar VARBINARY(MAX),
-	blok VARCHAR(25),
-	luas_tanah VARCHAR(20),
-	uang_muka MONEY,
-	harga MONEY,
-	ketersediaan INT,
+CREATE TABLE ms_bank(
+	id_bank VARCHAR(10) PRIMARY KEY,
+	nama_bank VARCHAR(25),
+	suku_bunga INT,
 	status INT
 )
 
 
-EXEC sp_viewKavling
-SELECT * FROM ms_kavling
+
 
 -- Transaction --
 CREATE TABLE tr_ruko(
@@ -120,6 +113,8 @@ CREATE TABLE tr_ruko(
 	nama VARCHAR(55),
 	telp VARCHAR(13),
 	jenis_pembayaran VARCHAR(20),
+	id_bank VARCHAR(10) FOREIGN KEY REFERENCES ms_bank(id_bank) NULL,
+	rekening VARCHAR(15),
 	periode_sewa INT,
 	total_pembayaran MONEY,
 	dokumen_kontrak VARBINARY(MAX),
@@ -127,24 +122,7 @@ CREATE TABLE tr_ruko(
 	tgl_expired DATE
 )
 
-CREATE TABLE tr_kavling(
-	id_trKavling VARCHAR(10) PRIMARY KEY,
-	tgl_transaksi DATE,
-	id_kavling VARCHAR(10) FOREIGN KEY REFERENCES ms_kavling(id_kavling),
-	username VARCHAR(20) FOREIGN KEY REFERENCES ms_user(username),
-	NIK VARCHAR(16),
-	nama VARCHAR(55),
-	telp VARCHAR(13),
-	jenis_pembayaran VARCHAR(20),
-	total_pembayaran MONEY,
-	status_pelunasan INT,
-	dokumen_pembelian VARBINARY(MAX),
-	min_cicilan MONEY,
-	periode_cicilan_kpt INT,
-	sisa_cicilan MONEY,
-	tgl_cicilan DATE,
-	tgl_pelunasan DATE
-)
+
 
 CREATE TABLE tr_rumah(
 	id_trRumah VARCHAR(10) PRIMARY KEY,
@@ -155,6 +133,9 @@ CREATE TABLE tr_rumah(
 	nama VARCHAR(55),
 	telp VARCHAR(13),
 	jenis_pembayaran VARCHAR(20),
+	id_bank VARCHAR(10) FOREIGN KEY REFERENCES ms_bank(id_bank) NULL,
+	rekening VARCHAR(15),
+	suku_bunga INT,
 	total_pembayaran MONEY,
 	status_pelunasan INT,
 	dokumen_pembelian VARBINARY(MAX),
@@ -165,13 +146,10 @@ CREATE TABLE tr_rumah(
 	tgl_pelunasan DATE
 )
 
-CREATE TABLE dtlKavling(
-	id_trKavling VARCHAR(10) FOREIGN KEY REFERENCES tr_kavling(id_trKavling),
-	tgl_cicil DATE,
-	nominal_cicil MONEY
-)
 
-CREATE TABLE dtlRumah(
+
+CREATE TABLE CicilRumah(
+	id_cicil INT IDENTITY,
 	id_trRumah VARCHAR(10) FOREIGN KEY REFERENCES tr_rumah(id_trRumah),
 	tgl_cicil DATE,
 	nominal_cicil MONEY
@@ -273,19 +251,6 @@ BEGIN
 END
 
 
-CREATE PROCEDURE sp_inputKavling
-	@id VARCHAR(10),
-	@idp VARCHAR(10),
-	@foto VARBINARY(MAX),
-	@blok VARCHAR(25),
-	@luas_tanah VARCHAR(20),
-	@uang_muka MONEY,
-	@harga MONEY
-AS
-BEGIN
-	INSERT INTO ms_kavling VALUES(@id,@idp,@foto,@blok,@luas_tanah,@uang_muka,@harga,1,1)
-END
-
 -- UPDATE
 CREATE PROCEDURE sp_updateDeveloper
 	@id VARCHAR(10),
@@ -369,19 +334,6 @@ BEGIN
 	UPDATE ms_ruko SET id_perumahan=@idp,foto_ruko=@foto,blok=@blok,daya_listrik=@listrik,jml_kmr_mdn=@kmr_mdn,descrption=@desc,harga_sewa=@harga WHERE id_ruko = @id
 END
 
-CREATE PROCEDURE sp_updateKavling
-	@id VARCHAR(10),
-	@idp VARCHAR(10),
-	@foto VARBINARY(MAX),
-	@blok VARCHAR(25),
-	@luas_tanah VARCHAR(20),
-	@uang_muka MONEY,
-	@harga MONEY
-AS
-BEGIN
-	UPDATE ms_kavling SET id_perumahan=@idp,foto_sekitar=@foto,blok=@blok,luas_tanah=@luas_tanah,uang_muka=@uang_muka,harga=@harga WHERE id_kavling=@id
-END
-
 -- DELETE
 
 CREATE PROCEDURE sp_deleteDeveloper
@@ -433,13 +385,31 @@ BEGIN
 	UPDATE ms_ruko SET status=0 WHERE id_ruko = @id
 END
 
+CREATE PROCEDURE sp_inputBank
+	@id VARCHAR(10),
+	@nama VARCHAR(25),
+	@bunga INT
+AS
+BEGIN
+	INSERT INTO ms_bank VALUES(@id,@nama,@bunga,1)
+END
 
-CREATE PROCEDURE sp_deleteKavling
+CREATE PROCEDURE sp_updateBank
+	@id VARCHAR(10),
+	@nama VARCHAR(25),
+	@bunga INT
+AS
+BEGIN
+	UPDATE ms_bank SET nama_bank=@nama,suku_bunga=@bunga WHERE id_bank =@id
+END
+
+CREATE PROCEDURE sp_deleteBank
 	@id VARCHAR(10)
 AS
 BEGIN
-	UPDATE ms_kavling SET status=0 WHERE id_kavling=@id
+	UPDATE ms_bank SET status=0 WHERE id_bank=@id
 END
+
 
 --VIEW
 
@@ -455,12 +425,6 @@ BEGIN
 		JOIN ms_role r ON r.id_role = u.id_role
 END
 
-CREATE PROCEDURE sp_viewKavling
-AS
-BEGIN
-	SELECT k.*,p.nama_perumahan FROM ms_kavling k
-	JOIN ms_perumahan p ON p.id_perumahan = k.id_perumahan
-END
 
 CREATE PROCEDURE sp_viewRuko
 AS
@@ -479,7 +443,7 @@ END
 
 -- SP Transaction
 -- RUKO
-ALTER PROCEDURE sp_inputTrRuko
+CREATE PROCEDURE sp_inputTrRuko
 	@id VARCHAR(10),
 	@idr VARCHAR(10),
 	@uname VARCHAR(20),
@@ -487,17 +451,19 @@ ALTER PROCEDURE sp_inputTrRuko
 	@nama VARCHAR(55),
 	@telp VARCHAR(13),
 	@jns VARCHAR(20),
+	@idb VARCHAR(10),
+	@rek VARCHAR(15),
 	@periode INT,
 	@total MONEY,
 	@dokumen VARBINARY(MAX),
 	@expired DATE
 AS
 BEGIN
-	INSERT INTO tr_ruko VALUES(@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@periode,@total,@dokumen,1,@expired)
+	INSERT INTO tr_ruko VALUES(@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@idb,@rek,@periode,@total,@dokumen,1,@expired)
 END
 
 -- SP load app
-ALTER PROCEDURE sp_statusRuko
+CREATE PROCEDURE sp_statusRuko
 AS
 BEGIN
 	UPDATE ms_ruko SET ketersediaan = 1 WHERE id_ruko IN (SELECT id_ruko FROM tr_ruko WHERE GETDATE() > tgl_expired);
@@ -510,54 +476,9 @@ SELECT * FROM ms_user
 SELECT * FROM ms_ruko
 SELECT * FROM tr_ruko
 
--- Kavlling
--- Tunai/Lunas
-CREATE PROCEDURE sp_inputTrKavlingLunas
-	@id VARCHAR(10),
-	@idk VARCHAR(10),
-	@uname VARCHAR(20),
-	@NIK VARCHAR(16),
-	@nama VARCHAR(55),
-	@telp VARCHAR(13),
-	@jns VARCHAR(20),
-	@total MONEY,
-	@dokumen VARBINARY(MAX)
-AS
-BEGIN
-	INSERT INTO tr_kavling(id_trKavling,tgl_transaksi,id_kavling,username,NIK,nama,telp,jenis_pembayaran,total_pembayaran,dokumen_pembelian,status_pelunasan,tgl_pelunasan) VALUES(@id,GETDATE(),@idk,@uname,@NIK,@nama,@telp,@jns,@total,@dokumen,1,GETDATE())
-END
-
--- KPT/CICILAN
-CREATE PROCEDURE sp_inputTrKavlingCicil
-	@id VARCHAR(10),
-	@idk VARCHAR(10),
-	@uname VARCHAR(20),
-	@NIK VARCHAR(16),
-	@nama VARCHAR(55),
-	@telp VARCHAR(13),
-	@jns VARCHAR(20),
-	@total MONEY,
-	@dokumen VARBINARY(MAX),
-	@min MONEY,
-	@periode INT,
-	@sisa MONEY
-AS
-BEGIN
-	INSERT INTO tr_kavling VALUES(@id,GETDATE(),@idk,@uname,@NIK,@nama,@telp,@jns,@total,0,@dokumen,@min,@periode,@sisa,GETDATE(),NULL)
-END
-
--- CICILAN PERBULAN
-CREATE PROCEDURE sp_cicilanKavling
-	@idk VARCHAR(10),
-	@nominal MONEY
-AS
-BEGIN
-	INSERT INTO dtlKavling VALUES(@idk,GETDATE(),@nominal)
-END
-
 -- Rumah
--- Tunai/Lunas
-CREATE PROCEDURE sp_inputTrRumahLunas
+-- Pembayaran
+CREATE PROCEDURE sp_inputTrRumah
 	@id VARCHAR(10),
 	@idr VARCHAR(10),
 	@uname VARCHAR(20),
@@ -565,30 +486,20 @@ CREATE PROCEDURE sp_inputTrRumahLunas
 	@nama VARCHAR(55),
 	@telp VARCHAR(13),
 	@jns VARCHAR(20),
+	@idb VARCHAR(10),
+	@rek VARCHAR(15),
+	@bunga INT,
 	@total MONEY,
-	@dokumen VARBINARY(MAX)
-AS
-BEGIN
-	INSERT INTO tr_rumah(id_trRumah,tgl_transaksi,id_rumah,username,NIK,nama,telp,jenis_pembayaran,total_pembayaran,dokumen_pembelian,status_pelunasan,tgl_pelunasan) VALUES (@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@total,@dokumen,1,GETDATE())
-END
-
--- KPR/CICILAN
-CREATE PROCEDURE sp_inputTrRumahCicil
-	@id VARCHAR(10),
-	@idr VARCHAR(10),
-	@uname VARCHAR(20),
-	@NIK varchar(16),
-	@nama VARCHAR(55),
-	@telp VARCHAR(13),
-	@jns VARCHAR(20),
-	@total MONEY,
+	@status INT,
 	@dokumen VARBINARY(MAX),
-	@min MONEY,
+	@minCicil MONEY,
 	@periode INT,
-	@sisa MONEY
+	@sisa MONEY,
+	@tglCicil DATE,
+	@tglLunas DATE
 AS
 BEGIN
-	INSERT INTO tr_rumah VALUES(@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@total,0,@dokumen,@min,@periode,@sisa,GETDATE(),NULL)
+	INSERT INTO tr_rumah VALUES (@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@idb,@rek,@bunga,@total,@status,@dokumen,@minCicil,@periode,@sisa,@tglCicil,@tglLunas)
 END
 
 -- CICILAN PERBULAN
@@ -597,7 +508,7 @@ CREATE PROCEDURE sp_cicilanRumah
 	@nominal MONEY
 AS
 BEGIN
-	INSERT INTO dtlRumah VALUES(@idr,GETDATE(),@nominal)
+	INSERT INTO CicilRumah VALUES(@idr,GETDATE(),@nominal)
 END
 
 -- Log Login
@@ -608,8 +519,6 @@ BEGIN
 	INSERT INTO LoginLog VALUES(@uname,GETDATE())
 END
 
---Update Status
-
 
 -- User Defined Function --
 
@@ -618,13 +527,6 @@ END
 -- Trigger --
 --Transaction
 -- Update status ketersedian kavling
-CREATE TRIGGER trg_Kavling
-ON tr_kavling
-AFTER INSERT
-AS
-BEGIN
-	UPDATE ms_kavling SET ketersediaan = 0 WHERE id_kavling IN (SELECT id_kavling FROM inserted)
-END
 
 -- Update status ketersedian ruko
 CREATE TRIGGER trg_Ruko
@@ -644,19 +546,9 @@ BEGIN
 	UPDATE ms_rumah SET ketersediaan = 0 WHERE id_rumah IN (SELECT id_rumah FROM inserted)
 END
 
--- Cicil Kavling
-CREATE TRIGGER trg_cicilKavling
-ON dtlKavling
-AFTER INSERT
-AS
-BEGIN
-	UPDATE tr_kavling SET sisa_cicilan = sisa_cicilan-(SELECT nominal_cicil FROM inserted), tgl_cicilan = DATEADD(MONTH, 1, tgl_cicilan) 
-	WHERE id_trKavling IN (SELECT id_trKavling FROM inserted)
-END
-
 -- Cicil Rumah
 CREATE TRIGGER trg_cicilRumah
-ON dtlRumah
+ON CicilRumah
 AFTER INSERT
 AS
 BEGIN
