@@ -96,7 +96,7 @@ public class Penyewaan extends Library implements Initializable {
 
     public void onActionAdd(ActionEvent actionEvent) {
         LocalDate date = LocalDate.now();
-        date.plusMonths(Integer.parseInt(txtPeriode.getText()));
+        date = date.plusMonths(Integer.parseInt(txtPeriode.getText()));
         java.sql.Date sqlDate = java.sql.Date.valueOf(date);
         try{
             Database connect = new Database();
@@ -131,6 +131,7 @@ public class Penyewaan extends Library implements Initializable {
         txtTelp.setText("");
         txtTotal.setText("");
         txtPeriode.setText("");
+        LabFile.setText("Choose file here..");
         file = null;
     }
 
