@@ -101,7 +101,7 @@ CREATE TABLE ms_bank(
 )
 
 
-
+SELECT * FROM ms_bank
 
 -- Transaction --
 CREATE TABLE tr_ruko(

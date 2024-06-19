@@ -9,7 +9,7 @@ public class Database {
 
     public Database(){
         try{
-            String url = "jdbc:sqlserver://localhost;database=Radianite;user=sa;password=123;";
+            String url = "jdbc:sqlserver://localhost;database=Radianite;user=sa;password=polman;";
             conn = DriverManager.getConnection(url);
             stat = conn.createStatement();
         }catch (SQLException e){

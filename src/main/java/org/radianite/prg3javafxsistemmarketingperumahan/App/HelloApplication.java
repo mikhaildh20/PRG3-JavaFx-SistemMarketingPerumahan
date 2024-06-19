@@ -11,7 +11,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/inputBank.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/inputTrRuko.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("App");
             stage.setScene(scene);

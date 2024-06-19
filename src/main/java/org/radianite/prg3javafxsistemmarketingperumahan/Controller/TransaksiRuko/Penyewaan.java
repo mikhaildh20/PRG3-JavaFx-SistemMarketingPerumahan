@@ -9,9 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Bank;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Ruko;
 
 import java.io.File;
@@ -23,7 +25,7 @@ import java.util.ResourceBundle;
 
 public class Penyewaan extends Library implements Initializable {
     @FXML
-    private TextField txtId,txtNIK,txtNama,txtTelp,txtPeriode,txtTotal;
+    private TextField txtId,txtNIK,txtNama,txtTelp,txtPeriode,txtTotal,txtRek;
     @FXML
     private ComboBox<Ruko> cbRuko;
     @FXML
@@ -32,14 +34,21 @@ public class Penyewaan extends Library implements Initializable {
     private Button btnFile;
     @FXML
     private Label LabFile;
+    @FXML
+    private ComboBox<Bank> cbBank;
     private ObservableList<String> listPay = FXCollections.observableArrayList("Tunai","Debit");
     private ObservableList<Ruko> listRuko = FXCollections.observableArrayList();
+    private ObservableList<Bank> listBank = FXCollections.observableArrayList();
+    private Double price;
     File file;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadRuko();
+        loadBank();
         cbPayment.setItems(listPay);
         txtId.setDisable(true);
+        cbBank.setDisable(true);
+        txtRek.setDisable(true);
         txtTotal.setDisable(true);
         txtId.setText(generateID("tr_ruko","TRO","id_trRuko"));
 
@@ -64,6 +73,28 @@ public class Penyewaan extends Library implements Initializable {
                 return null;
             }
         });
+
+        cbBank.setCellFactory(param->new javafx.scene.control.ListCell<Bank>(){
+            protected void updateItem(Bank item,boolean empty){
+                super.updateItem(item,empty);
+                if (item == null || empty){
+                    setText(null);
+                }else{
+                    setText(item.getName());
+                }
+            }
+        });
+        cbBank.setConverter(new StringConverter<Bank>() {
+            @Override
+            public String toString(Bank perumahan) {
+                return perumahan == null ? null : perumahan.getName();
+            }
+
+            @Override
+            public Bank fromString(String s) {
+                return null;
+            }
+        });
     }
 
     public void loadRuko(){
@@ -83,10 +114,35 @@ public class Penyewaan extends Library implements Initializable {
                     ));
                 }
             }
+            connect.stat.close();
+            connect.result.close();
         }catch (SQLException ex){
             System.out.println("Error: "+ex.getMessage());
         }
         cbRuko.setItems(listRuko);
+    }
+
+    public void loadBank(){
+        try{
+            Database connect = new Database();
+            connect.stat = connect.conn.createStatement();
+            String query = "SELECT * FROM ms_bank";
+            connect.result = connect.stat.executeQuery(query);
+            while (connect.result.next())
+            {
+                if (connect.result.getInt("status")==1){
+                    listBank.add(new Bank(connect.result.getString("id_bank"),
+                            connect.result.getString("nama_bank"),
+                            connect.result.getInt("suku_bunga")));
+                }
+            }
+            connect.stat.close();
+            connect.result.close();
+        }catch (SQLException ex)
+        {
+            System.out.println("Error: "+ex.getMessage());
+        }
+        cbBank.setItems(listBank);
     }
 
     public void onActionFile(ActionEvent actionEvent) {
@@ -100,12 +156,14 @@ public class Penyewaan extends Library implements Initializable {
             fillBox();
             return;
         }
+        int choice=0;
         LocalDate date = LocalDate.now();
         date = date.plusMonths(Integer.parseInt(txtPeriode.getText()));
         java.sql.Date sqlDate = java.sql.Date.valueOf(date);
+        if (cbPayment.getSelectionModel().getSelectedItem().equals("Debit")) choice=1;
         try{
             Database connect = new Database();
-            String query = "EXEC sp_inputTrRuko ?,?,?,?,?,?,?,?,?,?,?";
+            String query = "EXEC sp_inputTrRuko ?,?,?,?,?,?,?,?,?,?,?,?,?";
             connect.pstat = connect.conn.prepareStatement(query);
             connect.pstat.setString(1,txtId.getText());
             connect.pstat.setString(2,cbRuko.getSelectionModel().getSelectedItem().getId());
@@ -114,10 +172,17 @@ public class Penyewaan extends Library implements Initializable {
             connect.pstat.setString(5,txtNama.getText());
             connect.pstat.setString(6,txtTelp.getText());
             connect.pstat.setString(7,cbPayment.getSelectionModel().getSelectedItem());
-            connect.pstat.setInt(8,Integer.parseInt(txtPeriode.getText()));
-            connect.pstat.setDouble(9,convertStringDouble(txtTotal.getText()));
-            connect.pstat.setBytes(10,imageToByte(file));
-            connect.pstat.setDate(11,sqlDate);
+            if (choice == 1) {
+                connect.pstat.setString(8, cbBank.getSelectionModel().getSelectedItem().getId());
+                connect.pstat.setString(9,txtRek.getText());
+            } else {
+                connect.pstat.setNull(8, java.sql.Types.VARCHAR);
+                connect.pstat.setNull(9, java.sql.Types.VARCHAR);
+            }
+            connect.pstat.setInt(10,Integer.parseInt(txtPeriode.getText()));
+            connect.pstat.setDouble(11,convertStringDouble(txtTotal.getText()));
+            connect.pstat.setBytes(12,imageToByte(file));
+            connect.pstat.setDate(13,sqlDate);
             connect.pstat.executeUpdate();
             connect.pstat.close();
             successBox();
@@ -144,11 +209,23 @@ public class Penyewaan extends Library implements Initializable {
         txtTelp.setText("");
         txtTotal.setText("");
         txtPeriode.setText("");
+        txtRek.setText("");
         LabFile.setText("Choose file here..");
         file = null;
     }
 
     public void onActionRuko(ActionEvent actionEvent) {
-        txtTotal.setText(convertDoubleString(cbRuko.getSelectionModel().getSelectedItem().getRent()));
+        price = cbRuko.getSelectionModel().getSelectedItem().getRent();
+        txtTotal.setText(convertDoubleString(price));
+    }
+
+    public void onActionCbPay(ActionEvent actionEvent) {
+        if (cbPayment.getSelectionModel().getSelectedItem().equals("Debit")){
+            cbBank.setDisable(false);
+            txtRek.setDisable(false);
+        }else {
+            cbBank.setDisable(true);
+            txtRek.setDisable(true);
+        }
     }
 }
