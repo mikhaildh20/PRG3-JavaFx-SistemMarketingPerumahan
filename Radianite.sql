@@ -101,7 +101,7 @@ CREATE TABLE ms_bank(
 )
 
 
-
+SELECT * FROM ms_bank
 
 -- Transaction --
 CREATE TABLE tr_ruko(
@@ -441,9 +441,17 @@ BEGIN
 	JOIN ms_developer d ON d.id_developer = p.id_developer
 END
 
+CREATE PROCEDURE sp_viewTrRuko
+AS
+BEGIN
+	SELECT t.id_trRuko, p.nama_perumahan, r.blok, t.status_kontrak FROM tr_ruko t
+	JOIN ms_ruko r ON r.id_ruko = t.id_ruko
+	JOIN ms_perumahan p ON p.id_perumahan = r.id_perumahan
+END
+
 -- SP Transaction
 -- RUKO
-CREATE PROCEDURE sp_inputTrRuko
+ALTER PROCEDURE sp_inputTrRuko
 	@id VARCHAR(10),
 	@idr VARCHAR(10),
 	@uname VARCHAR(20),
@@ -460,6 +468,7 @@ CREATE PROCEDURE sp_inputTrRuko
 AS
 BEGIN
 	INSERT INTO tr_ruko VALUES(@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@idb,@rek,@periode,@total,@dokumen,1,@expired)
+	COMMIT
 END
 
 -- SP load app
@@ -478,7 +487,7 @@ SELECT * FROM tr_ruko
 
 -- Rumah
 -- Pembayaran
-CREATE PROCEDURE sp_inputTrRumah
+ALTER PROCEDURE sp_inputTrRumah
 	@id VARCHAR(10),
 	@idr VARCHAR(10),
 	@uname VARCHAR(20),
@@ -500,15 +509,17 @@ CREATE PROCEDURE sp_inputTrRumah
 AS
 BEGIN
 	INSERT INTO tr_rumah VALUES (@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@idb,@rek,@bunga,@total,@status,@dokumen,@minCicil,@periode,@sisa,@tglCicil,@tglLunas)
+	COMMIT
 END
 
 -- CICILAN PERBULAN
-CREATE PROCEDURE sp_cicilanRumah
+ALTER PROCEDURE sp_cicilanRumah
 	@idr VARCHAR(10),
 	@nominal MONEY
 AS
 BEGIN
 	INSERT INTO CicilRumah VALUES(@idr,GETDATE(),@nominal)
+	COMMIT
 END
 
 -- Log Login

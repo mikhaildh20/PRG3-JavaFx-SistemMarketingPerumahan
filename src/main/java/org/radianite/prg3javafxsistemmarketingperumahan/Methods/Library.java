@@ -23,6 +23,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.SQLException;
 import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
 
 public class Library {
     private String query,imported,base;
@@ -68,6 +73,14 @@ public class Library {
         alert.setTitle("WARNING");
         alert.setHeaderText(null);
         alert.setContentText("You don't have permission!");
+        alert.showAndWait();
+    }
+
+    public void fillBox(){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("WARNING");
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill all the data!");
         alert.showAndWait();
     }
 
@@ -160,5 +173,17 @@ public class Library {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, "png", bos);
         return bos.toByteArray();
+    }
+
+    public String convertDoubleString(Double value){
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.GERMAN);
+        symbols.setGroupingSeparator('.');
+        DecimalFormat formatter = new DecimalFormat("#,###", symbols);
+        return formatter.format(value);
+    }
+
+    public Double convertStringDouble(String value){
+        value = value.replace(".", "");
+        return Double.parseDouble(value);
     }
 }
