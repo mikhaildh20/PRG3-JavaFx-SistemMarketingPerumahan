@@ -31,7 +31,7 @@
             <Label fx:id="LabFile" layoutX="579.0" layoutY="157.0" text="Choose file here.." />
             <Button fx:id="btnFile" layoutX="518.0" layoutY="153.0" mnemonicParsing="false" onAction="#onActionFile" prefHeight="25.0" prefWidth="47.0" text="File" />
             <TextField fx:id="txtTotal" layoutX="349.0" layoutY="153.0" />
-            <TextField fx:id="txtPeriode" layoutX="349.0" layoutY="112.0" />
+            <TextField fx:id="txtPeriode" layoutX="349.0" layoutY="112.0" onKeyTyped="#onTypedPeriode" />
             <ComboBox fx:id="cbRuko" layoutX="107.0" layoutY="112.0" onAction="#onActionRuko" prefWidth="150.0" />
             <ComboBox fx:id="cbPayment" layoutX="349.0" layoutY="196.0" onAction="#onActionCbPay" prefWidth="150.0" />
             <Button layoutX="324.0" layoutY="272.0" mnemonicParsing="false" onAction="#onActionAdd" prefHeight="17.0" prefWidth="91.0" text="Add" />

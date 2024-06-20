@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
@@ -180,7 +181,7 @@ public class Penyewaan extends Library implements Initializable {
                 connect.pstat.setNull(9, java.sql.Types.VARCHAR);
             }
             connect.pstat.setInt(10,Integer.parseInt(txtPeriode.getText()));
-            connect.pstat.setDouble(11,convertStringDouble(txtTotal.getText()));
+            connect.pstat.setDouble(11,convertStringDouble(txtTotal.getText()) * Integer.parseInt(txtPeriode.getText()));
             connect.pstat.setBytes(12,imageToByte(file));
             connect.pstat.setDate(13,sqlDate);
             connect.pstat.executeUpdate();
@@ -215,8 +216,7 @@ public class Penyewaan extends Library implements Initializable {
     }
 
     public void onActionRuko(ActionEvent actionEvent) {
-        price = cbRuko.getSelectionModel().getSelectedItem().getRent();
-        txtTotal.setText(convertDoubleString(price));
+        txtTotal.setText(convertDoubleString(cbRuko.getSelectionModel().getSelectedItem().getRent()));
     }
 
     public void onActionCbPay(ActionEvent actionEvent) {
@@ -227,5 +227,16 @@ public class Penyewaan extends Library implements Initializable {
             cbBank.setDisable(true);
             txtRek.setDisable(true);
         }
+    }
+
+    public void onTypedPeriode(KeyEvent keyEvent) {
+        if (cbRuko.getSelectionModel().getSelectedItem() == null){
+            return;
+        }
+        if (txtPeriode.getText().isEmpty()) {
+            txtTotal.setText(convertDoubleString(cbRuko.getSelectionModel().getSelectedItem().getRent()));
+            return;
+        }
+        txtTotal.setText(convertDoubleString(cbRuko.getSelectionModel().getSelectedItem().getRent() * Integer.parseInt(txtPeriode.getText())));
     }
 }
