@@ -34,5 +34,6 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRuko to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank to javafx.fxml;
-
+    exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah;
+    opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah to javafx.fxml;
 }

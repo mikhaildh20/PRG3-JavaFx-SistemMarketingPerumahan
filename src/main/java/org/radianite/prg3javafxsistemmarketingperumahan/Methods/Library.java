@@ -186,4 +186,16 @@ public class Library {
         value = value.replace(".", "");
         return Double.parseDouble(value);
     }
+
+    public int cutPeriode(String value)
+    {
+        int val=0;
+        try{
+            val = Integer.parseInt(value.substring(0,1));
+        }catch (Exception ex)
+        {
+            System.out.println("Error: "+ex.getMessage());
+        }
+        return val;
+    }
 }

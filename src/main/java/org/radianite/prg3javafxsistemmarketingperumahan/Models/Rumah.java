@@ -31,6 +31,12 @@ public class Rumah {
         this.type = type;
     }
 
+    public Rumah(String id, String blok, Double harga) {
+        this.id = id;
+        this.blok = blok;
+        this.harga = harga;
+    }
+
     public String getId() {
         return id;
     }
