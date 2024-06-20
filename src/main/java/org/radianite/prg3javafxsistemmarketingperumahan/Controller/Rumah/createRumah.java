@@ -33,7 +33,7 @@ public class createRumah extends Library implements Initializable {
     private Button btnFile;
     @FXML
     private Label LabFile;
-    File file;
+    private File file;
     private ObservableList<Perumahan> listPerum = FXCollections.observableArrayList();
     private ObservableList<HouseType> listTipe = FXCollections.observableArrayList();
     private ObservableList<String> listInterior = FXCollections.observableArrayList("Furnished","Unfurnished");

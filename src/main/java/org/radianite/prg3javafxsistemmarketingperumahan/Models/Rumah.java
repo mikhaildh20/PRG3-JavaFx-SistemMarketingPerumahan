@@ -1,7 +1,11 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Models;
 
+import javafx.scene.image.Image;
+
 public class Rumah {
-    private String id,idp,foto,blok;
+    private String id,idp;
+    private Image foto;
+    private String blok;
     private Integer watt;
     private String interior;
     private Integer bed,rest;
@@ -10,7 +14,7 @@ public class Rumah {
     private Integer tahun;
     private String residence,type;
 
-    public Rumah(String id, String idp, String foto, String blok, Integer watt, String interior, Integer bed, Integer rest, String idt, String desc, Double harga, Integer tahun, String residence, String type) {
+    public Rumah(String id, String idp, Image foto, String blok, Integer watt, String interior, Integer bed, Integer rest, String idt, String desc, Double harga, Integer tahun, String residence, String type) {
         this.id = id;
         this.idp = idp;
         this.foto = foto;
@@ -35,7 +39,7 @@ public class Rumah {
         return idp;
     }
 
-    public String getFoto() {
+    public Image getFoto() {
         return foto;
     }
 

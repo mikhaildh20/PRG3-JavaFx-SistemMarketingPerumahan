@@ -449,6 +449,14 @@ BEGIN
 	JOIN ms_perumahan p ON p.id_perumahan = r.id_perumahan
 END
 
+CREATE PROCEDURE sp_viewRumah
+AS
+BEGIN
+	SELECT r.*,p.nama_perumahan,t.nama_tipe FROM ms_rumah r
+	JOIN ms_perumahan p ON p.id_perumahan = r.id_perumahan
+	JOIN ms_tipe_rumah t ON t.id_tipe = r.id_tipe
+END
+
 -- SP Transaction
 -- RUKO
 ALTER PROCEDURE sp_inputTrRuko
