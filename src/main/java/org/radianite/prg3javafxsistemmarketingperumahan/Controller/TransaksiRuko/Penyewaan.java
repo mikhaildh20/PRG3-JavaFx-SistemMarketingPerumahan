@@ -97,7 +97,7 @@ public class Penyewaan extends Library implements Initializable {
     public void onActionAdd(ActionEvent actionEvent) {
         if (isEmpty())
         {
-            fillBox();
+/*            fillBox();*/
             return;
         }
         LocalDate date = LocalDate.now();

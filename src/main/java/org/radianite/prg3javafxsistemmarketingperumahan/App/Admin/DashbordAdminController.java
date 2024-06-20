@@ -157,10 +157,11 @@ public class DashbordAdminController {
 
         ParallelTransition parallelTransition = new ParallelTransition(SwipeGroup1, FadeGroup1);
         parallelTransition.play();
+
     }
     @FXML
     public void button1Clicked() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/InputTipeRumah.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/InputDeveloper.fxml");
     }
 
     @FXML

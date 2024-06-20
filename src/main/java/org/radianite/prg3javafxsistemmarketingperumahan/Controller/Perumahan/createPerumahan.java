@@ -80,7 +80,7 @@ public class createPerumahan extends Library implements Initializable {
 
     public void onActionSave(ActionEvent actionEvent) {
         if (txtNama.getText().isEmpty()){
-            fillBox();
+/*            fillBox();*/
             return;
         }
         try{
