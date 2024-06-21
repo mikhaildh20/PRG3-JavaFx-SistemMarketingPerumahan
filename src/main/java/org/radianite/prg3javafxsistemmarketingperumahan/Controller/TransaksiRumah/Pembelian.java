@@ -127,8 +127,8 @@ public class Pembelian extends Library implements Initializable {
                 Double totalBunga;
                 if (!newValue) {
                     if (firstpay >= downpay){
-                        totalPinjaman = totalPinjamanBunga(finale);
                         totalBunga = cicilanPerbulan(finale,bunga);
+                        totalPinjaman = totalPinjamanBunga(totalBunga);
                         txtPinjaman.setText(convertDoubleString(totalPinjaman));
                         txtBulanan.setText(convertDoubleString(totalBunga));
                     }
