@@ -9,13 +9,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Bank;
-import org.radianite.prg3javafxsistemmarketingperumahan.Models.Perumahan;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Rumah;
 
 import java.io.File;
@@ -130,14 +127,14 @@ public class Pembelian extends Library implements Initializable {
                 Double totalBunga;
                 if (!newValue) {
                     if (firstpay >= downpay){
-                        totalPinjaman = totalPinjamanBunga(finale,bunga);
+                        totalPinjaman = totalPinjamanBunga(finale);
                         totalBunga = cicilanPerbulan(finale,bunga);
                         txtPinjaman.setText(convertDoubleString(totalPinjaman));
                         txtBulanan.setText(convertDoubleString(totalBunga));
                     }
                 }
-            }catch (Exception ex){
-                System.out.println("Error: "+ex.getMessage());
+            }catch (Exception ignored){
+
             }
         });
     }
@@ -218,19 +215,31 @@ public class Pembelian extends Library implements Initializable {
     }
 
     private Double cicilanPerbulan(Double total, Integer bunga){
-        int tenor_bulan = cutPeriode(cbPeriode.getSelectionModel().getSelectedItem()) * 12;
-        int tenor_tahun = cutPeriode(cbPeriode.getSelectionModel().getSelectedItem());
+        Integer tenor_bulan = tenorTahun() * 12;
+        Integer tenor_tahun = tenorTahun();
 
-
+        Double persentase = bunga / 100.0;
         Double cicilanPokok = total / tenor_bulan;
-        Double cicilanBunga = (total * setPersentase(bunga)) * (tenor_tahun / tenor_bulan);
+        Double cicilanBunga = total * persentase * tenor_tahun / tenor_bulan;
 
         return cicilanPokok + cicilanBunga;
     }
 
-    public Double totalPinjamanBunga(Double total, Integer bunga){
-        Double persentase = (bunga * total) / 100;
-        return total + persentase;
+    private int tenorTahun(){
+        if (cbPeriode.getSelectionModel().isSelected(0)){
+            return 5;
+        } else if (cbPeriode.getSelectionModel().isSelected(1)) {
+            return 10;
+        } else if (cbPeriode.getSelectionModel().isSelected(2)) {
+            return 15;
+        } else if (cbPeriode.getSelectionModel().isSelected(3)) {
+            return 20;
+        }
+        return 25;
+    }
+
+    private Double totalPinjamanBunga(Double total){
+        return total * (tenorTahun() * 12);
     }
 
     private Double minFirstPayment(Double total){

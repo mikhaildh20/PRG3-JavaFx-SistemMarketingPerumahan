@@ -186,29 +186,4 @@ public class Library {
         value = value.replace(".", "");
         return Double.parseDouble(value);
     }
-
-    public int cutPeriode(String value)
-    {
-        int val=0;
-        try{
-            if (value.length() == 6)
-            {
-                return Integer.parseInt(value.substring(0,0));
-            }
-        }catch (Exception ex)
-        {
-            System.out.println("Error: "+ex.getMessage());
-        }
-        return Integer.parseInt(value.substring(0,1));
-    }
-
-    public Double setPersentase(Integer bunga){
-        if (bunga < 10)
-        {
-            String persentase = "0.0"+bunga;
-            return Double.parseDouble(persentase);
-        }
-        String persentase = "0."+bunga;
-        return Double.parseDouble(persentase);
-    }
 }
