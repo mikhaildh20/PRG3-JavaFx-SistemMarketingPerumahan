@@ -519,6 +519,9 @@ BEGIN
 	INSERT INTO tr_rumah VALUES (@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@idb,@rek,@bunga,@total,@status,@dokumen,@minCicil,@periode,@sisa,@tglCicil,@tglLunas)
 	COMMIT
 END
+SELECT * FROM ms_bank
+SELECT * FROM ms_rumah
+SELECT * FROM tr_rumah
 
 -- CICILAN PERBULAN
 ALTER PROCEDURE sp_cicilanRumah

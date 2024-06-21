@@ -9,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.StringConverter;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
@@ -24,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class Pembelian extends Library implements Initializable {
     @FXML
-    private TextField txtId,txtDate,txtNIK,txtNama,txtContact,txtRekening,txtTotal,txtMinCicil,txtCicil;
+    private TextField txtId,txtDate,txtNIK,txtNama,txtContact,txtRekening,txtTotal,txtMinCicil,txtCicil,txtPinjaman,txtBulanan;
     @FXML
     private ComboBox<Rumah> cbBlok;
     @FXML
@@ -42,6 +44,7 @@ public class Pembelian extends Library implements Initializable {
     private ObservableList<String> listPayment = FXCollections.observableArrayList("Tunai","Debit");
     private ObservableList<String> listPeriode = FXCollections.observableArrayList("5 Year", "10 Year", "15 Year", "20 Year", "25 Year");
     private File file;
+    private int selected = 0;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadRumah();
@@ -52,7 +55,13 @@ public class Pembelian extends Library implements Initializable {
         txtId.setDisable(true);
         txtDate.setDisable(true);
         cbBank.setDisable(true);
+        cbPeriode.setDisable(true);
         txtRekening.setDisable(true);
+        txtTotal.setDisable(true);
+        txtMinCicil.setDisable(true);
+        txtCicil.setDisable(true);
+        txtPinjaman.setDisable(true);
+        txtBulanan.setDisable(true);
         txtId.setText(generateID("tr_rumah","TRR","id_trRumah"));
         txtDate.setText(LocalDate.now().toString());
 
@@ -97,6 +106,38 @@ public class Pembelian extends Library implements Initializable {
             @Override
             public Bank fromString(String s) {
                 return null;
+            }
+        });
+
+        txtRekening.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) { // if focus is lost
+                if (cbBank.getSelectionModel().getSelectedItem() != null && cbPeriode.getSelectionModel().getSelectedItem() != null)
+                {
+                    txtCicil.setDisable(false);
+                }
+            }
+
+        });
+
+        txtCicil.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            try{
+                Double firstpay = convertStringDouble(txtCicil.getText());
+                Double total = convertStringDouble(txtTotal.getText());
+                Double downpay = convertStringDouble(txtMinCicil.getText());
+                Integer bunga = cbBank.getSelectionModel().getSelectedItem().getBunga();
+                Double finale = total - firstpay;
+                Double totalPinjaman;
+                Double totalBunga;
+                if (!newValue) {
+                    if (firstpay >= downpay){
+                        totalPinjaman = totalPinjamanBunga(finale,bunga);
+                        totalBunga = cicilanPerbulan(finale,bunga);
+                        txtPinjaman.setText(convertDoubleString(totalPinjaman));
+                        txtBulanan.setText(convertDoubleString(totalBunga));
+                    }
+                }
+            }catch (Exception ex){
+                System.out.println("Error: "+ex.getMessage());
             }
         });
     }
@@ -153,19 +194,70 @@ public class Pembelian extends Library implements Initializable {
             file = imageChooser(btnFile);
             LabFile.setText(file.getName());
         }catch (Exception e){
+            file = null;
         }
     }
 
     public void onActionSave(ActionEvent actionEvent) {
+
     }
 
     public void onActionCbPay(ActionEvent actionEvent) {
-        if (cbPayment.getSelectionModel().getSelectedItem().equals("Debit")){
+        if (selected == 0)return;
+        if (cbPayment.getSelectionModel().isSelected(1)){
             cbBank.setDisable(false);
+            cbPeriode.setDisable(false);
             txtRekening.setDisable(false);
             return;
         }
+        txtRekening.setText("");
         cbBank.setDisable(true);
+        cbPeriode.setDisable(true);
         txtRekening.setDisable(true);
+        txtTotal.setText(convertDoubleString(cbBlok.getSelectionModel().getSelectedItem().getHarga()));
+    }
+
+    private Double cicilanPerbulan(Double total, Integer bunga){
+        int tenor_bulan = cutPeriode(cbPeriode.getSelectionModel().getSelectedItem()) * 12;
+        int tenor_tahun = cutPeriode(cbPeriode.getSelectionModel().getSelectedItem());
+
+
+        Double cicilanPokok = total / tenor_bulan;
+        Double cicilanBunga = (total * setPersentase(bunga)) * (tenor_tahun / tenor_bulan);
+
+        return cicilanPokok + cicilanBunga;
+    }
+
+    public Double totalPinjamanBunga(Double total, Integer bunga){
+        Double persentase = (bunga * total) / 100;
+        return total + persentase;
+    }
+
+    private Double minFirstPayment(Double total){
+        return (15 * total) / 100;
+    }
+
+    public void onActionPeriode(ActionEvent actionEvent) {
+        if(cbBank.getSelectionModel().getSelectedItem() != null && !txtRekening.getText().isEmpty()){
+            txtCicil.setDisable(false);
+        }
+    }
+
+    public void onActionBlok(ActionEvent actionEvent) {
+        selected = 1;
+        txtTotal.setText(convertDoubleString(cbBlok.getSelectionModel().getSelectedItem().getHarga()));
+        txtMinCicil.setText(convertDoubleString(minFirstPayment(cbBlok.getSelectionModel().getSelectedItem().getHarga())));
+        if (cbPayment.getSelectionModel().isSelected(1))
+        {
+            cbBank.setDisable(false);
+            cbPeriode.setDisable(false);
+            txtRekening.setDisable(false);
+        }
+    }
+
+    public void onActionBank(ActionEvent actionEvent) {
+        if(cbPeriode.getSelectionModel().getSelectedItem() != null || !txtRekening.getText().isEmpty()){
+            txtCicil.setDisable(false);
+        }
     }
 }
