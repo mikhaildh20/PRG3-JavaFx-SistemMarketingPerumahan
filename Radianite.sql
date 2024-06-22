@@ -542,13 +542,6 @@ BEGIN
 	DECLARE @tempRate MONEY
 	DECLARE @tempCurrency MONEY
 
-	IF NOT EXISTS (SELECT 1 FROM tr_rumah WHERE id_trRumah = @idr)
-    BEGIN
-		SET @currency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr)
-        INSERT INTO CicilRumah VALUES(@idr,GETDATE(),@currency)
-        RETURN;
-    END
-
 	SET @late = DATEDIFF(MONTH,(SELECT tgl_cicilan FROM tr_rumah WHERE id_trRumah = @idr),GETDATE())
 
 	IF @late < 1

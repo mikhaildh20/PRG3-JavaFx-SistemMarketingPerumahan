@@ -22,6 +22,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 public class Pembelian extends Library implements Initializable {
@@ -219,7 +220,7 @@ public class Pembelian extends Library implements Initializable {
                  connect.pstat.setNull(9,Types.VARCHAR);
                  connect.pstat.setNull(10,Types.INTEGER);
              }
-             connect.pstat.setDouble(11,convertStringDouble(txtTotal.getText()));
+             connect.pstat.setDouble(11,cbPayment.getSelectionModel().getSelectedIndex() == 0 ? convertStringDouble(txtTotal.getText()) : convertStringDouble(txtPinjaman.getText()));
              connect.pstat.setInt(12,cbPayment.getSelectionModel().getSelectedIndex() == 0 ? 1 : 0);
              connect.pstat.setBytes(13,imageToByte(file));
             if (cbPayment.getSelectionModel().getSelectedIndex() == 1){
@@ -231,19 +232,17 @@ public class Pembelian extends Library implements Initializable {
                 connect.pstat.setNull(15,Types.INTEGER);
                 connect.pstat.setNull(16,Types.DOUBLE);
             }
-             connect.pstat.setNull(17, Types.DATE);
             if (cbPayment.getSelectionModel().getSelectedIndex() == 1){
+                LocalDate currentDate = LocalDate.now();
+                LocalDate futureDate = currentDate.plusMonths(1);
+                Date sqlDate = Date.valueOf(futureDate);
+                connect.pstat.setDate(17,sqlDate);
                 connect.pstat.setNull(18, Types.DATE);
             }else {
+                connect.pstat.setNull(17, Types.DATE);
                 Date currentDate = new Date(System.currentTimeMillis());
                 connect.pstat.setDate(18, currentDate);
             }
-             connect.pstat.executeUpdate();
-
-
-            query = "EXEC sp_cicilanRumah ?";
-            connect.pstat = connect.conn.prepareStatement(query);
-            connect.pstat.setString(1,cbBlok.getSelectionModel().getSelectedItem().getId());
             connect.pstat.executeUpdate();
             connect.pstat.close();
             loadRumah();
