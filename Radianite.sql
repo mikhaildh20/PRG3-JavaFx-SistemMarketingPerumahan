@@ -613,11 +613,14 @@ BEGIN
 			UPDATE tr_rumah SET sisa_cicilan = sisa_cicilan - min_cicilan, tgl_cicilan = DATEADD(MONTH,1,GETDATE()) 
 			WHERE id_trRumah IN (SELECT id_trRumah FROM inserted)
 		END
-		UPDATE tr_rumah SET status_pelunasan = 1 WHERE sisa_cicilan = 0.00
+		UPDATE tr_rumah SET status_pelunasan = 1, tgl_pelunasan = GETDATE() WHERE sisa_cicilan = 0.00
 	END
 END
 DELETE FROM tr_rumah
 SELECT * FROM ms_rumah
 SELECT * FROM tr_rumah
 SELECT * FROM CicilRumah
+EXEC sp_cicilanRumah 'TRR002'
 UPDATE ms_rumah SET ketersediaan = 1
+
+UPDATE tr_rumah SET sisa_cicilan = 12395833.00,status_pelunasan = 0 WHERE id_trRumah = 'TRR002'
