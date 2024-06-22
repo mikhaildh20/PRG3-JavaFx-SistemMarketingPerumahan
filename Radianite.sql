@@ -457,6 +457,12 @@ BEGIN
 	JOIN ms_tipe_rumah t ON t.id_tipe = r.id_tipe
 END
 
+ALTER PROCEDURE sp_viewTagihan
+AS
+BEGIN
+	SELECT id_trRumah,NIK,nama,min_cicilan,sisa_cicilan FROM tr_rumah WHERE GETDATE() > tgl_cicilan 
+END
+
 -- SP Transaction
 -- RUKO
 ALTER PROCEDURE sp_inputTrRuko
@@ -486,6 +492,7 @@ BEGIN
 	UPDATE ms_ruko SET ketersediaan = 1 WHERE id_ruko IN (SELECT id_ruko FROM tr_ruko WHERE GETDATE() > tgl_expired);
 	UPDATE tr_ruko SET status_kontrak = 0 WHERE GETDATE() > tgl_expired
 END
+
 
 EXEC sp_statusRuko
 
@@ -517,20 +524,45 @@ ALTER PROCEDURE sp_inputTrRumah
 AS
 BEGIN
 	INSERT INTO tr_rumah VALUES (@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@idb,@rek,@bunga,@total,@status,@dokumen,@minCicil,@periode,@sisa,@tglCicil,@tglLunas)
-	COMMIT
 END
 SELECT * FROM ms_bank
 SELECT * FROM ms_rumah
 SELECT * FROM tr_rumah
+SELECT * FROM CicilRumah
 
 -- CICILAN PERBULAN
 ALTER PROCEDURE sp_cicilanRumah
-	@idr VARCHAR(10),
-	@nominal MONEY
+	@idr VARCHAR(10)
 AS
 BEGIN
-	INSERT INTO CicilRumah VALUES(@idr,GETDATE(),@nominal)
-	COMMIT
+	DECLARE @currency MONEY
+	DECLARE @late INT
+	DECLARE @rate MONEY
+
+	DECLARE @tempRate MONEY
+	DECLARE @tempCurrency MONEY
+
+	IF NOT EXISTS (SELECT 1 FROM tr_rumah WHERE id_trRumah = @idr)
+    BEGIN
+		SET @currency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr)
+        INSERT INTO CicilRumah VALUES(@idr,GETDATE(),@currency)
+        RETURN;
+    END
+
+	SET @late = DATEDIFF(MONTH,(SELECT tgl_cicilan FROM tr_rumah WHERE id_trRumah = @idr),GETDATE())
+
+	IF @late < 1
+	BEGIN
+		SET @currency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr)
+	END
+	ELSE
+	BEGIN
+		SET @tempCurrency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr) * @late
+		SET @tempRate = ((SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr) * 0.01) * @late
+		SET @currency = @tempCurrency + @tempRate
+		UPDATE tr_rumah SET total_pembayaran = total_pembayaran + @tempRate WHERE id_trRumah = @idr
+	END
+	INSERT INTO CicilRumah VALUES(@idr,GETDATE(),@currency)
 END
 
 -- Log Login
@@ -569,12 +601,30 @@ BEGIN
 END
 
 -- Cicil Rumah
-CREATE TRIGGER trg_cicilRumah
+ALTER TRIGGER trg_cicilRumah
 ON CicilRumah
 AFTER INSERT
 AS
 BEGIN
-	UPDATE tr_rumah SET sisa_cicilan = sisa_cicilan - (SELECT nominal_cicil FROM inserted), tgl_cicilan = DATEADD(MONTH,1,tgl_cicilan) 
-	WHERE id_trRumah IN (SELECT id_trRumah FROM inserted)
+	DECLARE @late INT
+	SET @late = DATEDIFF(MONTH,(SELECT tgl_cicilan FROM tr_rumah WHERE id_trRumah IN (SELECT id_trRumah FROM inserted)),GETDATE())
+	IF EXISTS (SELECT id_trRumah FROM CicilRumah WHERE id_trRumah IN (SELECT id_trRumah FROM inserted))
+	BEGIN
+		IF @late > 0
+		BEGIN
+			UPDATE tr_rumah SET sisa_cicilan = sisa_cicilan - (min_cicilan * @late), tgl_cicilan = DATEADD(MONTH,1,GETDATE()) 
+			WHERE id_trRumah IN (SELECT id_trRumah FROM inserted)
+		END
+		ELSE
+		BEGIN
+			UPDATE tr_rumah SET sisa_cicilan = sisa_cicilan - min_cicilan, tgl_cicilan = DATEADD(MONTH,1,GETDATE()) 
+			WHERE id_trRumah IN (SELECT id_trRumah FROM inserted)
+		END
+		UPDATE tr_rumah SET status_pelunasan = 1 WHERE sisa_cicilan = 0.00
+	END
 END
-
+DELETE FROM tr_rumah
+SELECT * FROM ms_rumah
+SELECT * FROM tr_rumah
+SELECT * FROM CicilRumah
+UPDATE ms_rumah SET ketersediaan = 1

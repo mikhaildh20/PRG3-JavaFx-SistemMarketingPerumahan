@@ -16,8 +16,11 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Models.Bank;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Rumah;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -38,7 +41,7 @@ public class Pembelian extends Library implements Initializable {
     private Label LabFile;
     private ObservableList<Rumah> listRumah = FXCollections.observableArrayList();
     private ObservableList<Bank> listBank = FXCollections.observableArrayList();
-    private ObservableList<String> listPayment = FXCollections.observableArrayList("Tunai","Debit");
+    private ObservableList<String> listPayment = FXCollections.observableArrayList("CASH","CREDIT");
     private ObservableList<String> listPeriode = FXCollections.observableArrayList("5 Year", "10 Year", "15 Year", "20 Year", "25 Year");
     private File file;
     private int selected = 0;
@@ -196,7 +199,59 @@ public class Pembelian extends Library implements Initializable {
     }
 
     public void onActionSave(ActionEvent actionEvent) {
+        try{
+             Database connect = new Database();
+             String query = "EXEC sp_inputTrRumah ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+             connect.pstat = connect.conn.prepareStatement(query);
+             connect.pstat.setString(1,txtId.getText());
+             connect.pstat.setString(2,cbBlok.getSelectionModel().getSelectedItem().getId());
+             connect.pstat.setString(3,"1xvee");
+             connect.pstat.setString(4,txtNIK.getText());
+             connect.pstat.setString(5,txtNama.getText());
+             connect.pstat.setString(6,txtContact.getText());
+             connect.pstat.setString(7,cbPayment.getSelectionModel().getSelectedItem());
+             if (cbPayment.getSelectionModel().getSelectedIndex() == 1){
+                 connect.pstat.setString(8,cbBank.getSelectionModel().getSelectedItem().getId());
+                 connect.pstat.setString(9,txtRekening.getText());
+                 connect.pstat.setInt(10,cbBank.getSelectionModel().getSelectedItem().getBunga());
+             }else {
+                 connect.pstat.setNull(8,Types.VARCHAR);
+                 connect.pstat.setNull(9,Types.VARCHAR);
+                 connect.pstat.setNull(10,Types.INTEGER);
+             }
+             connect.pstat.setDouble(11,convertStringDouble(txtTotal.getText()));
+             connect.pstat.setInt(12,cbPayment.getSelectionModel().getSelectedIndex() == 0 ? 1 : 0);
+             connect.pstat.setBytes(13,imageToByte(file));
+            if (cbPayment.getSelectionModel().getSelectedIndex() == 1){
+                connect.pstat.setDouble(14,convertStringDouble(txtBulanan.getText()));
+                connect.pstat.setInt(15,tenorTahun());
+                connect.pstat.setDouble(16,convertStringDouble(txtPinjaman.getText()));
+            }else {
+                connect.pstat.setNull(14,Types.DOUBLE);
+                connect.pstat.setNull(15,Types.INTEGER);
+                connect.pstat.setNull(16,Types.DOUBLE);
+            }
+             connect.pstat.setNull(17, Types.DATE);
+            if (cbPayment.getSelectionModel().getSelectedIndex() == 1){
+                connect.pstat.setNull(18, Types.DATE);
+            }else {
+                Date currentDate = new Date(System.currentTimeMillis());
+                connect.pstat.setDate(18, currentDate);
+            }
+             connect.pstat.executeUpdate();
 
+
+            query = "EXEC sp_cicilanRumah ?";
+            connect.pstat = connect.conn.prepareStatement(query);
+            connect.pstat.setString(1,cbBlok.getSelectionModel().getSelectedItem().getId());
+            connect.pstat.executeUpdate();
+            connect.pstat.close();
+            loadRumah();
+            txtId.setText(generateID("tr_rumah","TRR","id_trRumah"));
+        }catch(SQLException | IOException ex)
+        {
+            System.out.println("Error: "+ex.getMessage());
+        }
     }
 
     public void onActionCbPay(ActionEvent actionEvent) {
