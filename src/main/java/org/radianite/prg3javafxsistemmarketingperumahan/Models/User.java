@@ -83,4 +83,7 @@ public class User {
     public Image getFoto() {
         return foto;
     }
+    public User getAll() {
+        return new User(usn, pass, idp, idr, name, email, address, gender, age, foto, PName, RName);
+    }
 }

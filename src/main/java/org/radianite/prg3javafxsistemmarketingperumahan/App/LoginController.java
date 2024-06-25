@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
@@ -14,10 +15,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageDeveloperController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.MainDashboardController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Agen.DashbordAgenController;
-import org.radianite.prg3javafxsistemmarketingperumahan.App.Manager.DashbordManagerController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko.updateRuko;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.IOException;
@@ -49,8 +52,8 @@ public class LoginController implements Initializable {
     @FXML
     private TextField usernameField;
     @FXML
-    private TextField passwordField;
-
+    private PasswordField passwordField;
+    ArrayList<User> userList = new ArrayList<>();
     private Database connection = new Database();
 
     @Override
@@ -166,8 +169,6 @@ public class LoginController implements Initializable {
         String password = passwordField.getText();
         String query = "SELECT * FROM ms_user WHERE username = ?  AND password = ?";
 
-        ArrayList<User> userList = new ArrayList<>();
-
         try {
             // Menggunakan PreparedStatement untuk mencegah SQL injection
             connection.pstat = connection.conn.prepareStatement(query);
@@ -210,19 +211,21 @@ public class LoginController implements Initializable {
                 // Mengatur tahap berikutnya setelah menyimpan data di ArrayList
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/" + roleName + "/Dasbord.fxml"));
+
                     Parent root = fxmlLoader.load();
 
                     // Mengirim data user ke controller berdasarkan role
                     if (roleName.equals("Admin")) {
                         DashbordAdminController controller = fxmlLoader.getController();
-                        controller.setUsersAdmin(userList);
+                        controller.setDataList(userList.get(0));
                     } else if (roleName.equals("Manager")) {
-                        DashbordManagerController controller = fxmlLoader.getController();
-                        controller.setUsersManager(userList);
+     /*                   DashbordManagerController controller = fxmlLoader.getController();
+                        controller.setUsersManager(userList);*/
                     } else if (roleName.equals("Agen")) {
                         DashbordAgenController controller = fxmlLoader.getController();
-                        controller.setUsersAgen(userList);
+                        controller.setDataList(userList.get(0));
                     }
+
 
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
