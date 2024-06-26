@@ -624,3 +624,29 @@ EXEC sp_cicilanRumah 'TRR002'
 UPDATE ms_rumah SET ketersediaan = 1
 
 UPDATE tr_rumah SET sisa_cicilan = 12395833.00,status_pelunasan = 0 WHERE id_trRumah = 'TRR002'
+
+SELECT * FROM tr_rumah
+SELECT * FROM ms_rumah
+
+CREATE PROC sp_viewCicilan
+AS
+BEGIN
+	SELECT t.id_trRumah,r.blok,t.tgl_cicilan,t.min_cicilan FROM tr_rumah t
+	JOIN ms_rumah r ON r.id_rumah = t.id_rumah
+	WHERE t.jenis_pembayaran = 'CREDIT' AND t.tgl_pelunasan = NULL
+END
+
+/*
+SET @late = DATEDIFF(MONTH,(SELECT tgl_cicilan FROM tr_rumah WHERE id_trRumah = @idr),GETDATE())
+
+	IF @late < 1
+	BEGIN
+		SET @currency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr)
+	END
+	ELSE
+	BEGIN
+		SET @tempCurrency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr) * @late
+		SET @tempRate = ((SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr) * 0.01) * @late
+		SET @currency = @tempCurrency + @tempRate
+		UPDATE tr_rumah SET total_pembayaran = total_pembayaran + @tempRate WHERE id_trRumah = @idr
+	END */
