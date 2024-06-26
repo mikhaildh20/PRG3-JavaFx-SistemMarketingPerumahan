@@ -3,7 +3,6 @@ package org.radianite.prg3javafxsistemmarketingperumahan.App.Admin;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -13,16 +12,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.HelloApplication;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
-import org.radianite.prg3javafxsistemmarketingperumahan.Models.Ruko;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class DashbordAdminController {
     @FXML
@@ -201,7 +194,7 @@ public class DashbordAdminController {
     }
     @FXML
     protected void btnDeveloperclick() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DasboardManageDeveloper.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/DasboardManageDeveloper.fxml");
         btnDashboard.getStyleClass().removeAll("buttonDashboard-on");
         btnDashboard.getStyleClass().add("buttonDashboard-off");
 
@@ -261,7 +254,7 @@ public class DashbordAdminController {
     }
     @FXML
     public void btnHousingAreaClick() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DasboardManageHousingArea.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Perumahan/DasboardManageHousingArea.fxml");
         btnHousingArea.getStyleClass().removeAll("buttonDashboard-off");
         btnHousingArea.getStyleClass().add("buttonDashboard-on");
 
@@ -291,7 +284,7 @@ public class DashbordAdminController {
     }
     @FXML
     public void btnUserClick() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DasboardManageUser.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/User/DasboardManageUser.fxml");
         btnUser.getStyleClass().removeAll("buttonDashboard-off");
         btnUser.getStyleClass().add("buttonDashboard-on");
 
@@ -321,7 +314,7 @@ public class DashbordAdminController {
     }
     @FXML
     public void btnShopHouseClick() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DasboardManageShopHouse.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Ruko/DasboardManageShopHouse.fxml");
         btnShopHouse.getStyleClass().removeAll("buttonDashboard-off");
         btnShopHouse.getStyleClass().add("buttonDashboard-on");
 
@@ -351,7 +344,7 @@ public class DashbordAdminController {
     }
     @FXML
     public void btnRoleClick() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DasboardManageRole.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Role/DasboardManageRole.fxml");
         btnRole.getStyleClass().removeAll("buttonDashboard-off");
         btnRole.getStyleClass().add("buttonDashboard-on");
 
@@ -380,6 +373,66 @@ public class DashbordAdminController {
         btnShopHouse.getStyleClass().add("buttonDashboard-off");
     }
 
+    @FXML
+    public void btnHouseTypeClick(){
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/TipeRumah/DasboardManageHouseType.fxml");
+        btnRole.getStyleClass().removeAll("buttonDashboard-on");
+        btnRole.getStyleClass().add("buttonDashboard-off");
+
+        btnDeveloper.getStyleClass().removeAll("buttonDashboard-on");
+        btnDeveloper.getStyleClass().add("buttonDashboard-off");
+
+        btnHouseType.getStyleClass().removeAll("buttonDashboard-off");
+        btnHouseType.getStyleClass().add("buttonDashboard-on");
+
+        btnHouse.getStyleClass().removeAll("buttonDashboard-on");
+        btnHouse.getStyleClass().add("buttonDashboard-off");
+
+        btnUser.getStyleClass().removeAll("buttonDashboard-on");
+        btnUser.getStyleClass().add("buttonDashboard-off");
+
+        btnPlot.getStyleClass().removeAll("buttonDashboard-on");
+        btnPlot.getStyleClass().add("buttonDashboard-off");
+
+        btnDashboard.getStyleClass().removeAll("buttonDashboard-on");
+        btnDashboard.getStyleClass().add("buttonDashboard-off");
+
+        btnHousingArea.getStyleClass().removeAll("buttonDashboard-on");
+        btnHousingArea.getStyleClass().add("buttonDashboard-off");
+
+        btnShopHouse.getStyleClass().removeAll("buttonDashboard-on");
+        btnShopHouse.getStyleClass().add("buttonDashboard-off");
+    }
+    @FXML
+    public void btnHouseClick(){
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Rumah/DasboardManageHouse.fxml");
+        btnRole.getStyleClass().removeAll("buttonDashboard-on");
+        btnRole.getStyleClass().add("buttonDashboard-off");
+
+        btnDeveloper.getStyleClass().removeAll("buttonDashboard-on");
+        btnDeveloper.getStyleClass().add("buttonDashboard-off");
+
+        btnHouseType.getStyleClass().removeAll("buttonDashboard-on");
+        btnHouseType.getStyleClass().add("buttonDashboard-off");
+
+        btnHouse.getStyleClass().removeAll("buttonDashboard-off");
+        btnHouse.getStyleClass().add("buttonDashboard-on");
+
+        btnUser.getStyleClass().removeAll("buttonDashboard-on");
+        btnUser.getStyleClass().add("buttonDashboard-off");
+
+        btnPlot.getStyleClass().removeAll("buttonDashboard-on");
+        btnPlot.getStyleClass().add("buttonDashboard-off");
+
+        btnDashboard.getStyleClass().removeAll("buttonDashboard-on");
+        btnDashboard.getStyleClass().add("buttonDashboard-off");
+
+        btnHousingArea.getStyleClass().removeAll("buttonDashboard-on");
+        btnHousingArea.getStyleClass().add("buttonDashboard-off");
+
+        btnShopHouse.getStyleClass().removeAll("buttonDashboard-on");
+        btnShopHouse.getStyleClass().add("buttonDashboard-off");
+    }
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -422,23 +475,26 @@ public class DashbordAdminController {
                 if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/MainDashboard.fxml")) {
                     MainDashboardController controller = loader.getController();
                     controller.setDataList(userList.get(0));
-                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DasboardManageDeveloper.fxml")) {
+                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/DasboardManageDeveloper.fxml")) {
                     DashboardManageDeveloperController controller = loader.getController();
                     controller.setDataList(userList.get(0));
-                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DasboardManageRole.fxml")) {
-                    DashboardManageRoleController controller = loader.getController();
-                    controller.setDataList(userList.get(0));
-                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DashboardManageHousingArea.fxml")) {
+                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Perumahan/DasboardManageHousingArea.fxml")) {
                     DashboardManageHousingAreaController controller = loader.getController();
                     controller.setDataList(userList.get(0));
-                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DashboardManageHouseType.fxml")) {
+                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/TipeRumah/DasboardManageHouseType.fxml")) {
                     DashboardManageHouseTypeController controller = loader.getController();
                     controller.setDataList(userList.get(0));
-                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DashboardManageUser.fxml")) {
+                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/User/DasboardManageUser.fxml")) {
                     DashboardManageUserController controller = loader.getController();
                     controller.setDataList(userList.get(0));
-                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DashboardManageRole.fxml")) {
+                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Role/DasboardManageRole.fxml")) {
                     DashboardManageRoleController controller = loader.getController();
+                    controller.setDataList(userList.get(0));
+                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Rumah/DasboardManageHouse.fxml")) {
+                    DashboardManageHouseController controller = loader.getController();
+                    controller.setDataList(userList.get(0));
+                }else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Ruko/DasboardManageShopHouse.fxml")) {
+                    DashboardManageShopHouseController controller = loader.getController();
                     controller.setDataList(userList.get(0));
                 }
                 GroupMenu.setTranslateX(-50);

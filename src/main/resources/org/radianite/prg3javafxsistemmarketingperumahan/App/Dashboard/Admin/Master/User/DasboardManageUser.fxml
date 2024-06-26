@@ -18,13 +18,13 @@
 
 <AnchorPane fx:id="GroupMenu" prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageDeveloperController">
     <children>
-      <TabPane layoutX="65.0" layoutY="444.0" prefHeight="713.0" prefWidth="1399.0" stylesheets="@../../Css/Button.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="65.0" layoutY="444.0" prefHeight="713.0" prefWidth="1399.0" stylesheets="@../../../../Css/Button.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="View Data">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tblDeveloper" layoutX="6.0" layoutY="64.0" prefHeight="535.0" prefWidth="1245.0" stylesheets="@../../Css/Button.css">
+                        <TableView fx:id="tblDeveloper" layoutX="6.0" layoutY="64.0" prefHeight="535.0" prefWidth="1245.0" stylesheets="@../../../../Css/Button.css">
                           <columns>
                             <TableColumn fx:id="colNo" prefWidth="75.0" text="No." />
                             <TableColumn fx:id="colIdDeveloper" prefWidth="272.0" text="ID Developer" />
@@ -69,7 +69,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </TextField>
-                              <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="129.0" style="-fx-background-radius: 10;" styleClass="buttonLogin-on" stylesheets="@../../Css/Button.css" text="Button" GridPane.rowIndex="2">
+                              <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="129.0" style="-fx-background-radius: 10;" styleClass="buttonLogin-on" stylesheets="@../../../../Css/Button.css" text="Button" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets left="100.0" />
                                  </GridPane.margin>
@@ -79,7 +79,7 @@
                                     <Font name="Montserrat Bold" size="20.0" />
                                  </font>
                               </Text>
-                              <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="129.0" style="-fx-background-radius: 10;" styleClass="buttonLogin-on" stylesheets="@../../Css/Button.css" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="129.0" style="-fx-background-radius: 10;" styleClass="buttonLogin-on" stylesheets="@../../../../Css/Button.css" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                            </children>
                         </GridPane>
                         <ImageView fitHeight="467.0" fitWidth="660.0" layoutX="897.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">

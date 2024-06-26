@@ -62,7 +62,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="btnHouseType" layoutX="40.0" layoutY="522.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
+            <AnchorPane fx:id="btnHouseType" layoutX="40.0" layoutY="522.0" onMouseClicked="#btnHouseTypeClick" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
                   <ImageView fx:id="Button1111" fitHeight="43.0" fitWidth="191.0" layoutX="28.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -71,7 +71,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="btnHouse" layoutX="40.0" layoutY="597.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
+            <AnchorPane fx:id="btnHouse" layoutX="40.0" layoutY="597.0" onMouseClicked="#btnHouseClick" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
                   <ImageView fx:id="Button11112" fitHeight="43.0" fitWidth="191.0" layoutX="28.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>

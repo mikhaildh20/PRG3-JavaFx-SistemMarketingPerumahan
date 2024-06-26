@@ -70,6 +70,11 @@ public class ViewUpdateDelete implements Initializable {
                     setText(null);
                 } else {
                     setText(item == 1 ? "Tersedia" : "Tidak Tersedia");
+                    if (item == 1) {
+                        setStyle(" -fx-text-fill: green; -fx-font-weight: bold;");
+                    } else if (item == 0) {
+                        setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+                    }
                 }
             }
         });

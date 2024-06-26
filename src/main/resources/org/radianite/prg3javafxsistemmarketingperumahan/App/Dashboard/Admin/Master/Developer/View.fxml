@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="612.0" prefWidth="1404.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer.ViewUpdateDelete">
+   <children>
+      <TableView fx:id="tblDeveloper" layoutX="-2.0" prefHeight="614.0" prefWidth="1404.0" stylesheets="@../../../../Css/Button.css">
+         <columns>
+            <TableColumn fx:id="colNo" prefWidth="75.0" text="No." />
+            <TableColumn fx:id="colIdDeveloper" prefWidth="272.0" text="ID Developer" />
+            <TableColumn fx:id="colNamaDeveloper" minWidth="0.0" prefWidth="472.0" text="Nama Developer" />
+            <TableColumn fx:id="colStatus" prefWidth="356.333251953125" text="Status" />
+            <TableColumn fx:id="colAction" prefWidth="227.0" text="Action" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/Master/TipeRumah/InputMaterTipeRumah.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/Master/TipeRumah/Input.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 465, 500);
         stage.setTitle("Input Obat");

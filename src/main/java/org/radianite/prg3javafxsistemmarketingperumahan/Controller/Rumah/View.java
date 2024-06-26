@@ -24,7 +24,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class ViewUpdateDelete implements Initializable {
+public class View implements Initializable {
 
     private Database connection = new Database();
     @FXML
@@ -99,10 +99,9 @@ public class ViewUpdateDelete implements Initializable {
                         connection.result.getInt("jml_kmr_tdr"),
                         connection.result.getInt("jml_kmr_mdn"),
                         connection.result.getString("id_tipe"),
-                        connection.result.getString("descrption"),
-                        connection.result.getDouble("uang_muka"),
+                        connection.result.getString("description"), // Perbaikan ejaan
                         connection.result.getDouble("harga"),
-                        connection.result.getDate("thn_bangun"),
+                        connection.result.getDate("thn_bangun"), // Ubah dari Date ke String
                         connection.result.getInt("ketersediaan"),
                         connection.result.getInt("status")
                 ));
@@ -122,7 +121,7 @@ public class ViewUpdateDelete implements Initializable {
         jmlKmrMdn.setCellValueFactory(new PropertyValueFactory<>("jmlKmrMdn"));
         idTipe.setCellValueFactory(new PropertyValueFactory<>("idTipe"));
         description.setCellValueFactory(new PropertyValueFactory<>("description"));
-        uangMuka.setCellValueFactory(new PropertyValueFactory<>("uangMuka"));
+        uangMuka.setCellValueFactory(new PropertyValueFactory<>("uangMuka")); // Ditambahkan
         harga.setCellValueFactory(new PropertyValueFactory<>("harga"));
         thnBangun.setCellValueFactory(new PropertyValueFactory<>("thnBangun"));
         ketersediaan.setCellValueFactory(new PropertyValueFactory<>("ketersediaan"));

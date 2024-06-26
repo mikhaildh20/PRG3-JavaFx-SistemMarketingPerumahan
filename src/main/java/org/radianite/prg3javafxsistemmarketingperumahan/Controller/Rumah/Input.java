@@ -74,11 +74,11 @@ public class Input {
 
             if (connection.result.next()) {
                 String lastId = connection.result.getString("id_rumah");
-                int newIdNumber = Integer.parseInt(lastId.substring(1)) + 1;
-                nextIdRumah = "R" + String.format("%02d", newIdNumber);
+                int newIdNumber = Integer.parseInt(lastId.substring(3)) + 1;
+                nextIdRumah = "RMA" + String.format("%03d", newIdNumber);
                 txtIdRumah.setText(nextIdRumah);
             } else {
-                nextIdRumah = "R01";
+                nextIdRumah = "RMA001";
                 txtIdRumah.setText(nextIdRumah);
             }
 

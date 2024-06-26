@@ -17,6 +17,7 @@ import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManag
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.MainDashboardController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Agen.DashbordAgenController;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Manager.DashbordManagerController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko.updateRuko;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
@@ -241,8 +242,8 @@ public class LoginController implements Initializable {
                         DashbordAdminController controller = fxmlLoader.getController();
                         controller.setDataList(userList.get(0));
                     } else if (roleName.equals("Manager")) {
-     /*                   DashbordManagerController controller = fxmlLoader.getController();
-                        controller.setUsersManager(userList);*/
+                        DashbordManagerController controller = fxmlLoader.getController();
+                        controller.setDataList(userList.get(0));
                     } else if (roleName.equals("Agen")) {
                         DashbordAgenController controller = fxmlLoader.getController();
                         controller.setDataList(userList.get(0));

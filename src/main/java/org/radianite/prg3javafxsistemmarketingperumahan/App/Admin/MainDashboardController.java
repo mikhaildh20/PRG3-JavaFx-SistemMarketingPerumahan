@@ -56,11 +56,7 @@ public class MainDashboardController {
         txtJumlahUser.setText(String.valueOf(callUDFCountMsUser()));
         txtJumlahShopHouse.setText(String.valueOf(callUDFCountMsRuko()));
         txtJumlahBank.setText(String.valueOf(callUDFCountMsBank()));
-
-
     }
-
-
     public void setDataList(User data) {
         userList.add(data);
         if (!userList.isEmpty()) {

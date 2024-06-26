@@ -18,7 +18,6 @@ public class Rumah {
     private final SimpleIntegerProperty jmlKmrMdn;
     private final SimpleStringProperty idTipe;
     private final SimpleStringProperty description;
-    private final SimpleObjectProperty<Double> uangMuka;
     private final SimpleObjectProperty<Double> harga;
     private final SimpleObjectProperty<Date> thnBangun;
     private final SimpleIntegerProperty ketersediaan;
@@ -26,7 +25,7 @@ public class Rumah {
 
     public Rumah(String idRumah, String idPerumahan, ImageView fotoRumah, String blok, int dayaListrik,
                  String interior, int jmlKmrTdr, int jmlKmrMdn, String idTipe, String description,
-                 Double uangMuka, Double harga, Date thnBangun, int ketersediaan, int status) {
+                  Double harga, Date thnBangun, int ketersediaan, int status) {
         this.idRumah = new SimpleStringProperty(idRumah);
         this.idPerumahan = new SimpleStringProperty(idPerumahan);
         this.fotoRumah = new SimpleObjectProperty<>(fotoRumah); // Ubah tipe menjadi ImageView
@@ -37,7 +36,6 @@ public class Rumah {
         this.jmlKmrMdn = new SimpleIntegerProperty(jmlKmrMdn);
         this.idTipe = new SimpleStringProperty(idTipe);
         this.description = new SimpleStringProperty(description);
-        this.uangMuka = new SimpleObjectProperty<>(uangMuka);
         this.harga = new SimpleObjectProperty<>(harga);
         this.thnBangun = new SimpleObjectProperty<>(thnBangun);
         this.ketersediaan = new SimpleIntegerProperty(ketersediaan);
@@ -164,17 +162,6 @@ public class Rumah {
         return description;
     }
 
-    public Double getUangMuka() {
-        return uangMuka.get();
-    }
-
-    public void setUangMuka(Double uangMuka) {
-        this.uangMuka.set(uangMuka);
-    }
-
-    public SimpleObjectProperty<Double> uangMukaProperty() {
-        return uangMuka;
-    }
 
     public Double getHarga() {
         return harga.get();

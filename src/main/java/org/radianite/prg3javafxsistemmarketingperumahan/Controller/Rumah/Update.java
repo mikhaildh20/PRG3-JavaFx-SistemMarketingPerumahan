@@ -66,7 +66,6 @@ public class Update {
         txtJmlKmrMdn.setText(String.valueOf(rumah.getJmlKmrMdn()));
         cmbIdTipe.setValue(rumah.getIdTipe());
         txtDescription.setText(rumah.getDescription());
-        txtUangMuka.setText(String.valueOf(rumah.getUangMuka()));
         txtHarga.setText(String.valueOf(rumah.getHarga()));
         txtThnBangun.setText(rumah.getThnBangun().toString());
 
@@ -82,7 +81,7 @@ public class Update {
         rumah.setJmlKmrMdn(Integer.parseInt(txtJmlKmrMdn.getText()));
         rumah.setIdTipe(cmbIdTipe.getValue());
         rumah.setDescription(txtDescription.getText());
-        rumah.setUangMuka(Double.parseDouble(txtUangMuka.getText()));
+
         rumah.setHarga(Double.parseDouble(txtHarga.getText()));
         rumah.setThnBangun(Date.valueOf(txtThnBangun.getText()));
 
@@ -117,8 +116,7 @@ public class Update {
             connection.pstat.setInt(8, rumah.getJmlKmrMdn());
             connection.pstat.setString(9, rumah.getIdTipe());
             connection.pstat.setString(10, rumah.getDescription());
-            connection.pstat.setDouble(11, rumah.getUangMuka());
-            connection.pstat.setDouble(12, rumah.getHarga());
+            connection.pstat.setDouble(11, rumah.getHarga());
             connection.pstat.setDate(13, rumah.getThnBangun());
 
             connection.pstat.executeUpdate();
