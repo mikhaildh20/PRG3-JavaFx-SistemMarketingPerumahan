@@ -111,11 +111,11 @@ public class ViewUpdateDelete implements Initializable {
 
             deleteButton.setOnAction(event -> {
                 Developer developer = getTableView().getItems().get(getIndex());
-                deleteDataFromDatabase(developer); // Ganti dari role menjadi developer
+                deleteDataFromDatabase(developer);
                 loaddata();
             });
 
-            HBox hbox = new HBox(5);
+            HBox hbox = new HBox(0);
             hbox.getChildren().addAll(editButton, deleteButton);
             setGraphic(hbox);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -129,7 +129,7 @@ public class ViewUpdateDelete implements Initializable {
                 setGraphic(null);
             } else {
                 // Menampilkan tombol edit dan delete pada setiap baris tabel
-                setGraphic(new HBox(5, editButton, deleteButton));
+                setGraphic(new HBox(0, editButton, deleteButton));
             }
         }
     }

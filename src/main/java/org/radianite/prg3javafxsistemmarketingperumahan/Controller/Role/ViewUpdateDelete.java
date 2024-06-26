@@ -95,7 +95,7 @@ public class ViewUpdateDelete implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/Master/Role/Update.fxml"));
                     Parent parent = loader.load();
 
-                    Update controller = loader.getController();
+                    UpdateRole controller = loader.getController();
                     controller.setRole(role);
 
                     Stage stage = new Stage();

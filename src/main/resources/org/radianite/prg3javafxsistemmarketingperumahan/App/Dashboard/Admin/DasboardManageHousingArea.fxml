@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="GroupMenu" prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageDeveloperController">
+<AnchorPane fx:id="GroupMenu" prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageHousingAreaController">
     <children>
       <TabPane layoutX="65.0" layoutY="444.0" prefHeight="713.0" prefWidth="1399.0" stylesheets="@../../Css/Button.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -14,16 +14,16 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tblDeveloper" layoutX="6.0" layoutY="64.0" prefHeight="535.0" prefWidth="1351.0" stylesheets="@../../Css/Button.css">
+                        <TableView fx:id="tblDeveloper" layoutX="6.0" layoutY="64.0" prefHeight="535.0" prefWidth="1338.0" stylesheets="@../../Css/Button.css">
                           <columns>
                             <TableColumn fx:id="colNo" prefWidth="75.0" text="No." />
-                            <TableColumn fx:id="colIdDeveloper" prefWidth="272.0" text="ID Developer" />
-                              <TableColumn fx:id="colNamaDeveloper" minWidth="0.0" prefWidth="594.0" text="Nama Developer" />
-                              <TableColumn fx:id="colAction" prefWidth="409.0" text="Action" />
+                            <TableColumn fx:id="colIdHousing" prefWidth="272.0" text="ID Housing" />
+                              <TableColumn fx:id="colName" minWidth="0.0" prefWidth="436.0" text="Name" />
+                              <TableColumn fx:id="colNameDeveloper" prefWidth="356.0" text="Name Developer" />
+                              <TableColumn fx:id="colAction" prefWidth="198.0" text="Action" />
                           </columns>
                         </TableView>
-                        <TextField layoutX="68.0" layoutY="23.0" />
-                        <Button layoutX="1225.0" layoutY="23.0" mnemonicParsing="false" text="Refresh" />
+                        <Button fx:id="btnRefresh" layoutX="1225.0" layoutY="23.0" mnemonicParsing="false" text="Refresh" />
                      </children>
                   </AnchorPane>
             </content>
@@ -40,6 +40,7 @@
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
@@ -48,7 +49,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </TextField>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Developer" GridPane.rowIndex="1">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" GridPane.rowIndex="1">
                                  <font>
                                     <Font name="Montserrat Bold" size="20.0" />
                                  </font>
@@ -58,17 +59,27 @@
                                     <Font size="20.0" />
                                  </font>
                               </TextField>
-                              <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="129.0" style="-fx-background-radius: 10;" styleClass="buttonLogin-on" stylesheets="@../../Css/Button.css" text="Button" GridPane.rowIndex="2">
+                              <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="129.0" style="-fx-background-radius: 10;" styleClass="buttonLogin-on" stylesheets="@../../Css/Button.css" text="Button" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets left="100.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID Developer">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID Housing">
                                  <font>
                                     <Font name="Montserrat Bold" size="20.0" />
                                  </font>
                               </Text>
-                              <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="129.0" style="-fx-background-radius: 10;" styleClass="buttonLogin-on" stylesheets="@../../Css/Button.css" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="129.0" style="-fx-background-radius: 10;" styleClass="buttonLogin-on" stylesheets="@../../Css/Button.css" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Text layoutX="10.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Developer" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="Montserrat Bold" size="20.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="txtNamaDeveloper1" layoutX="310.0" layoutY="179.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </TextField>
                            </children>
                         </GridPane>
                         <ImageView fitHeight="467.0" fitWidth="660.0" layoutX="897.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">

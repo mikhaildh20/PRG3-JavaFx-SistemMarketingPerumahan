@@ -186,4 +186,6 @@ public class Library {
         value = value.replace(".", "");
         return Double.parseDouble(value);
     }
+
+
 }

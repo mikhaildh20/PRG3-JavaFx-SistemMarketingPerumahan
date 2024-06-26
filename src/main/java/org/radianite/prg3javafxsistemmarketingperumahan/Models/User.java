@@ -9,7 +9,7 @@ public class User {
     private String PName,RName;
 
     public User(){}
-    public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age) {
+    public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age, Image photo) {
         this.usn = usn;
         this.pass = pass;
         this.idp = idp;
@@ -19,6 +19,7 @@ public class User {
         this.address = address;
         this.gender = gender;
         this.age = age;
+        this.foto = photo;
     }
 
     public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age,Image foto, String pName, String rName) {

@@ -36,11 +36,11 @@ public class DashboardManageHousingAreaController {
     Database connection = new Database();
 
     @FXML
-    private TableColumn<Developer, String> colIdDeveloper;
+    private TableColumn<Developer, String> colIdHousing;
     @FXML
-    private TableColumn<Developer, String> colNamaDeveloper;
+    private TableColumn<Developer, String> colName;
     @FXML
-    private TableColumn<Developer, Integer> colStatus;
+    private TableColumn<Developer, String> colNameDeveloper;
     @FXML
     private TableColumn<Developer, Void> colAction;
     ArrayList<User> userList = new ArrayList<>();
@@ -71,11 +71,11 @@ public class DashboardManageHousingAreaController {
             System.out.println("Terjadi error saat load data: " + ex);
         }
 
-        colIdDeveloper.setCellValueFactory(new PropertyValueFactory<>("idDeveloper")); // Ganti dari idRole menjadi idDeveloper
-        colNamaDeveloper.setCellValueFactory(new PropertyValueFactory<>("namaDeveloper")); // Ganti dari namaRole menjadi namaDeveloper
-        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        colIdHousing.setCellValueFactory(new PropertyValueFactory<>("idDeveloper")); // Ganti dari idRole menjadi idDeveloper
+        colName.setCellValueFactory(new PropertyValueFactory<>("namaDeveloper")); // Ganti dari namaRole menjadi namaDeveloper
+        colNameDeveloper.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        colStatus.setCellFactory(column -> new TableCell<Developer, Integer>() {
+/*        colNameDevel.setCellFactory(column -> new TableCell<Developer, Integer>() {
             @Override
             protected void updateItem(Integer item, boolean empty) {
                 super.updateItem(item, empty);
@@ -85,7 +85,7 @@ public class DashboardManageHousingAreaController {
                     setText(item == 1 ? "Tersedia" : "Tidak Tersedia");
                 }
             }
-        });
+        });*/
 
         colAction.setCellFactory(new Callback<TableColumn<Developer, Void>, TableCell<Developer, Void>>() {
             @Override

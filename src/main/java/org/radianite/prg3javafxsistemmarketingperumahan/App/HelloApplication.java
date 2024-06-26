@@ -10,16 +10,16 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        /*try{
+        try{
 //            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/viewTrRuko.fxml"));
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/App/Login/Login.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/Master/Role/Input.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle("App");
             stage.setScene(scene);
             stage.show();
         }catch (Exception ex){
             ex.printStackTrace();
-        }*/
+        }
 
     }
 

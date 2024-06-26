@@ -22,15 +22,15 @@ public class Update {
 
     }
 
-    public void setDeveloper(Developer developer) { // Ganti dari setRole menjadi setDeveloper
+    public void setDeveloper(Developer developer) {
         this.developer = developer;
-        idDeveloperField.setText(developer.getIdDeveloper()); // Ganti dari getIdRole menjadi getIdDeveloper
-        namaDeveloperField.setText(developer.getNamaDeveloper()); // Ganti dari getNamaRole menjadi getNamaDeveloper
+        idDeveloperField.setText(developer.getIdDeveloper());
+        namaDeveloperField.setText(developer.getNamaDeveloper());
     }
 
     @FXML
     private void handleUpdateAction() {
-        developer.setNamaDeveloper(namaDeveloperField.getText()); // Ganti dari setNamaRole menjadi setNamaDeveloper
+        developer.setNamaDeveloper(namaDeveloperField.getText());
 
         try {
             updateDataInDatabase(developer);

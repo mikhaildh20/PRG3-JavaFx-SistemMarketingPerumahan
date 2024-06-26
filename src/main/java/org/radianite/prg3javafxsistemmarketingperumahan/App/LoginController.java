@@ -6,11 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -24,6 +22,7 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko.updateRu
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -53,12 +52,31 @@ public class LoginController implements Initializable {
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
+    @FXML
+    private TextField txtpasShow;
     ArrayList<User> userList = new ArrayList<>();
     private Database connection = new Database();
+    @FXML
+    private CheckBox ChechShow;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         animasiLogin();
+        txtpasShow.textProperty().bindBidirectional(passwordField.textProperty());
+
+        ChechShow.setOnAction(event -> {
+            if (ChechShow.isSelected()) {
+                txtpasShow.setVisible(true);
+                txtpasShow.setManaged(true);
+                passwordField.setVisible(false);
+                passwordField.setManaged(false);
+            } else {
+                txtpasShow.setVisible(false);
+                txtpasShow.setManaged(false);
+                passwordField.setVisible(true);
+                passwordField.setManaged(true);
+            }
+        });
     }
 
     private void animasiLogin() {
@@ -188,6 +206,10 @@ public class LoginController implements Initializable {
                 String idr = "";
                 // Iterasi melalui result set dan menambahkan data ke ArrayList
                 while (connection.result.next()) {
+                    InputStream inputStream = connection.result.getBinaryStream("photo");
+                    ImageView imageView = null;
+                    // Buat Image dari InputStream dan masukkan ke ImageView
+                    Image image = new Image(inputStream);
                     String usn = connection.result.getString("username");
                     String pass = connection.result.getString("password");
                     String idp = connection.result.getString("id_perumahan");
@@ -198,7 +220,7 @@ public class LoginController implements Initializable {
                     String gender = connection.result.getString("jenis_kelamin");
                     int age = connection.result.getInt("umur");
 
-                    userList.add(new User(usn, pass, idp, idr, name, email, address, gender, age));
+                    userList.add(new User(usn, pass, idp, idr, name, email, address, gender, age, image));
                 }
 
                 String queryRole = "SELECT nama_role FROM ms_role WHERE id_role = ?";
@@ -226,10 +248,10 @@ public class LoginController implements Initializable {
                         controller.setDataList(userList.get(0));
                     }
 
-
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setTitle("App");
+                    stage.setFullScreen(true);
                     stage.setScene(scene);
                     stage.show();
 
@@ -258,4 +280,6 @@ public class LoginController implements Initializable {
             }
         }
     }
+
+
 }

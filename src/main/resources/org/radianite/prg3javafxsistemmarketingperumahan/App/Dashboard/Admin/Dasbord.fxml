@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="1200.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController">
    <children>
-      <AnchorPane fx:id="Group1" layoutX="32.0" layoutY="48.0" prefHeight="1106.44" prefWidth="353.98" style="-fx-background-color: #050C9C; -fx-background-radius: 12;">
+      <AnchorPane fx:id="Group1" layoutX="32.0" layoutY="20.0" prefHeight="1135.0" prefWidth="354.0" style="-fx-background-color: #050C9C; -fx-background-radius: 12;">
          <children>
             <ImageView fitHeight="304.0" fitWidth="280.0" layoutX="38.0" layoutY="-27.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -38,7 +38,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="btnRole" layoutX="45.0" layoutY="458.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
+            <AnchorPane fx:id="btnRole" layoutX="45.0" layoutY="458.0" onMouseClicked="#btnRoleClick" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
                   <ImageView fx:id="Button111" fitHeight="36.0" fitWidth="119.0" layoutX="28.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -13,6 +13,7 @@ public class test extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/App/Login/Login.fxml"));
         primaryStage.setTitle("AnchorPane Switch Example");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 

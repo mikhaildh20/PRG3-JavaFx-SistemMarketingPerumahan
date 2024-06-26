@@ -8,7 +8,7 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Models.Role;
 
 import java.sql.SQLException;
 
-public class Update {
+public class UpdateRole {
 
     @FXML
     private TextField idRoleField;
@@ -16,7 +16,7 @@ public class Update {
     private TextField namaField;
     private Role role;
     private Database connection = new Database();
-    public Update() {
+    public UpdateRole() {
 
     }
 

@@ -89,53 +89,53 @@ public class DashbordAdminController {
         // Create FadeTransition for GroupWelcome
         FadeTransition FadeGroup1 = new FadeTransition();
         FadeGroup1.setNode(Group1);
-        FadeGroup1.setDuration(Duration.seconds(2));
+        FadeGroup1.setDuration(Duration.seconds(1));
         FadeGroup1.setFromValue(0.0);
         FadeGroup1.setToValue(1.0);
 
         TranslateTransition SwipeButton2 = new TranslateTransition();
         SwipeButton2.setNode(btnHouse);
-        SwipeButton2.setDuration(Duration.seconds(1.5));
+        SwipeButton2.setDuration(Duration.seconds(1));
         SwipeButton2.setToY(0);
 
         TranslateTransition SwipeButton3 = new TranslateTransition();
         SwipeButton3.setNode(btnShopHouse);
-        SwipeButton3.setDuration(Duration.seconds(1.5));
+        SwipeButton3.setDuration(Duration.seconds(1));
         SwipeButton3.setToY(0);
 
         TranslateTransition SwipeButton4 = new TranslateTransition();
         SwipeButton4.setNode(btnPlot);
-        SwipeButton4.setDuration(Duration.seconds(1.5));
+        SwipeButton4.setDuration(Duration.seconds(1));
         SwipeButton4.setToY(0);
 
         TranslateTransition SwipeButton5 = new TranslateTransition();
         SwipeButton5.setNode(btnsignout);
-        SwipeButton5.setDuration(Duration.seconds(1.5));
+        SwipeButton5.setDuration(Duration.seconds(1));
         SwipeButton5.setToY(0);
 
         TranslateTransition SwipeButton6 = new TranslateTransition();
         SwipeButton6.setNode(btnUser);
-        SwipeButton6.setDuration(Duration.seconds(1.5));
+        SwipeButton6.setDuration(Duration.seconds(1));
         SwipeButton6.setToY(0);
 
         TranslateTransition SwipeButton7 = new TranslateTransition();
         SwipeButton7.setNode(btnDeveloper);
-        SwipeButton7.setDuration(Duration.seconds(1.5));
+        SwipeButton7.setDuration(Duration.seconds(1));
         SwipeButton7.setToY(0);
 
         TranslateTransition SwipeButton8 = new TranslateTransition();
         SwipeButton8.setNode(btnHousingArea);
-        SwipeButton8.setDuration(Duration.seconds(1.5));
+        SwipeButton8.setDuration(Duration.seconds(1));
         SwipeButton8.setToY(0);
 
         TranslateTransition SwipeButton9 = new TranslateTransition();
         SwipeButton9.setNode(btnRole);
-        SwipeButton9.setDuration(Duration.seconds(1.5));
+        SwipeButton9.setDuration(Duration.seconds(1));
         SwipeButton9.setToY(0);
 
         TranslateTransition SwipeButton10 = new TranslateTransition();
         SwipeButton10.setNode(btnHouseType);
-        SwipeButton10.setDuration(Duration.seconds(1.5));
+        SwipeButton10.setDuration(Duration.seconds(1));
         SwipeButton10.setToY(0);
 
         FadeTransition FadeButton2 = new FadeTransition();
@@ -201,8 +201,6 @@ public class DashbordAdminController {
     }
     @FXML
     protected void btnDeveloperclick() {
-
-
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/DasboardManageDeveloper.fxml");
         btnDashboard.getStyleClass().removeAll("buttonDashboard-on");
         btnDashboard.getStyleClass().add("buttonDashboard-off");
@@ -395,6 +393,7 @@ public class DashbordAdminController {
         btnDashboard.getStyleClass().removeAll("buttonDashboard-off");
         btnDashboard.getStyleClass().add("buttonDashboard-on");
 
+
     }
     @FXML
     public void btnlogout() {
@@ -414,7 +413,7 @@ public class DashbordAdminController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent pane = loader.load();
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.7), GroupMenu);
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), GroupMenu);
             GroupMenu.setOpacity(0.0);
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
@@ -443,9 +442,9 @@ public class DashbordAdminController {
                     controller.setDataList(userList.get(0));
                 }
                 GroupMenu.setTranslateX(-50);
-                TranslateTransition translate = new TranslateTransition(Duration.seconds(1), GroupMenu);
+                TranslateTransition translate = new TranslateTransition(Duration.seconds(0.5), GroupMenu);
                 translate.setToX(0);
-                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.7), GroupMenu);
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), GroupMenu);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
                 ParallelTransition parallelTransition = new ParallelTransition(translate, fadeIn);
@@ -457,38 +456,8 @@ public class DashbordAdminController {
         }
     }
 
-    public void loadData(String nama) {
-        String query = "SELECT * FROM ms_user WHERE nama_lengkap = ?";
-        try {
-            connection.pstat = connection.conn.prepareStatement(query);
-            connection.pstat.setString(1, nama);
-            connection.result = connection.pstat.executeQuery();
-            if (!connection.result.isBeforeFirst()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Login Failed");
-                alert.setContentText("asu"+nama);
-                alert.showAndWait();
-                return;
-            }
-            while (connection.result.next()) {
-                String usn = connection.result.getString("username");
-                String pass = connection.result.getString("password");
-                String idp = connection.result.getString("id_perumahan");
-                String idr = connection.result.getString("id_role");
-                String name = connection.result.getString("nama_lengkap");
-                String email = connection.result.getString("email");
-                String address = connection.result.getString("alamat");
-                String gender = connection.result.getString("jenis_kelamin");
-                int age = connection.result.getInt("umur");
-                userList.add(new User(usn, pass, idp, idr, name, email, address, gender, age));
-                System.out.println(nama);
 
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 
 }
