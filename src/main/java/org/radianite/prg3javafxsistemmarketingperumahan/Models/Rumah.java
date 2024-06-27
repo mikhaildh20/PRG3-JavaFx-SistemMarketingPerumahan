@@ -1,213 +1,95 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Models;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.image.ImageView;
-
-import java.sql.Date;
+import javafx.scene.image.Image;
 
 public class Rumah {
-    private final SimpleStringProperty idRumah;
-    private final SimpleStringProperty idPerumahan;
-    private final SimpleObjectProperty<ImageView> fotoRumah; // Ubah tipe menjadi ImageView
-    private final SimpleStringProperty blok;
-    private final SimpleIntegerProperty dayaListrik;
-    private final SimpleStringProperty interior;
-    private final SimpleIntegerProperty jmlKmrTdr;
-    private final SimpleIntegerProperty jmlKmrMdn;
-    private final SimpleStringProperty idTipe;
-    private final SimpleStringProperty description;
-    private final SimpleObjectProperty<Double> harga;
-    private final SimpleObjectProperty<Date> thnBangun;
-    private final SimpleIntegerProperty ketersediaan;
-    private final SimpleIntegerProperty status;
+    private String id,idp;
+    private Image foto;
+    private String blok;
+    private Integer watt;
+    private String interior;
+    private Integer bed,rest;
+    private String idt,desc;
+    private Double harga;
+    private Integer tahun;
+    private String residence,type;
 
-    public Rumah(String idRumah, String idPerumahan, ImageView fotoRumah, String blok, int dayaListrik,
-                 String interior, int jmlKmrTdr, int jmlKmrMdn, String idTipe, String description,
-                  Double harga, Date thnBangun, int ketersediaan, int status) {
-        this.idRumah = new SimpleStringProperty(idRumah);
-        this.idPerumahan = new SimpleStringProperty(idPerumahan);
-        this.fotoRumah = new SimpleObjectProperty<>(fotoRumah); // Ubah tipe menjadi ImageView
-        this.blok = new SimpleStringProperty(blok);
-        this.dayaListrik = new SimpleIntegerProperty(dayaListrik);
-        this.interior = new SimpleStringProperty(interior);
-        this.jmlKmrTdr = new SimpleIntegerProperty(jmlKmrTdr);
-        this.jmlKmrMdn = new SimpleIntegerProperty(jmlKmrMdn);
-        this.idTipe = new SimpleStringProperty(idTipe);
-        this.description = new SimpleStringProperty(description);
-        this.harga = new SimpleObjectProperty<>(harga);
-        this.thnBangun = new SimpleObjectProperty<>(thnBangun);
-        this.ketersediaan = new SimpleIntegerProperty(ketersediaan);
-        this.status = new SimpleIntegerProperty(status);
+    public Rumah(String id, String idp, Image foto, String blok, Integer watt, String interior, Integer bed, Integer rest, String idt, String desc, Double harga, Integer tahun, String residence, String type) {
+        this.id = id;
+        this.idp = idp;
+        this.foto = foto;
+        this.blok = blok;
+        this.watt = watt;
+        this.interior = interior;
+        this.bed = bed;
+        this.rest = rest;
+        this.idt = idt;
+        this.desc = desc;
+        this.harga = harga;
+        this.tahun = tahun;
+        this.residence = residence;
+        this.type = type;
     }
 
-    public String getIdRumah() {
-        return idRumah.get();
+    public Rumah(String id, String blok, Double harga) {
+        this.id = id;
+        this.blok = blok;
+        this.harga = harga;
     }
 
-    public void setIdRumah(String idRumah) {
-        this.idRumah.set(idRumah);
+    public String getId() {
+        return id;
     }
 
-    public SimpleStringProperty idRumahProperty() {
-        return idRumah;
+    public String getIdp() {
+        return idp;
     }
 
-    public String getIdPerumahan() {
-        return idPerumahan.get();
-    }
-
-    public void setIdPerumahan(String idPerumahan) {
-        this.idPerumahan.set(idPerumahan);
-    }
-
-    public SimpleStringProperty idPerumahanProperty() {
-        return idPerumahan;
-    }
-
-    public ImageView getFotoRumah() { // Ubah tipe data menjadi ImageView
-        return fotoRumah.get();
-    }
-
-    public void setFotoRumah(ImageView fotoRumah) { // Ubah tipe data menjadi ImageView
-        this.fotoRumah.set(fotoRumah);
-    }
-
-    public SimpleObjectProperty<ImageView> fotoRumahProperty() { // Ubah tipe data menjadi ImageView
-        return fotoRumah;
+    public Image getFoto() {
+        return foto;
     }
 
     public String getBlok() {
-        return blok.get();
-    }
-
-    public void setBlok(String blok) {
-        this.blok.set(blok);
-    }
-
-    public SimpleStringProperty blokProperty() {
         return blok;
     }
 
-    public int getDayaListrik() {
-        return dayaListrik.get();
-    }
-
-    public void setDayaListrik(int dayaListrik) {
-        this.dayaListrik.set(dayaListrik);
-    }
-
-    public SimpleIntegerProperty dayaListrikProperty() {
-        return dayaListrik;
+    public Integer getWatt() {
+        return watt;
     }
 
     public String getInterior() {
-        return interior.get();
-    }
-
-    public void setInterior(String interior) {
-        this.interior.set(interior);
-    }
-
-    public SimpleStringProperty interiorProperty() {
         return interior;
     }
 
-    public int getJmlKmrTdr() {
-        return jmlKmrTdr.get();
+    public Integer getBed() {
+        return bed;
     }
 
-    public void setJmlKmrTdr(int jmlKmrTdr) {
-        this.jmlKmrTdr.set(jmlKmrTdr);
+    public Integer getRest() {
+        return rest;
     }
 
-    public SimpleIntegerProperty jmlKmrTdrProperty() {
-        return jmlKmrTdr;
+    public String getIdt() {
+        return idt;
     }
 
-    public int getJmlKmrMdn() {
-        return jmlKmrMdn.get();
+    public String getDesc() {
+        return desc;
     }
-
-    public void setJmlKmrMdn(int jmlKmrMdn) {
-        this.jmlKmrMdn.set(jmlKmrMdn);
-    }
-
-    public SimpleIntegerProperty jmlKmrMdnProperty() {
-        return jmlKmrMdn;
-    }
-
-    public String getIdTipe() {
-        return idTipe.get();
-    }
-
-    public void setIdTipe(String idTipe) {
-        this.idTipe.set(idTipe);
-    }
-
-    public SimpleStringProperty idTipeProperty() {
-        return idTipe;
-    }
-
-    public String getDescription() {
-        return description.get();
-    }
-
-    public void setDescription(String description) {
-        this.description.set(description);
-    }
-
-    public SimpleStringProperty descriptionProperty() {
-        return description;
-    }
-
 
     public Double getHarga() {
-        return harga.get();
-    }
-
-    public void setHarga(Double harga) {
-        this.harga.set(harga);
-    }
-
-    public SimpleObjectProperty<Double> hargaProperty() {
         return harga;
     }
 
-    public Date getThnBangun() {
-        return thnBangun.get();
+    public Integer getTahun() {
+        return tahun;
     }
 
-    public void setThnBangun(Date thnBangun) {
-        this.thnBangun.set(thnBangun);
+    public String getResidence() {
+        return residence;
     }
 
-    public SimpleObjectProperty<Date> thnBangunProperty() {
-        return thnBangun;
-    }
-
-    public int getKetersediaan() {
-        return ketersediaan.get();
-    }
-
-    public void setKetersediaan(int ketersediaan) {
-        this.ketersediaan.set(ketersediaan);
-    }
-
-    public SimpleIntegerProperty ketersediaanProperty() {
-        return ketersediaan;
-    }
-
-    public int getStatus() {
-        return status.get();
-    }
-
-    public void setStatus(int status) {
-        this.status.set(status);
-    }
-
-    public SimpleIntegerProperty statusProperty() {
-        return status;
+    public String getType() {
+        return type;
     }
 }

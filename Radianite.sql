@@ -70,12 +70,14 @@ CREATE TABLE ms_rumah(
 	jml_kmr_mdn INT,
 	id_tipe VARCHAR(10) FOREIGN KEY REFERENCES ms_tipe_rumah(id_tipe),
 	descrption VARCHAR(100),
-	uang_muka MONEY,
 	harga MONEY,
-	thn_bangun DATE,
 	ketersediaan INT,
-	status INT
+	status INT,
+	thn_bangun INT
 )
+ALTER TABLE ms_rumah DROP COLUMN uang_muka
+ALTER TABLE ms_rumah ADD thn_bangun INT
+SELECT * FROM ms_rumah
 
 CREATE TABLE ms_ruko(
 	id_ruko VARCHAR(10) PRIMARY KEY,
@@ -217,7 +219,7 @@ BEGIN
 	INSERT INTO ms_user VALUES(@usn,@pass,@idp,@idr,@name,@email,@alamat,@jenis_kelamin,@umur,@photo,1)
 END
 
-CREATE PROCEDURE sp_inputRumah
+ALTER PROCEDURE sp_inputRumah
 	@id VARCHAR(10),
 	@idp VARCHAR(10),
 	@foto VARBINARY(MAX),
@@ -228,12 +230,11 @@ CREATE PROCEDURE sp_inputRumah
 	@kmr_mdn INT,
 	@idt VARCHAR(10),
 	@desc VARCHAR(100),
-	@dp MONEY,
 	@harga MONEY,
-	@tbangun DATE
+	@tbangun INT
 AS
 BEGIN
-	INSERT INTO ms_rumah VALUES(@id,@idp,@foto,@blok,@daya,@interior,@kmr_tdr,@kmr_mdn,@idt,@desc,@dp,@harga,@tbangun,1,1)
+	INSERT INTO ms_rumah VALUES(@id,@idp,@foto,@blok,@daya,@interior,@kmr_tdr,@kmr_mdn,@idt,@desc,@harga,1,1,@tbangun)
 END
 
 CREATE PROCEDURE sp_inputRuko
@@ -301,7 +302,7 @@ BEGIN
 	UPDATE ms_user SET password=@pass,id_perumahan=@idp,id_role=@idr,nama_lengkap=@name,email=@email,alamat=@alamat,jenis_kelamin=@jenis_kelamin,umur=@umur,photo=@photo WHERE username=@usn
 END
 
-CREATE PROCEDURE sp_updateRumah
+ALTER PROCEDURE sp_updateRumah
 	@id VARCHAR(10),
 	@idp VARCHAR(10),
 	@foto VARBINARY(MAX),
@@ -312,12 +313,11 @@ CREATE PROCEDURE sp_updateRumah
 	@kmr_mdn INT,
 	@idt VARCHAR(10),
 	@desc VARCHAR(100),
-	@dp MONEY,
 	@harga MONEY,
-	@tbangun DATE
+	@tbangun INT
 AS
 BEGIN
-	UPDATE ms_rumah SET id_perumahan=@idp,foto_rumah=@foto,blok=@blok,daya_listrik=@daya,interior=@interior,jml_kmr_tdr=@kmr_tdr,jml_kmr_mdn=@kmr_mdn,id_tipe=@idt,descrption=@desc,uang_muka=@dp,harga=@harga,thn_bangun=@tbangun WHERE id_rumah=@id
+	UPDATE ms_rumah SET id_perumahan=@idp,foto_rumah=@foto,blok=@blok,daya_listrik=@daya,interior=@interior,jml_kmr_tdr=@kmr_tdr,jml_kmr_mdn=@kmr_mdn,id_tipe=@idt,descrption=@desc,harga=@harga,thn_bangun=@tbangun WHERE id_rumah=@id
 END
 
 CREATE PROCEDURE sp_updateRuko
@@ -449,6 +449,20 @@ BEGIN
 	JOIN ms_perumahan p ON p.id_perumahan = r.id_perumahan
 END
 
+CREATE PROCEDURE sp_viewRumah
+AS
+BEGIN
+	SELECT r.*,p.nama_perumahan,t.nama_tipe FROM ms_rumah r
+	JOIN ms_perumahan p ON p.id_perumahan = r.id_perumahan
+	JOIN ms_tipe_rumah t ON t.id_tipe = r.id_tipe
+END
+
+ALTER PROCEDURE sp_viewTagihan
+AS
+BEGIN
+	SELECT id_trRumah,NIK,nama,min_cicilan,sisa_cicilan FROM tr_rumah WHERE GETDATE() > tgl_cicilan 
+END
+
 -- SP Transaction
 -- RUKO
 ALTER PROCEDURE sp_inputTrRuko
@@ -478,6 +492,7 @@ BEGIN
 	UPDATE ms_ruko SET ketersediaan = 1 WHERE id_ruko IN (SELECT id_ruko FROM tr_ruko WHERE GETDATE() > tgl_expired);
 	UPDATE tr_ruko SET status_kontrak = 0 WHERE GETDATE() > tgl_expired
 END
+
 
 EXEC sp_statusRuko
 
@@ -509,17 +524,38 @@ ALTER PROCEDURE sp_inputTrRumah
 AS
 BEGIN
 	INSERT INTO tr_rumah VALUES (@id,GETDATE(),@idr,@uname,@NIK,@nama,@telp,@jns,@idb,@rek,@bunga,@total,@status,@dokumen,@minCicil,@periode,@sisa,@tglCicil,@tglLunas)
-	COMMIT
 END
+SELECT * FROM ms_bank
+SELECT * FROM ms_rumah
+SELECT * FROM tr_rumah
+SELECT * FROM CicilRumah
 
 -- CICILAN PERBULAN
 ALTER PROCEDURE sp_cicilanRumah
-	@idr VARCHAR(10),
-	@nominal MONEY
+	@idr VARCHAR(10)
 AS
 BEGIN
-	INSERT INTO CicilRumah VALUES(@idr,GETDATE(),@nominal)
-	COMMIT
+	DECLARE @currency MONEY
+	DECLARE @late INT
+	DECLARE @rate MONEY
+
+	DECLARE @tempRate MONEY
+	DECLARE @tempCurrency MONEY
+
+	SET @late = DATEDIFF(MONTH,(SELECT tgl_cicilan FROM tr_rumah WHERE id_trRumah = @idr),GETDATE())
+
+	IF @late < 1
+	BEGIN
+		SET @currency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr)
+	END
+	ELSE
+	BEGIN
+		SET @tempCurrency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr) * @late
+		SET @tempRate = ((SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr) * 0.01) * @late
+		SET @currency = @tempCurrency + @tempRate
+		UPDATE tr_rumah SET total_pembayaran = total_pembayaran + @tempRate WHERE id_trRumah = @idr
+	END
+	INSERT INTO CicilRumah VALUES(@idr,GETDATE(),@currency)
 END
 
 -- Log Login
@@ -558,12 +594,59 @@ BEGIN
 END
 
 -- Cicil Rumah
-CREATE TRIGGER trg_cicilRumah
+ALTER TRIGGER trg_cicilRumah
 ON CicilRumah
 AFTER INSERT
 AS
 BEGIN
-	UPDATE tr_rumah SET sisa_cicilan = sisa_cicilan - (SELECT nominal_cicil FROM inserted), tgl_cicilan = DATEADD(MONTH,1,tgl_cicilan) 
-	WHERE id_trRumah IN (SELECT id_trRumah FROM inserted)
+	DECLARE @late INT
+	SET @late = DATEDIFF(MONTH,(SELECT tgl_cicilan FROM tr_rumah WHERE id_trRumah IN (SELECT id_trRumah FROM inserted)),GETDATE())
+	IF EXISTS (SELECT id_trRumah FROM CicilRumah WHERE id_trRumah IN (SELECT id_trRumah FROM inserted))
+	BEGIN
+		IF @late > 0
+		BEGIN
+			UPDATE tr_rumah SET sisa_cicilan = sisa_cicilan - (min_cicilan * @late), tgl_cicilan = DATEADD(MONTH,1,GETDATE()) 
+			WHERE id_trRumah IN (SELECT id_trRumah FROM inserted)
+		END
+		ELSE
+		BEGIN
+			UPDATE tr_rumah SET sisa_cicilan = sisa_cicilan - min_cicilan, tgl_cicilan = DATEADD(MONTH,1,GETDATE()) 
+			WHERE id_trRumah IN (SELECT id_trRumah FROM inserted)
+		END
+		UPDATE tr_rumah SET status_pelunasan = 1, tgl_pelunasan = GETDATE() WHERE sisa_cicilan = 0.00
+	END
+END
+DELETE FROM tr_rumah
+SELECT * FROM ms_rumah
+SELECT * FROM tr_rumah
+SELECT * FROM CicilRumah
+EXEC sp_cicilanRumah 'TRR002'
+UPDATE ms_rumah SET ketersediaan = 1
+
+UPDATE tr_rumah SET sisa_cicilan = 12395833.00,status_pelunasan = 0 WHERE id_trRumah = 'TRR002'
+
+SELECT * FROM tr_rumah
+SELECT * FROM ms_rumah
+
+CREATE PROC sp_viewCicilan
+AS
+BEGIN
+	SELECT t.id_trRumah,r.blok,t.tgl_cicilan,t.min_cicilan FROM tr_rumah t
+	JOIN ms_rumah r ON r.id_rumah = t.id_rumah
+	WHERE t.jenis_pembayaran = 'CREDIT' AND t.tgl_pelunasan = NULL
 END
 
+/*
+SET @late = DATEDIFF(MONTH,(SELECT tgl_cicilan FROM tr_rumah WHERE id_trRumah = @idr),GETDATE())
+
+	IF @late < 1
+	BEGIN
+		SET @currency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr)
+	END
+	ELSE
+	BEGIN
+		SET @tempCurrency = (SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr) * @late
+		SET @tempRate = ((SELECT min_cicilan FROM tr_rumah WHERE id_trRumah = @idr) * 0.01) * @late
+		SET @currency = @tempCurrency + @tempRate
+		UPDATE tr_rumah SET total_pembayaran = total_pembayaran + @tempRate WHERE id_trRumah = @idr
+	END */
