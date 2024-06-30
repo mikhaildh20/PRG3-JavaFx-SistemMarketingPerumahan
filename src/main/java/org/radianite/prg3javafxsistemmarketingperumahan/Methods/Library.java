@@ -32,12 +32,12 @@ import java.text.ParseException;
 import java.util.Locale;
 
 public class Library {
-    private String query,imported,base;
     public Library(){
 
     }
 
     public String generateID(String tableName,String formatID,String column){
+        String query,imported,base;
         try{
             Database connect = new Database();
             connect.stat = connect.conn.createStatement();
