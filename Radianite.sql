@@ -628,12 +628,12 @@ UPDATE tr_rumah SET sisa_cicilan = 12395833.00,status_pelunasan = 0 WHERE id_trR
 SELECT * FROM tr_rumah
 SELECT * FROM ms_rumah
 
-CREATE PROC sp_viewCicilan
+ALTER PROC sp_viewCicilan
 AS
 BEGIN
 	SELECT t.id_trRumah,r.blok,t.tgl_cicilan,t.min_cicilan FROM tr_rumah t
 	JOIN ms_rumah r ON r.id_rumah = t.id_rumah
-	WHERE t.jenis_pembayaran = 'CREDIT' AND t.tgl_pelunasan = NULL
+	WHERE t.jenis_pembayaran = 'CREDIT' AND t.tgl_pelunasan IS NULL
 END
 
 /*

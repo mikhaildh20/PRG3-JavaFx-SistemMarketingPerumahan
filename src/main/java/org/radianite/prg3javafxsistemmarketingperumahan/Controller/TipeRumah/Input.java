@@ -37,12 +37,12 @@ public class Input {
             if (connection.result.next()) {
                 // Mengambil id_tipe terakhir dan menambahkannya untuk mendapatkan id_tipe baru
                 String lastId = connection.result.getString("id_tipe");
-                int newIdNumber = Integer.parseInt(lastId.substring(2)) + 1; // Asumsikan id_tipe memiliki format seperti "TR01"
-                nextIdTipe = "TR" + String.format("%02d", newIdNumber); // Menghasilkan id_tipe baru, misal "TR02"
+                int newIdNumber = Integer.parseInt(lastId.substring(3)) + 1; // Asumsikan id_tipe memiliki format seperti "TR01"
+                nextIdTipe = "TRM" + String.format("%03d", newIdNumber); // Menghasilkan id_tipe baru, misal "TR02"
                 txtIdTipe.setText(nextIdTipe);
             } else {
                 // Jika tidak ada id_tipe di tabel, mulai dari "TR01"
-                nextIdTipe = "TR01";
+                nextIdTipe = "TRM001";
                 txtIdTipe.setText(nextIdTipe);
             }
 
@@ -85,12 +85,12 @@ public class Input {
             if (connection.result.next()) {
                 // Mengambil id_tipe terakhir dan menambahkannya untuk mendapatkan id_tipe baru
                 String lastId = connection.result.getString("id_tipe");
-                int newIdNumber = Integer.parseInt(lastId.substring(2)) + 1; // Asumsikan id_tipe memiliki format seperti "TR01"
-                nextIdTipe = "TR" + String.format("%02d", newIdNumber); // Menghasilkan id_tipe baru, misal "TR02"
+                int newIdNumber = Integer.parseInt(lastId.substring(3)) + 1; // Asumsikan id_tipe memiliki format seperti "TR01"
+                nextIdTipe = "TRM" + String.format("%03d", newIdNumber); // Menghasilkan id_tipe baru, misal "TR02"
                 txtIdTipe.setText(nextIdTipe);
             } else {
                 // Jika tidak ada id_tipe di tabel, mulai dari "TR01"
-                nextIdTipe = "TR01";
+                nextIdTipe = "TRM001";
                 txtIdTipe.setText(nextIdTipe);
             }
 

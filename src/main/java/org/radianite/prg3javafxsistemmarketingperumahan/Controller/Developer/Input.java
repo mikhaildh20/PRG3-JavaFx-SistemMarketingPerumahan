@@ -37,12 +37,12 @@ public class Input {
             if (connection.result.next()) {
                 // Mengambil id_developer terakhir dan menambahkannya untuk mendapatkan id_developer baru
                 String lastId = connection.result.getString("id_developer");
-                int newIdNumber = Integer.parseInt(lastId.substring(1)) + 1; // Asumsikan id_developer memiliki format seperti "D01"
-                nextIdDeveloper = "D" + String.format("%02d", newIdNumber); // Menghasilkan id_developer baru, misal "D02"
+                int newIdNumber = Integer.parseInt(lastId.substring(3)) + 1; // Asumsikan id_developer memiliki format seperti "D01"
+                nextIdDeveloper = "DVL" + String.format("%03d", newIdNumber); // Menghasilkan id_developer baru, misal "D02"
                 txtIdDeveloper.setText(nextIdDeveloper);
             } else {
                 // Jika tidak ada id_developer di tabel, mulai dari "D01"
-                nextIdDeveloper = "D01";
+                nextIdDeveloper = "DVL001";
                 txtIdDeveloper.setText(nextIdDeveloper);
             }
 
@@ -83,12 +83,12 @@ public class Input {
             if (connection.result.next()) {
                 // Mengambil id_developer terakhir dan menambahkannya untuk mendapatkan id_developer baru
                 String lastId = connection.result.getString("id_developer");
-                int newIdNumber = Integer.parseInt(lastId.substring(1)) + 1; // Asumsikan id_developer memiliki format seperti "D01"
-                nextIdDeveloper = "D" + String.format("%02d", newIdNumber); // Menghasilkan id_developer baru, misal "D02"
+                int newIdNumber = Integer.parseInt(lastId.substring(3)) + 1; // Asumsikan id_developer memiliki format seperti "D01"
+                nextIdDeveloper = "DVL" + String.format("%03d", newIdNumber); // Menghasilkan id_developer baru, misal "D02"
                 txtIdDeveloper.setText(nextIdDeveloper);
             } else {
                 // Jika tidak ada id_developer di tabel, mulai dari "D01"
-                nextIdDeveloper = "D01";
+                nextIdDeveloper = "DVL001";
                 txtIdDeveloper.setText(nextIdDeveloper);
             }
 

@@ -142,10 +142,9 @@ public class ViewUpdateDelete implements Initializable {
     private void deleteDataFromDatabase(TipeRumah tipeRumah) {
         try {
             // Membuat prepared statement untuk memanggil stored procedure
-            String query = "{call sp_deleteTipeRumah(?,?)}";
+            String query = "{call sp_deleteTipeRumah(?)}";
             connection.pstat = connection.conn.prepareCall(query);
             connection.pstat.setString(1, tipeRumah.getIdTipe());
-            connection.pstat.setString(2, tipeRumah.getNama());
 
             connection.pstat.executeUpdate();
             connection.pstat.close();
