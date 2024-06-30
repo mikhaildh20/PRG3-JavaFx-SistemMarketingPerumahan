@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.util.StringConverter;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
@@ -49,6 +50,7 @@ public class updatePerumahan extends Library implements Initializable {
                 return null;
             }
         });
+        txtNama.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
     }
 
     public void setDataList(Perumahan data){

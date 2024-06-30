@@ -9,8 +9,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
@@ -185,5 +187,21 @@ public class Library {
     public Double convertStringDouble(String value){
         value = value.replace(".", "");
         return Double.parseDouble(value);
+    }
+
+    protected void handleLetterKey(KeyEvent event) {
+        String character = event.getCharacter();
+        if (!character.matches("[a-zA-Z ]") && !character.equals("\b")) {
+            event.consume(); // Ignore this key event
+        }
+    }
+
+    protected void handleNumberKey(KeyEvent event) {
+        String character = event.getCharacter();
+
+        // Allow only numeric input
+        if (!character.matches("[0-9]")) {
+            event.consume();
+        }
     }
 }

@@ -2,13 +2,15 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Developer;
 
 import java.sql.SQLException;
 
-public class Update {
+public class Update extends Library {
 
     @FXML
     private TextField idDeveloperField; // Ganti dari idRoleField menjadi idDeveloperField
@@ -26,6 +28,7 @@ public class Update {
         this.developer = developer;
         idDeveloperField.setText(developer.getIdDeveloper()); // Ganti dari getIdRole menjadi getIdDeveloper
         namaDeveloperField.setText(developer.getNamaDeveloper()); // Ganti dari getNamaRole menjadi getNamaDeveloper
+        namaDeveloperField.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
     }
 
     @FXML
