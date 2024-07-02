@@ -2,13 +2,15 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.TipeRumah;
 
 import java.sql.SQLException;
 
-public class Update {
+public class Update extends Library {
 
     @FXML
     private TextField idTipeRumahField;
@@ -28,6 +30,7 @@ public class Update {
         idTipeRumahField.setText(tipeRumah.getIdTipe());
         namaField.setText(tipeRumah.getNama());
         // Isi field lainnya sesuai kebutuhan
+        namaField.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
     }
 
     @FXML

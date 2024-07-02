@@ -10,9 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class Cicilan implements Initializable {
@@ -37,6 +35,7 @@ public class Cicilan implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadCicilan();
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colBlok.setCellValueFactory(new PropertyValueFactory<>("blok"));
         colCicilan.setCellValueFactory(new PropertyValueFactory<>("tgl"));

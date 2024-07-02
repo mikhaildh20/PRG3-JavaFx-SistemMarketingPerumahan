@@ -138,10 +138,9 @@ public class ViewUpdateDelete implements Initializable {
 
     private void deleteDataFromDatabase(Developer developer) { // Ganti dari Role menjadi Developer
         try {
-            String query = "{call sp_deleteDeveloper(?, ?)}"; // Ganti dari sp_deleteRole menjadi sp_deleteDeveloper
+            String query = "{call sp_deleteDeveloper(?)}"; // Ganti dari sp_deleteRole menjadi sp_deleteDeveloper
             connection.pstat = connection.conn.prepareCall(query);
             connection.pstat.setString(1, developer.getIdDeveloper()); // Ganti dari getIdRole menjadi getIdDeveloper
-            connection.pstat.setString(2, developer.getNamaDeveloper()); // Ganti dari getNamaRole menjadi getNamaDeveloper
 
             connection.pstat.executeUpdate();
             connection.pstat.close();

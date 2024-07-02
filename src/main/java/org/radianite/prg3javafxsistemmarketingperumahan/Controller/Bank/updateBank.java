@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Bank;
@@ -18,6 +19,9 @@ public class updateBank extends Library implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         txtId.setDisable(true);
+
+        txtNama.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
+        txtBunga.addEventFilter(KeyEvent.KEY_TYPED, super::handleNumberKey);
     }
 
     public void setDataList(Bank data){

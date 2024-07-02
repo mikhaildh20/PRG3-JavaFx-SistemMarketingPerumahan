@@ -2,13 +2,15 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Role;
 
 import java.sql.SQLException;
 
-public class Update {
+public class Update extends Library {
 
     @FXML
     private TextField idRoleField;
@@ -25,6 +27,7 @@ public class Update {
         idRoleField.setText(role.getIdRole()); // Ganti dari getIdTipe menjadi getIdRole
         namaField.setText(role.getNamaRole()); // Ganti dari getNama menjadi getNamaRole
         // Isi field lainnya sesuai kebutuhan
+        namaField.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
     }
 
     @FXML

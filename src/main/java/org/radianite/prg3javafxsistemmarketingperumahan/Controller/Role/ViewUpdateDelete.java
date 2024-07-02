@@ -138,10 +138,9 @@ public class ViewUpdateDelete implements Initializable {
 
     private void deleteDataFromDatabase(Role role) {
         try {
-            String query = "{call sp_deleteRole(?,?)}";
+            String query = "{call sp_deleteRole(?)}";
             connection.pstat = connection.conn.prepareCall(query);
             connection.pstat.setString(1, role.getIdRole());
-            connection.pstat.setString(2, role.getNamaRole());
 
             connection.pstat.executeUpdate();
             connection.pstat.close();
