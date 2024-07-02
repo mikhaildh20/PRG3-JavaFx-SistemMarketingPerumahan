@@ -68,8 +68,10 @@ public class ViewUpdateDelete implements Initializable {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
+                    setStyle("");
                 } else {
-                    setText(item == 1 ? "Tersedia" : "Tidak Tersedia");
+                    setText(item == 1 ? "Available" : "Not Available");
+                    setStyle(item == 1 ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
                 }
             }
         });
@@ -95,7 +97,7 @@ public class ViewUpdateDelete implements Initializable {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/Master/Role/Update.fxml"));
                     Parent parent = loader.load();
 
-                    UpdateRole controller = loader.getController();
+                    Update controller = loader.getController();
                     controller.setRole(role);
 
                     Stage stage = new Stage();

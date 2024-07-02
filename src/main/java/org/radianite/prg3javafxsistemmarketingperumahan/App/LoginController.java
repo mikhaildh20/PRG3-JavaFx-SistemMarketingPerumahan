@@ -19,7 +19,7 @@ import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.MainDashboardC
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Agen.DashbordAgenController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Manager.DashbordManagerController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
-import org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko.updateRuko;
+
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.IOException;
@@ -170,7 +170,7 @@ public class LoginController implements Initializable {
     @FXML
     public void labelloginclick() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/viewRuko.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/View.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
             stage.setTitle("App");

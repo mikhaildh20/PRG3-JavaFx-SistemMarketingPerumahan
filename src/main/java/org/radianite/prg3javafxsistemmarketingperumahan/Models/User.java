@@ -3,12 +3,14 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Models;
 import javafx.scene.image.Image;
 
 public class User {
-    private String usn,pass,idp,idr,name,email,address,gender;
+    private String usn, pass, idp, idr, name, email, address, gender;
     private Integer age;
     private Image foto;
-    private String PName,RName;
+    private String PName, RName;
+    private int status; // Added status attribute
 
-    public User(){}
+    public User() {}
+
     public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age, Image photo) {
         this.usn = usn;
         this.pass = pass;
@@ -22,7 +24,7 @@ public class User {
         this.foto = photo;
     }
 
-    public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age,Image foto, String pName, String rName) {
+    public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age, Image foto, String pName, String rName) {
         this.usn = usn;
         this.pass = pass;
         this.idp = idp;
@@ -35,6 +37,22 @@ public class User {
         this.foto = foto;
         this.PName = pName;
         this.RName = rName;
+    }
+
+    public User(String usn, String pass, String idp, String idr, String name, String email, String address, String gender, Integer age, Image foto, String pName, String rName, int status) {
+        this.usn = usn;
+        this.pass = pass;
+        this.idp = idp;
+        this.idr = idr;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.gender = gender;
+        this.age = age;
+        this.foto = foto;
+        this.PName = pName;
+        this.RName = rName;
+        this.status = status; // Set status value
     }
 
     public String getPName() {
@@ -84,7 +102,16 @@ public class User {
     public Image getFoto() {
         return foto;
     }
+
+    public int getStatus() { // Added getter for status
+        return status;
+    }
+
+    public void setStatus(int status) { // Added setter for status
+        this.status = status;
+    }
+
     public User getAll() {
-        return new User(usn, pass, idp, idr, name, email, address, gender, age, foto, PName, RName);
+        return new User(usn, pass, idp, idr, name, email, address, gender, age, foto, PName, RName, status);
     }
 }

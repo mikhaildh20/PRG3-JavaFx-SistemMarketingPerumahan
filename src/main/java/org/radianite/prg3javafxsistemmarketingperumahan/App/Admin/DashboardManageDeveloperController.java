@@ -50,8 +50,9 @@ public class DashboardManageDeveloperController {
     // Metode inisialisasi yang dipanggil saat controller diinisialisasi
     @FXML
     private void initialize() {
-        startClock(); // Memulai jam saat inisialisasi
-        btnViewClick();
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/View.fxml");
+        btnView.setOpacity(0.0);
+        btnView.setDisable(true);
     }
 
     // Metode untuk membersihkan input nama developer
@@ -63,29 +64,26 @@ public class DashboardManageDeveloperController {
     @FXML
     public void btnAddClick() {
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/Add.fxml");
+        btnView.setOpacity(1.0);
+        btnView.setDisable(false);
+        btnAdd.setDisable(true);
+        btnAdd.setOpacity(0.0);
+
         // Mengganti tampilan pane dengan form tambah developer
     }
 
     // Metode untuk menangani klik tombol "View"
     @FXML
     public void btnViewClick() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/Master/Developer/View.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/View.fxml");
+        btnAdd.setOpacity(1.0);
+        btnAdd.setDisable(false);
+        btnView.setDisable(true);
+        btnView.setOpacity(0.0);
         // Mengganti tampilan pane dengan form lihat developer
     }
 
     // Metode untuk menghapus data developer dari database
-    private void deleteDataFromDatabase(Developer developer) {
-        try {
-            String query = "{call sp_deleteDeveloper(?)}"; // Query untuk menghapus developer
-            connection.pstat = connection.conn.prepareCall(query);
-            connection.pstat.setString(1, developer.getIdDeveloper()); // Mengatur parameter query
-            connection.pstat.executeUpdate(); // Menjalankan query
-            connection.pstat.close(); // Menutup statement
-            System.out.println("Data berhasil dihapus dari database.");
-        } catch (SQLException ex) {
-            System.out.println("Terjadi error saat menghapus data dari database: " + ex);
-        }
-    }
 
     // Metode untuk memulai jam yang menampilkan waktu saat ini
     private void startClock() {

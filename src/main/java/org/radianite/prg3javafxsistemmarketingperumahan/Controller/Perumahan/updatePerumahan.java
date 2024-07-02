@@ -93,7 +93,7 @@ public class updatePerumahan extends Library implements Initializable {
 
     public void onActionUpdate(ActionEvent actionEvent) {
         if (txtNama.getText().isEmpty()){
-/*            fillBox();*/
+            fillBox();
             return;
         }
         try{

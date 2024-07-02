@@ -3,18 +3,19 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Models;
 import javafx.scene.image.Image;
 
 public class Rumah {
-    private String id,idp;
+    private String id, idp;
     private Image foto;
     private String blok;
     private Integer watt;
     private String interior;
-    private Integer bed,rest;
-    private String idt,desc;
+    private Integer bed, rest;
+    private String idt, desc;
     private Double harga;
     private Integer tahun;
-    private String residence,type;
+    private String residence, type;
+    private int status; // Tambahkan atribut status
 
-    public Rumah(String id, String idp, Image foto, String blok, Integer watt, String interior, Integer bed, Integer rest, String idt, String desc, Double harga, Integer tahun, String residence, String type) {
+    public Rumah(String id, String idp, Image foto, String blok, Integer watt, String interior, Integer bed, Integer rest, String idt, String desc, Double harga, Integer tahun, String residence, String type, int status) {
         this.id = id;
         this.idp = idp;
         this.foto = foto;
@@ -29,6 +30,7 @@ public class Rumah {
         this.tahun = tahun;
         this.residence = residence;
         this.type = type;
+        this.status = status; // Set nilai status
     }
 
     public Rumah(String id, String blok, Double harga) {
@@ -91,5 +93,13 @@ public class Rumah {
 
     public String getType() {
         return type;
+    }
+
+    public int getStatus() { // Tambahkan getter untuk status
+        return status;
+    }
+
+    public void setStatus(int status) { // Tambahkan setter untuk status
+        this.status = status;
     }
 }

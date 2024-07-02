@@ -85,12 +85,12 @@ public class Input {
             if (connection.result.next()) {
                 // Mengambil id_role terakhir dan menambahkannya untuk mendapatkan id_role baru
                 String lastId = connection.result.getString("id_role");
-                int newIdNumber = Integer.parseInt(lastId.substring(3)) + 1; // Asumsikan id_role memiliki format seperti "R01"
-                nextIdRole = "RLE" + String.format("%03d", newIdNumber); // Menghasilkan id_role baru, misal "R02"
+                int newIdNumber = Integer.parseInt(lastId.substring(2)) + 1; // Asumsikan id_role memiliki format seperti "R01"
+                nextIdRole = "R" + String.format("%02d", newIdNumber); // Menghasilkan id_role baru, misal "R02"
                 txtIdRole.setText(nextIdRole);
             } else {
                 // Jika tidak ada id_role di tabel, mulai dari "R01"
-                nextIdRole = "RLE001";
+                nextIdRole = "R01";
                 txtIdRole.setText(nextIdRole);
             }
 

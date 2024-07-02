@@ -68,13 +68,10 @@ public class ViewUpdateDelete implements Initializable {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
+                    setStyle("");
                 } else {
-                    setText(item == 1 ? "Tersedia" : "Tidak Tersedia");
-                    if (item == 1) {
-                        setStyle(" -fx-text-fill: green; -fx-font-weight: bold;");
-                    } else if (item == 0) {
-                        setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
-                    }
+                    setText(item == 1 ? "Available" : "Not Available");
+                    setStyle(item == 1 ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
                 }
             }
         });
@@ -116,11 +113,11 @@ public class ViewUpdateDelete implements Initializable {
 
             deleteButton.setOnAction(event -> {
                 Developer developer = getTableView().getItems().get(getIndex());
-                deleteDataFromDatabase(developer);
+                deleteDataFromDatabase(developer); // Ganti dari role menjadi developer
                 loaddata();
             });
 
-            HBox hbox = new HBox(0);
+            HBox hbox = new HBox(5);
             hbox.getChildren().addAll(editButton, deleteButton);
             setGraphic(hbox);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -134,7 +131,7 @@ public class ViewUpdateDelete implements Initializable {
                 setGraphic(null);
             } else {
                 // Menampilkan tombol edit dan delete pada setiap baris tabel
-                setGraphic(new HBox(0, editButton, deleteButton));
+                setGraphic(new HBox(5, editButton, deleteButton));
             }
         }
     }

@@ -17,9 +17,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
-import org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role.UpdateRole;
-import org.radianite.prg3javafxsistemmarketingperumahan.Models.Role;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.IOException;
@@ -45,14 +42,14 @@ public class DashboardManageHouseController {
 
     @FXML
     public void btnAddClick() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Rumah/Input.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Rumah/InputRumah.fxml");
         // Mengganti tampilan pane dengan form tambah developer
     }
 
     // Metode untuk menangani klik tombol "View"
     @FXML
     public void btnViewClick() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Rumah/View.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Rumah/ViewRumah.fxml");
         // Mengganti tampilan pane dengan form lihat developer
     }
 

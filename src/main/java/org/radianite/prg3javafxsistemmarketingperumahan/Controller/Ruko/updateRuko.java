@@ -103,7 +103,7 @@ public class updateRuko extends Library implements Initializable {
     public void onActionUpdate(ActionEvent actionEvent) {
         if (isEmpty())
         {
-/*            fillBox();*/
+            fillBox();
             return;
         }
         try{

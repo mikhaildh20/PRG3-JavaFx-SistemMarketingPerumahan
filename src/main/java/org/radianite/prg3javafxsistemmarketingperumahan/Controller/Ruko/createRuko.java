@@ -92,7 +92,7 @@ public class createRuko extends Library implements Initializable {
 
     public void onActionSave(ActionEvent actionEvent) {
         if (isEmpty()){
-/*            fillBox();*/
+            fillBox();
             return;
         }
         try{

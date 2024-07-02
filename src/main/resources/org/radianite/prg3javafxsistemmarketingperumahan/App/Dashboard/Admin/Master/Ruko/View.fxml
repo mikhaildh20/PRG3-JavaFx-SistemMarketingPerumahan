@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="612.0" prefWidth="1404.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko.viewRuko">
+   <children>
+      <TableView fx:id="tableView" prefHeight="612.0" prefWidth="1404.0" stylesheets="@../../../../Css/Button.css">
+        <columns>
+          <TableColumn fx:id="colId" prefWidth="147.0" text="ID" />
+          <TableColumn fx:id="colResidence" prefWidth="285.0" text="Residence" />
+            <TableColumn fx:id="colPhoto" prefWidth="262.0" text="Photo" />
+            <TableColumn fx:id="colBlok" prefWidth="193.0" text="Blok" />
+            <TableColumn fx:id="colRent" prefWidth="181.0" text="Rent Fee" />
+        <TableColumn fx:id="colStatus" prefWidth="163.0" text="Status" />
+            <TableColumn fx:id="colAction" prefWidth="172.0" text="Action" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -1,5 +1,6 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,9 +36,11 @@ public class viewRuko extends Library implements Initializable {
     @FXML
     private TableColumn<Ruko, Image> colPhoto;
     @FXML
-    private TableColumn<Ruko,Double> colRent;
+    private TableColumn<Ruko, Double> colRent;
     @FXML
-    private TableColumn<Ruko,Void> colAction;
+    private TableColumn<Ruko, String> colStatus; // Changed to String
+    @FXML
+    private TableColumn<Ruko, Void> colAction;
     private ObservableList<Ruko> listRuko = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,6 +66,24 @@ public class viewRuko extends Library implements Initializable {
         });
         colBlok.setCellValueFactory(new PropertyValueFactory<>("blok"));
         colRent.setCellValueFactory(new PropertyValueFactory<>("rent"));
+        colStatus.setCellValueFactory(cellData -> {
+            int status = cellData.getValue().getStatus();
+            return new SimpleStringProperty(status == 1 ? "Available" : "Not Available"); // Changed to display "Available" or "Not Available"
+        });
+
+        colStatus.setCellFactory(column -> new TableCell<Ruko, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    setStyle(item.equals("Available") ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
+                }
+            }
+        });
         colAction.setCellFactory(param->new TableCell<>(){
             private final Button btnUpdate = new Button("Update");
             private final Button btnDelete = new Button("Delete");
@@ -100,17 +121,16 @@ public class viewRuko extends Library implements Initializable {
             String query = "EXEC sp_viewRuko";
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next()){
-                if (connect.result.getInt("status") == 1){
-                    listRuko.add(new Ruko(connect.result.getString("id_ruko"),
-                            connect.result.getString("id_perumahan"),
-                            convertToImage(connect.result.getBytes("foto_ruko")),
-                            connect.result.getString("blok"),
-                            connect.result.getInt("daya_listrik"),
-                            connect.result.getInt("jml_kmr_mdn"),
-                            connect.result.getString("descrption"),
-                            connect.result.getDouble("harga_sewa"),
-                            connect.result.getString("nama_perumahan")));
-                }
+                listRuko.add(new Ruko(connect.result.getString("id_ruko"),
+                        connect.result.getString("id_perumahan"),
+                        convertToImage(connect.result.getBytes("foto_ruko")),
+                        connect.result.getString("blok"),
+                        connect.result.getInt("daya_listrik"),
+                        connect.result.getInt("jml_kmr_mdn"),
+                        connect.result.getString("descrption"),
+                        connect.result.getDouble("harga_sewa"),
+                        connect.result.getString("nama_perumahan"),
+                        connect.result.getInt("status"))); // Added status
             }
             connect.stat.close();
             connect.result.close();
