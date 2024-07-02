@@ -1,5 +1,7 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,12 +18,15 @@ import java.util.ResourceBundle;
 public class updateBank extends Library implements Initializable {
     @FXML
     private TextField txtId,txtNama,txtBunga;
+    private ObservableList<Bank> listBank = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         txtId.setDisable(true);
 
         txtNama.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
         txtBunga.addEventFilter(KeyEvent.KEY_TYPED, super::handleNumberKey);
+
+        loadData();
     }
 
     public void setDataList(Bank data){
@@ -45,6 +50,15 @@ public class updateBank extends Library implements Initializable {
             fillBox();
             return;
         }
+
+        for (int i=0;i<listBank.size();i++)
+        {
+            if (txtNama.getText().equals(listBank.get(i).getName()) && !txtId.getText().equals(listBank.get(i).getId())){
+                errorBox();
+                return;
+            }
+        }
+
         try{
             Database connect = new Database();
             String query = "EXEC sp_updateBank ?,?,?";
@@ -56,6 +70,32 @@ public class updateBank extends Library implements Initializable {
             successBox();
             loadPage(actionEvent,"viewBank");
         }catch (SQLException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }
+    }
+
+    public void loadData()
+    {
+        listBank.clear();
+        try{
+            Database connect = new Database();
+            connect.stat = connect.conn.createStatement();
+            String query = "SELECT * FROM ms_bank";
+            connect.result = connect.stat.executeQuery(query);
+            while (connect.result.next())
+            {
+                if (connect.result.getInt("status") == 1){
+                    listBank.add(new Bank(
+                            connect.result.getString("id_bank"),
+                            connect.result.getString("nama_bank"),
+                            connect.result.getInt("suku_bunga")
+                    ));
+                }
+            }
+            connect.result.close();
+            connect.stat.close();
+        }catch (SQLException ex)
+        {
             System.out.println("Error: "+ex.getMessage());
         }
     }

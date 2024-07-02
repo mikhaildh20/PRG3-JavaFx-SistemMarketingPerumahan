@@ -1,5 +1,7 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Developer;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,17 +30,54 @@ public class Input extends Library {
     String idDeveloper, namaDeveloper;
     int status;
     Database connection = new Database();
+    private ObservableList<Developer> developerList = FXCollections.observableArrayList();
+
+    public void loadData()
+    {
+        try {
+            connection.stat = connection.conn.createStatement();
+            String query = "SELECT * FROM ms_developer"; // Ganti dari ms_role menjadi ms_developer
+            connection.result = connection.stat.executeQuery(query);
+
+            while (connection.result.next()) {
+                developerList.add(new Developer(connection.result.getString("id_developer"), // Ganti dari id_role menjadi id_developer
+                        connection.result.getString("nama_developer"), // Ganti dari nama_role menjadi nama_developer
+                        connection.result.getInt("status")));
+            }
+            connection.stat.close();
+            connection.result.close();
+        } catch (Exception ex) {
+            System.out.println("Terjadi error saat load data: " + ex);
+        }
+    }
 
     @FXML
     public void initialize() {
         txtIdDeveloper.setText(generateID("ms_developer","DVL","id_developer"));
         txtNamaDeveloper.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
+
+        loadData();
     }
 
     @FXML
     protected void onBtnSimpanClick() {
         idDeveloper = txtIdDeveloper.getText();
         namaDeveloper = txtNamaDeveloper.getText();
+
+        if (txtNamaDeveloper.getText().isEmpty())
+        {
+            fillBox();
+            return;
+        }
+
+        for (int i=0;i<developerList.size();i++)
+        {
+            if (txtNamaDeveloper.getText().equals(developerList.get(i).getNamaDeveloper()))
+            {
+                errorBox();
+                return;
+            }
+        }
 
         try {
             // Menggunakan stored procedure sp_inputDeveloper
