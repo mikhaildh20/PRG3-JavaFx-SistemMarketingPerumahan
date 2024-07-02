@@ -6,21 +6,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageDeveloperController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.MainDashboardController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Agen.DashbordAgenController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Manager.DashbordManagerController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -49,13 +52,32 @@ public class LoginController implements Initializable {
     @FXML
     private TextField usernameField;
     @FXML
-    private TextField passwordField;
-
+    private PasswordField passwordField;
+    @FXML
+    private TextField txtpasShow;
+    ArrayList<User> userList = new ArrayList<>();
     private Database connection = new Database();
+    @FXML
+    private CheckBox ChechShow;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         animasiLogin();
+        txtpasShow.textProperty().bindBidirectional(passwordField.textProperty());
+
+        ChechShow.setOnAction(event -> {
+            if (ChechShow.isSelected()) {
+                txtpasShow.setVisible(true);
+                txtpasShow.setManaged(true);
+                passwordField.setVisible(false);
+                passwordField.setManaged(false);
+            } else {
+                txtpasShow.setVisible(false);
+                txtpasShow.setManaged(false);
+                passwordField.setVisible(true);
+                passwordField.setManaged(true);
+            }
+        });
     }
 
     private void animasiLogin() {
@@ -148,7 +170,7 @@ public class LoginController implements Initializable {
     @FXML
     public void labelloginclick() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/viewRuko.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/View.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
             stage.setTitle("App");
@@ -165,8 +187,6 @@ public class LoginController implements Initializable {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String query = "SELECT * FROM ms_user WHERE username = ?  AND password = ?";
-
-        ArrayList<User> userList = new ArrayList<>();
 
         try {
             // Menggunakan PreparedStatement untuk mencegah SQL injection
@@ -187,6 +207,10 @@ public class LoginController implements Initializable {
                 String idr = "";
                 // Iterasi melalui result set dan menambahkan data ke ArrayList
                 while (connection.result.next()) {
+                    InputStream inputStream = connection.result.getBinaryStream("photo");
+                    ImageView imageView = null;
+                    // Buat Image dari InputStream dan masukkan ke ImageView
+                    Image image = new Image(inputStream);
                     String usn = connection.result.getString("username");
                     String pass = connection.result.getString("password");
                     String idp = connection.result.getString("id_perumahan");
@@ -197,7 +221,7 @@ public class LoginController implements Initializable {
                     String gender = connection.result.getString("jenis_kelamin");
                     int age = connection.result.getInt("umur");
 
-                    userList.add(new User(usn, pass, idp, idr, name, email, address, gender, age));
+                    userList.add(new User(usn, pass, idp, idr, name, email, address, gender, age, image));
                 }
 
                 String queryRole = "SELECT nama_role FROM ms_role WHERE id_role = ?";
@@ -210,23 +234,25 @@ public class LoginController implements Initializable {
                 // Mengatur tahap berikutnya setelah menyimpan data di ArrayList
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/" + roleName + "/Dasbord.fxml"));
+
                     Parent root = fxmlLoader.load();
 
                     // Mengirim data user ke controller berdasarkan role
                     if (roleName.equals("Admin")) {
                         DashbordAdminController controller = fxmlLoader.getController();
-                        controller.setUsersAdmin(userList);
+                        controller.setDataList(userList.get(0));
                     } else if (roleName.equals("Manager")) {
                         DashbordManagerController controller = fxmlLoader.getController();
-                        controller.setUsersManager(userList);
+                        controller.setDataList(userList.get(0));
                     } else if (roleName.equals("Agen")) {
                         DashbordAgenController controller = fxmlLoader.getController();
-                        controller.setUsersAgen(userList);
+                        controller.setDataList(userList.get(0));
                     }
 
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setTitle("App");
+                    stage.setFullScreen(true);
                     stage.setScene(scene);
                     stage.show();
 
@@ -255,4 +281,6 @@ public class LoginController implements Initializable {
             }
         }
     }
+
+
 }

@@ -3,8 +3,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="1200.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController">
    <children>
@@ -12,74 +10,55 @@
          <children>
             <ImageView fitHeight="304.0" fitWidth="280.0" layoutX="38.0" layoutY="-27.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@model3%203.png" />
+                  <Image url="@../../Resource/Dasboard/model3%203.png" />
                </image>
             </ImageView>
-            <AnchorPane fx:id="btnDashboard" layoutX="43.0" layoutY="217.0" onMouseClicked="#btnDashboardclick" prefHeight="63.05" prefWidth="268.73" style="-fx-background-color: #EEEEEE; -fx-background-radius: 10;">
+            <AnchorPane fx:id="btnDashboard" layoutX="43.0" layoutY="217.0" onMouseClicked="#btnDashboardclick" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
-                  <Text fill="#050c9c" layoutX="90.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard" wrappingWidth="125.15542602539062">
-                     <font>
-                        <Font name="System Bold" size="20.0" />
-                     </font>
-                  </Text>
+                  <ImageView fx:id="Button12" fitHeight="42.0" fitWidth="180.0" layoutX="28.0" layoutY="16.0" onMouseClicked="#btnDeveloperclick" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Resource/Dasboard/Group%2056.png" />
+                     </image>
+                  </ImageView>
                </children></AnchorPane>
-            <ImageView fitHeight="32.23" fitWidth="29.19" layoutX="73.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Vector.png" />
-               </image>
-            </ImageView>
-            <AnchorPane fx:id="btnHouse" layoutX="42.0" layoutY="292.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;">
+            <AnchorPane fx:id="btnDeveloper" layoutX="50.0" layoutY="331.0" onMouseClicked="#btnDeveloperclick" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
-                  <ImageView fx:id="Button11" fitHeight="41.0" fitWidth="44.0" layoutX="26.0" layoutY="12.0" onMouseClicked="#button1Clicked" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="Button1" fitHeight="56.0" fitWidth="251.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#btnDeveloperclick" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Frame-2.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="Button1" fitHeight="26.6" fitWidth="126.34" layoutX="102.0" layoutY="19.0" onMouseClicked="#button1Clicked" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Group%2027.png" />
+                        <Image url="@../../Resource/AdminDashboard/Group%2028.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="btnShophouse" layoutX="42.0" layoutY="357.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;">
+            <AnchorPane fx:id="btnHousingArea" layoutX="54.0" layoutY="442.0" onMouseClicked="#btnHousingAreaClick" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
-                  <ImageView fx:id="Button12" fitHeight="118.61" fitWidth="118.61" layoutX="104.0" layoutY="22.0" onMouseClicked="#button1Clicked" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="Button11" fitHeight="54.0" fitWidth="259.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Shophouse.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="Button111" fitHeight="41.0" fitWidth="44.0" layoutX="26.0" layoutY="12.0" onMouseClicked="#button1Clicked" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Frame.png" />
+                        <Image url="@../../Resource/AdminDashboard/Group%2025.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="btnplot" layoutX="42.0" layoutY="428.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;">
+            <AnchorPane fx:id="btnRole" layoutX="45.0" layoutY="571.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
-                  <ImageView fx:id="Button1111" fitHeight="41.0" fitWidth="44.0" layoutX="26.0" layoutY="12.0" onMouseClicked="#button1Clicked" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="Button111" fitHeight="36.0" fitWidth="119.0" layoutX="28.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Frame-1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fx:id="Button121" fitHeight="26.6" fitWidth="42.63" layoutX="111.0" layoutY="19.0" onMouseClicked="#button1Clicked" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Group%2029.png" />
+                        <Image url="@../../Resource/Dasboard/Group%2030-1.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="btnsignout" layoutX="40.0" layoutY="1017.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;">
+            <AnchorPane fx:id="btnsignout" layoutX="40.0" layoutY="1017.0" onMouseClicked="#btnlogout" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
-                  <ImageView fx:id="Button11111" fitHeight="41.0" fitWidth="44.0" layoutX="26.0" layoutY="12.0" onMouseClicked="#button1Clicked" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="Button11111" fitHeight="41.0" fitWidth="44.0" layoutX="26.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Logout.png" />
+                        <Image url="@../../Resource/Dasboard/Logout.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="Button1211" fitHeight="39.0" fitWidth="82.0" layoutX="104.0" layoutY="22.0" onMouseClicked="#button1Clicked" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="Button1211" fitHeight="39.0" fitWidth="82.0" layoutX="104.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Sign%20out.png" />
+                        <Image url="@../../Resource/Dasboard/Signout.png" />
+
                      </image>
                   </ImageView>
                </children>

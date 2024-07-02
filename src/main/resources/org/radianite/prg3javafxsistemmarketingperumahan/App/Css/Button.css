@@ -1,0 +1,153 @@
+.buttonLogin-on {
+    -fx-background-color: #00a9ff;
+    -fx-text-fill: white;
+}
+
+.buttonLogin-on:hover {
+    -fx-background-color:#050C9C;
+    -fx-text-fill: white;
+}
+
+.buttonDashboard-on {
+    -fx-background-color: #8F9AD9;
+
+}
+
+.buttonDashboard-off:hover {
+    -fx-background-color:#8F9AD9;
+
+}
+
+.buttonDashboard-off {
+    -fx-background-color:  #050C9C;
+}
+
+.textLogin {
+
+/*    -fx-fill: #00a9ff; ;*/
+    -fx-text-fill: #00a9ff;
+}
+
+.textLoginHover :hover {
+/*    -fx-fill: #050C9C;*/
+    -fx-text-fill: #050C9C;
+
+}
+
+.button-gradient {
+    -fx-background-color: linear-gradient(to right, #ff7e5f, #feb47b);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-transition: background-color 0.5s ease;
+}
+
+.button-gradient:hover {
+    -fx-background-color: linear-gradient(to right, #feb47b, #ff7e5f);
+}
+
+.table-view .column-header-background .label {
+    -fx-text-fill: white; /* Warna teks */
+    -fx-font: 36px Montserrat; /* Gaya font */
+    -fx-font-weight: bold; /* Gaya font tebal */
+    -fx-background-color: #3573EF; /* Warna latar belakang */
+}
+
+/* CSS file: styles.css */
+
+/* Styling for TabPane */
+.tab-pane {
+    -fx-tab-min-width: 100px; /* Minimum width of each tab */
+    -fx-tab-max-width: 200px; /* Maximum width of each tab */
+    -fx-tab-min-height: 40px; /* Minimum height of each tab */
+    -fx-tab-max-height: 40px; /* Maximum height of each tab */
+    -fx-background-color: #f0f0f0; /* Background color of TabPane */
+    -fx-border-color: #dcdcdc; /* Border color of TabPane */
+    -fx-border-width: 1px; /* Border width of TabPane */
+}
+
+/* Styling for Tab */
+.tab-pane .tab {
+    -fx-background-color: #ffffff; /* Background color of inactive tabs */
+    -fx-border-color: transparent; /* Border color of inactive tabs */
+    -fx-padding: 10px; /* Padding for tabs */
+}
+
+/* Styling for Tab header area */
+.tab-pane .tab-header-area {
+    -fx-background-color: #e0e0e0; /* Background color of the tab header area */
+}
+
+/* Styling for selected Tab */
+.tab-pane .tab:selected {
+    -fx-background-color: #0078d7; /* Background color of selected tab */
+    -fx-text-fill: #ffffff; /* Text color of selected tab */
+}
+
+/* Styling for Tab label */
+.tab-pane .tab-label {
+    -fx-font-size: 14px; /* Font size for tab label */
+    -fx-font-weight: bold; /* Font weight for tab label */
+}
+
+/* Styling for Tab close button */
+.tab-pane .tab-close-button {
+    -fx-background-color: transparent; /* Background color of close button */
+    -fx-text-fill: #ff0000; /* Text color of close button */
+    -fx-font-size: 12px; /* Font size for close button */
+}
+
+/* Styling for Tab content area */
+.tab-pane .tab-content-area {
+    -fx-padding: 20px; /* Padding for content area */
+    -fx-background-color: #ffffff; /* Background color of content area */
+    -fx-border-color: #dcdcdc; /* Border color of content area */
+    -fx-border-width: 1px; /* Border width of content area */
+}
+
+/* Mengatur warna latar belakang baris */
+.table-row-cell:odd {
+    -fx-background-color: #f2f2f2; /* Warna latar belakang untuk baris ganjil */
+}
+
+.table-row-cell:even {
+    -fx-background-color: #ffffff; /* Warna latar belakang untuk baris genap */
+}
+
+/* Mengatur warna teks dan membuat teks berada di tengah */
+.table-cell {
+    -fx-alignment: CENTER; /* Menempatkan teks di tengah */
+    -fx-font-family: "Arial"; /* Mengatur font */
+    -fx-font-size: 14px; /* Mengatur ukuran font */
+    -fx-text-fill: #333333; /* Warna teks */
+}
+
+/* Mengatur warna header */
+.table-view .column-header-background {
+    -fx-background-color: #0078d7; /* Warna latar belakang header */
+}
+
+.table-view .column-header .label {
+    -fx-font-family: "Montserrat SemiBold";
+    -fx-font-size: 14px;
+    -fx-text-fill: white; /* Warna teks header */
+    -fx-alignment: CENTER; /* Menempatkan teks header di tengah */
+}
+
+/* Mengatur warna latar belakang dan teks tombol */
+.button {
+    -fx-background-color: #0078d7; /* Warna latar belakang tombol */
+    -fx-text-fill: white; /* Warna teks tombol */
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER;
+}
+
+.button:hover {
+    -fx-background-color: #005bb5; /* Warna latar belakang tombol saat hover */
+}
+
+
+

@@ -8,17 +8,13 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 import java.util.List;
 
 public class DashbordManagerController {
-    private List<User> users;
+    private List<User> userList;
 
     @FXML
     private Text texttest; // Label di FXML untuk menampilkan nama pengguna
 
-    public void setUsersManager(List<User> users) {
-        this.users = users;
-        this.users = users;
-        if (users != null && !users.isEmpty()) {
-            texttest.setText(users.get(0).getName()+" (Manager)"); // Misal menampilkan nama user pertama
-        }
+    public void setDataList(User data){
+        userList.add(data);
     }
 
     @FXML

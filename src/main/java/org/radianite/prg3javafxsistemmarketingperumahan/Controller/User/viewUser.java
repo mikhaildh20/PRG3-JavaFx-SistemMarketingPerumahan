@@ -1,5 +1,6 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.User;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,12 +28,15 @@ import java.util.ResourceBundle;
 
 public class viewUser extends Library implements Initializable {
     @FXML
-    private TableView tableView;
+    private TableView<User> tableView;
     @FXML
-    private TableColumn<User,String> colUsn,colResidence,colRole,colName,colEmail;
+    private TableColumn<User, String> colUsn, colResidence, colRole, colName, colEmail;
+    @FXML
+    private TableColumn<User, String> colStatus; // Ubah tipe data kolom status menjadi String
     @FXML
     private TableColumn<User, Void> colAction;
     private ObservableList<User> listUser = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadData();
@@ -41,6 +45,24 @@ public class viewUser extends Library implements Initializable {
         colRole.setCellValueFactory(new PropertyValueFactory<>("rName"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colStatus.setCellValueFactory(cellData -> {
+            int status = cellData.getValue().getStatus();
+            return new SimpleStringProperty(status == 1 ? "Available" : "Not Available"); // Ubah status menjadi teks
+        });
+
+        colStatus.setCellFactory(column -> new TableCell<User, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    setStyle(item.equals("Available") ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
+                }
+            }
+        });
         colAction.setCellFactory(param->new TableCell<>(){
             private final Button btnUpdate = new Button("Update");
             private final Button btnDelete = new Button("Delete");
@@ -78,20 +100,20 @@ public class viewUser extends Library implements Initializable {
             String query = "EXEC sp_viewUser";
             connect.result = connect.stat.executeQuery(query);
             while(connect.result.next()){
-                if (connect.result.getInt("status") == 1){
-                    listUser.add(new User(connect.result.getString("username"),
-                            connect.result.getString("password"),
-                            connect.result.getString("id_perumahan"),
-                            connect.result.getString("id_role"),
-                            connect.result.getString("nama_lengkap"),
-                            connect.result.getString("email"),
-                            connect.result.getString("alamat"),
-                            connect.result.getString("jenis_kelamin"),
-                            connect.result.getInt("umur"),
-                            convertToImage(connect.result.getBytes("photo")),
-                            connect.result.getString("nama_perumahan"),
-                            connect.result.getString("nama_role")));
-                }
+                listUser.add(new User(connect.result.getString("username"),
+                        connect.result.getString("password"),
+                        connect.result.getString("id_perumahan"),
+                        connect.result.getString("id_role"),
+                        connect.result.getString("nama_lengkap"),
+                        connect.result.getString("email"),
+                        connect.result.getString("alamat"),
+                        connect.result.getString("jenis_kelamin"),
+                        connect.result.getInt("umur"),
+                        convertToImage(connect.result.getBytes("photo")),
+                        connect.result.getString("nama_perumahan"),
+                        connect.result.getString("nama_role"),
+                        connect.result.getInt("status") // Tambahkan status
+                ));
             }
             connect.result.close();
             connect.stat.close();

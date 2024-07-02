@@ -1,5 +1,6 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,9 +29,11 @@ public class viewBank extends Library implements Initializable {
     @FXML
     private TableView<Bank> tableView;
     @FXML
-    private TableColumn<Bank, String> colId,colBank;
+    private TableColumn<Bank, String> colId, colBank;
     @FXML
-    private TableColumn<Bank,Integer> colBunga;
+    private TableColumn<Bank, Integer> colBunga;
+    @FXML
+    private TableColumn<Bank, String> colStatus; // Changed data type to String
     @FXML
     private TableColumn<Bank, Void> colAction;
 
@@ -41,6 +44,10 @@ public class viewBank extends Library implements Initializable {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colBank.setCellValueFactory(new PropertyValueFactory<>("name"));
         colBunga.setCellValueFactory(new PropertyValueFactory<>("bunga"));
+        colStatus.setCellValueFactory(cellData -> {
+            int status = cellData.getValue().getStatus();
+            return new SimpleStringProperty(status == 1 ? "Available" : "Not Available"); // Changed status to text
+        });
         colAction.setCellFactory(param->new TableCell<>(){
             private final Button btnUpdate = new Button("Update");
             private final Button btnDelete = new Button("Delete");
@@ -80,13 +87,12 @@ public class viewBank extends Library implements Initializable {
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next())
             {
-                if (connect.result.getInt("status") == 1){
-                    listBank.add(new Bank(
-                            connect.result.getString("id_bank"),
-                            connect.result.getString("nama_bank"),
-                            connect.result.getInt("suku_bunga")
-                    ));
-                }
+                listBank.add(new Bank(
+                        connect.result.getString("id_bank"),
+                        connect.result.getString("nama_bank"),
+                        connect.result.getInt("suku_bunga"),
+                        connect.result.getInt("status") // Added status
+                ));
             }
             connect.result.close();
             connect.stat.close();

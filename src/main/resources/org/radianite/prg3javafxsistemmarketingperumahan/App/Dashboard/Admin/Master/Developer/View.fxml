@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="612.0" prefWidth="1404.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer.ViewUpdateDelete">
+   <children>
+      <TableView fx:id="tableDeveloper" layoutY="37.0" prefHeight="575.0" prefWidth="1403.0" stylesheets="@../../../../Css/Button.css">
+         <columns>
+            <TableColumn fx:id="idDeveloper" prefWidth="237.6666717529297" text="ID Developer" /> <!-- Ganti ID Role menjadi ID Developer -->
+            <TableColumn fx:id="namaDeveloper" prefWidth="598.6666870117188" text="Nama Developer" /> <!-- Ganti Nama menjadi Nama Developer -->
+            <TableColumn fx:id="status" prefWidth="357.33331298828125" text="Status" />
+            <TableColumn fx:id="actionCol" prefWidth="210.33331298828125" text="Action" />
+         </columns>
+      </TableView>
+      <TextField layoutX="1187.0" layoutY="-1.0" prefHeight="30.0" prefWidth="213.0" promptText="Search" />
+   </children>
+</AnchorPane>

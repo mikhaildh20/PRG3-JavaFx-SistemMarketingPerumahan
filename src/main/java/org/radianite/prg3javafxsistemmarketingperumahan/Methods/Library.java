@@ -32,6 +32,7 @@ import java.text.ParseException;
 import java.util.Locale;
 
 public class Library {
+    private String query,imported,base;
     public Library(){
 
     }

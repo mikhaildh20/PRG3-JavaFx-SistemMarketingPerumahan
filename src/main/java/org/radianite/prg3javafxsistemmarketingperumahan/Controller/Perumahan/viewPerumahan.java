@@ -1,5 +1,6 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Perumahan;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,16 +32,37 @@ public class viewPerumahan extends Library implements Initializable {
     @FXML
     private TableView tableView;
     @FXML
-    private TableColumn<Perumahan,String> colId,colDeveloper,colResidence;
+    private TableColumn<Perumahan, String> colId, colDeveloper, colResidence;
     @FXML
-    private TableColumn<Perumahan,Void> colAction;
+    private TableColumn<Perumahan, String> colStatus; // Changed to String type
+    @FXML
+    private TableColumn<Perumahan, Void> colAction;
     private ObservableList<Perumahan> listResidence = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadData();
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colDeveloper.setCellValueFactory(new PropertyValueFactory<>("namadev"));
         colResidence.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colStatus.setCellValueFactory(cellData -> {
+            int status = cellData.getValue().getStatus();
+            return new SimpleStringProperty(status == 1 ? "Available" : "Not Available"); // Changed to display "Available" or "Not Available"
+        });
+
+        colStatus.setCellFactory(column -> new TableCell<Perumahan, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setStyle("");
+                } else {
+                    setText(item);
+                    setStyle(item.equals("Available") ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
+                }
+            }
+        });
         colAction.setCellFactory(param->new TableCell<>(){
             private final Button btnUpdate = new Button("Update");
             private final Button btnDelete = new Button("Delete");
@@ -78,12 +100,11 @@ public class viewPerumahan extends Library implements Initializable {
             String query = "EXEC sp_viewPerumahan";
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next()){
-                if (connect.result.getInt("status") == 1){
-                    listResidence.add(new Perumahan(connect.result.getString("id_perumahan"),
-                            connect.result.getString("id_developer"),
-                            connect.result.getString("nama_perumahan"),
-                            connect.result.getString("nama_developer")));
-                }
+                listResidence.add(new Perumahan(connect.result.getString("id_perumahan"),
+                        connect.result.getString("id_developer"),
+                        connect.result.getString("nama_perumahan"),
+                        connect.result.getString("nama_developer"),
+                        connect.result.getInt("status"))); // Added status
             }
             connect.stat.close();
             connect.result.close();
