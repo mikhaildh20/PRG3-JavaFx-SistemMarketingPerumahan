@@ -12,6 +12,7 @@ import javafx.util.StringConverter;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Developers;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Perumahan;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ public class createPerumahan extends Library implements Initializable {
     @FXML
     private ComboBox<Developers> cbDeveloper;
     private ObservableList<Developers> listDev = FXCollections.observableArrayList();
+    private ObservableList<Perumahan> listResidence = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadDev();
@@ -75,6 +77,27 @@ public class createPerumahan extends Library implements Initializable {
         cbDeveloper.setItems(listDev);
     }
 
+    public void loadData(){
+        listResidence.clear();
+        try{
+            Database connect = new Database();
+            connect.stat = connect.conn.createStatement();
+            String query = "EXEC sp_viewPerumahan";
+            connect.result = connect.stat.executeQuery(query);
+            while (connect.result.next()){
+                listResidence.add(new Perumahan(connect.result.getString("id_perumahan"),
+                        connect.result.getString("id_developer"),
+                        connect.result.getString("nama_perumahan"),
+                        connect.result.getString("nama_developer"),
+                        connect.result.getInt("status"))); // Added status
+            }
+            connect.stat.close();
+            connect.result.close();
+        }catch (SQLException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }
+    }
+
     public void clear(){
         txtId.setText("");
         txtNama.setText("");
@@ -85,6 +108,16 @@ public class createPerumahan extends Library implements Initializable {
             fillBox();
             return;
         }
+
+        for (int i=0;i<listResidence.size();i++)
+        {
+            if (txtNama.getText().equals(listResidence.get(i).getName()) && !txtId.getText().equals(listResidence.get(i).getId()))
+            {
+                errorBox();
+                return;
+            }
+        }
+
         try{
             Database connect = new Database();
             String query = "EXEC sp_inputPerumahan ?,?,?";
