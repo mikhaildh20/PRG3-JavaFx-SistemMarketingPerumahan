@@ -55,7 +55,7 @@ public class updatePerumahan extends Library implements Initializable {
 
     public void setDataList(Perumahan data){
         txtId.setText(data.getId());
-        setDSelectedCbBox(data.getIdv());
+        setDSelectedCbBox(data.getId());
         txtNama.setText(data.getName());
     }
 

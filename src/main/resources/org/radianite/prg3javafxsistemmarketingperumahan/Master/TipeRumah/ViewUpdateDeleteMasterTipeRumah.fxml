@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah.ViewUpdateDelete">
+    <TableView fx:id="tableTipeRumah" prefHeight="400.0" prefWidth="729.0" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idTipe" text="ID Tipe" />
+            <TableColumn fx:id="nama" text="Nama" />
+            <TableColumn fx:id="status" text="Status" />
+            <TableColumn fx:id="actionCol" text="Action" />
+        </columns>
+    </TableView>
+</VBox>

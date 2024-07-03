@@ -3,17 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer.ViewUpdateDelete">
-    <children>
-        <VBox prefHeight="400.0" prefWidth="801.0">
-            <TableView fx:id="tableDeveloper" prefHeight="400.0" prefWidth="729.0" VBox.vgrow="ALWAYS">
-                <columns>
-                    <TableColumn fx:id="idDeveloper" text="ID Developer" />
-                    <TableColumn fx:id="namaDeveloper" text="Nama Developer" />
-                    <TableColumn fx:id="status" text="Status" />
-                    <TableColumn fx:id="actionCol" text="Action" />
-                </columns>
-            </TableView>
-        </VBox>
-    </children>
-</AnchorPane>
+<VBox prefHeight="400.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer.ViewUpdateDelete">
+    <TableView fx:id="tableDeveloper" prefHeight="400.0" prefWidth="729.0" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idDeveloper" text="ID Developer" /> <!-- Ganti ID Role menjadi ID Developer -->
+            <TableColumn fx:id="namaDeveloper" text="Nama Developer" /> <!-- Ganti Nama menjadi Nama Developer -->
+            <TableColumn fx:id="status" text="Status" />
+            <TableColumn fx:id="actionCol" text="Action" />
+        </columns>
+    </TableView>
+</VBox>
