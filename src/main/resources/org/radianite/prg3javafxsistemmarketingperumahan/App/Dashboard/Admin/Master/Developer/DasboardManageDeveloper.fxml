@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="GroupMenu" prefHeight="1200.0" prefWidth="1535.0" style="-fx-background-color: #fffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageDeveloperController">
+<AnchorPane fx:id="GroupMenu" prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageDeveloperController">
     <children>
       <ImageView fitHeight="1130.0" fitWidth="1544.0" layoutX="-4.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -36,7 +36,7 @@
          <children>
             <ImageView fitHeight="102.0" fitWidth="395.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Resource/Dasboard/Group%2051.png" />
+                  <Image url="@../../../../Resource/Dasboard/Rectangle%2070.png" />
                </image>
             </ImageView>
             <Text fx:id="textNama" fill="WHITE" layoutX="111.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama">
@@ -56,8 +56,8 @@
             </Text>
          </children>
       </AnchorPane>
-  <AnchorPane fx:id="AncoreMaster" layoutX="62.0" layoutY="492.0" minHeight="0.0" minWidth="0.0" prefHeight="612.0" prefWidth="1404.0" />
-      <Button fx:id="btnAdd" layoutX="62.0" layoutY="454.0" mnemonicParsing="false" onAction="#btnAddClick" prefHeight="58.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Add Data" />
-      <Button fx:id="btnView" layoutX="62.0" layoutY="454.0" mnemonicParsing="false" onAction="#btnViewClick" prefHeight="58.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Back" />
+  <AnchorPane fx:id="AncoreMaster" layoutX="63.0" layoutY="466.0" minHeight="0.0" minWidth="0.0" prefHeight="612.0" prefWidth="1404.0" />
+      <Button fx:id="btnAdd" layoutX="63.0" layoutY="467.0" mnemonicParsing="false" onAction="#btnAddClick" prefHeight="49.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Add Data" />
+      <Button fx:id="btnView" layoutX="63.0" layoutY="467.0" mnemonicParsing="false" onAction="#btnViewClick" prefHeight="49.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Back" />
     </children>
 </AnchorPane>

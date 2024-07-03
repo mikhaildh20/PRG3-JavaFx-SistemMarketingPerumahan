@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="612.0" prefWidth="1404.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.User.viewUser">
    <children>
-      <TableView fx:id="tableView" prefHeight="612.0" prefWidth="1404.0" stylesheets="@../../../../Css/Button.css">
+      <TableView fx:id="tableView" layoutY="59.0" prefHeight="553.0" prefWidth="1403.0" stylesheets="@../../../../Css/Button.css">
         <columns>
           <TableColumn fx:id="colUsn" prefWidth="129.0" text="Username" />
           <TableColumn fx:id="colResidence" prefWidth="171.0" text="Residence" />
@@ -16,5 +16,7 @@
           <TableColumn fx:id="colAction" prefWidth="135.0" text="Action" />
         </columns>
       </TableView>
+       <TextField layoutX="171.0" layoutY="2.0" prefHeight="49.0" prefWidth="1230.0" promptText="Search" style="-fx-background-radius: 10;" />
+       <Button layoutX="1237.0" layoutY="1.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="164.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Search" />
    </children>
 </AnchorPane>

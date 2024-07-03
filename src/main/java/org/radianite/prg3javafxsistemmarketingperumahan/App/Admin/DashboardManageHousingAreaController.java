@@ -35,6 +35,8 @@ public class DashboardManageHousingAreaController {
     private TableView tblDeveloper;
     @FXML
     private Text textNama;
+    @FXML
+    private Button btnView, btnAdd;
 
     Database connection = new Database();
 
@@ -55,11 +57,17 @@ public class DashboardManageHousingAreaController {
     }
     @FXML
     private void initialize() {
-        btnViewClick();
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Perumahan/View.fxml");
+        btnView.setOpacity(0.0);
+        btnView.setDisable(true);
     }
     @FXML
     public void btnAddClick() {
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Perumahan/Add.fxml");
+        btnView.setOpacity(1.0);
+        btnView.setDisable(false);
+        btnAdd.setDisable(true);
+        btnAdd.setOpacity(0.0);
         // Mengganti tampilan pane dengan form tambah developer
     }
 
@@ -67,6 +75,10 @@ public class DashboardManageHousingAreaController {
     @FXML
     public void btnViewClick() {
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Perumahan/View.fxml");
+        btnAdd.setOpacity(1.0);
+        btnAdd.setDisable(false);
+        btnView.setDisable(true);
+        btnView.setOpacity(0.0);
         // Mengganti tampilan pane dengan form lihat developer
     }
 

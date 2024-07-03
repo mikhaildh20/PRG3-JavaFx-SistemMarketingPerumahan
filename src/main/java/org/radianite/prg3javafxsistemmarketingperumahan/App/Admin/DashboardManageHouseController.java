@@ -26,13 +26,17 @@ import java.util.ArrayList;
 public class DashboardManageHouseController {
 
     @FXML private Text textNama; // Text untuk menampilkan nama pengguna
+    @FXML
+    private Button btnView, btnAdd;
     ArrayList<User> userList = new ArrayList<>(); // Daftar pengguna
     @FXML
     AnchorPane AncoreMaster;
 
     @FXML
     private void initialize() {
-        btnViewClick();
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Rumah/ViewRumah.fxml");
+        btnView.setOpacity(0.0);
+        btnView.setDisable(true);
     }
 
     public void setDataList(User data) {
@@ -43,6 +47,10 @@ public class DashboardManageHouseController {
     @FXML
     public void btnAddClick() {
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Rumah/InputRumah.fxml");
+        btnView.setOpacity(1.0);
+        btnView.setDisable(false);
+        btnAdd.setDisable(true);
+        btnAdd.setOpacity(0.0);
         // Mengganti tampilan pane dengan form tambah developer
     }
 
@@ -50,6 +58,10 @@ public class DashboardManageHouseController {
     @FXML
     public void btnViewClick() {
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Rumah/ViewRumah.fxml");
+        btnAdd.setOpacity(1.0);
+        btnAdd.setDisable(false);
+        btnView.setDisable(true);
+        btnView.setOpacity(0.0);
         // Mengganti tampilan pane dengan form lihat developer
     }
 
