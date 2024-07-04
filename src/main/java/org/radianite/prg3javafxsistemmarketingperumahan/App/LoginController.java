@@ -13,10 +13,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageDeveloperController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController;
-import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.MainDashboardController;
-import org.radianite.prg3javafxsistemmarketingperumahan.App.Agen.DashbordAgenController;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.DashbordAgenController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Manager.DashbordManagerController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 
@@ -244,7 +242,7 @@ public class LoginController implements Initializable {
                     } else if (roleName.equals("Manager")) {
                         DashbordManagerController controller = fxmlLoader.getController();
                         controller.setDataList(userList.get(0));
-                    } else if (roleName.equals("Agen")) {
+                    } else if (roleName.equals("Agent")) {
                         DashbordAgenController controller = fxmlLoader.getController();
                         controller.setDataList(userList.get(0));
                     }

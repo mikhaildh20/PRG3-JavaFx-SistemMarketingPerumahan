@@ -37,6 +37,25 @@ public class Database {
             System.out.println("Error closing database resources: " + e.getMessage());
         }
     }
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection("jdbc:sqlserver://localhost;database=Radianite;user=sa;password=123;");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ResultSet getDataRumah() {
+        try {
+            Connection conn = getConnection();
+            Statement stmt = conn.createStatement();
+            return stmt.executeQuery("SELECT * FROM ms_rumah where status = 1");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     // Contoh penggunaan dalam main method
     public static void main(String[] args) {

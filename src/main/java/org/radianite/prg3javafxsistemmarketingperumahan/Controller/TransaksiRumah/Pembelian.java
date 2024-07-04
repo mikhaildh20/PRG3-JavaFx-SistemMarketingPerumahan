@@ -14,6 +14,7 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Bank;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Rumah;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,24 +46,26 @@ public class Pembelian extends Library implements Initializable {
     private ObservableList<String> listPayment = FXCollections.observableArrayList("CASH","CREDIT");
     private ObservableList<String> listPeriode = FXCollections.observableArrayList("5 Year", "10 Year", "15 Year", "20 Year", "25 Year");
     private File file;
+    private String id;
     private int selected = 0;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         loadRumah();
         loadBank();
         cbPayment.setItems(listPayment);
         cbPeriode.setItems(listPeriode);
 
-        txtId.setDisable(true);
-        txtDate.setDisable(true);
-        cbBank.setDisable(true);
-        cbPeriode.setDisable(true);
-        txtRekening.setDisable(true);
-        txtTotal.setDisable(true);
-        txtMinCicil.setDisable(true);
-        txtCicil.setDisable(true);
-        txtPinjaman.setDisable(true);
-        txtBulanan.setDisable(true);
+        txtId.setEditable(false);
+        txtDate.setEditable(false);
+        cbBank.setEditable(false);
+        cbPeriode.setEditable(false);
+        txtRekening.setEditable(false);
+        txtTotal.setEditable(false);
+        txtMinCicil.setEditable(false);
+        txtCicil.setEditable(false);
+        txtPinjaman.setEditable(false);
+        txtBulanan.setEditable(false);
         txtId.setText(generateID("tr_rumah","TRR","id_trRumah"));
         txtDate.setText(LocalDate.now().toString());
 
@@ -141,14 +144,21 @@ public class Pembelian extends Library implements Initializable {
 
             }
         });
+
+        // Set cbBlok to index 0 if listRumah is not empty
+        if (!listRumah.isEmpty()) {
+            cbBlok.getSelectionModel().select(0);
+        }
     }
 
-    public void loadRumah(){
+    public void setDataList(String id) {
+        this.id = id;
+        System.out.println(id);
         listRumah.clear();
         try{
             Database connect = new Database();
             connect.stat = connect.conn.createStatement();
-            String query = "SELECT id_rumah,blok,harga,ketersediaan,status FROM ms_rumah";
+            String query = "SELECT id_rumah,blok,harga,ketersediaan,status FROM ms_rumah where id_rumah='"+id+"'";
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next())
             {
@@ -165,6 +175,14 @@ public class Pembelian extends Library implements Initializable {
             System.out.println("Error: "+ex.getMessage());
         }
         cbBlok.setItems(listRumah);
+        cbBlok.getSelectionModel().select(0);
+        txtTotal.setText(convertDoubleString(cbBlok.getSelectionModel().getSelectedItem().getHarga()));
+        txtMinCicil.setText(convertDoubleString(minFirstPayment(cbBlok.getSelectionModel().getSelectedItem().getHarga())));
+
+    }
+
+    public void loadRumah(){
+
     }
 
     public void loadBank(){

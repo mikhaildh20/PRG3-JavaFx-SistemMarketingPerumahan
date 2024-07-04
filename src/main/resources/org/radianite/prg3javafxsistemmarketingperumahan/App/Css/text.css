@@ -1,0 +1,47 @@
+
+.label {
+    -fx-text-fill: white; /* Warna teks */
+    -fx-font: 21px Montserrat; /* Gaya font */
+    -fx-background-color: blue; /* Warna latar belakang */
+    -fx-background-radius: 10; /* Radius latar belakang */
+    -fx-pref-width: 200px; /* Lebar tetap */
+    -fx-pref-height: 50px; /* Tinggi tetap */
+}
+.text-field {
+    -fx-text-fill: black; /* Warna teks */
+    -fx-font: 21px Montserrat; /* Gaya font */
+    -fx-background-color: white; /* Warna latar belakang */
+    -fx-border-color: gray; /* Warna border */
+    -fx-border-radius: 5; /* Radius border */
+    -fx-padding: 5; /* Padding */
+}
+.combo-box {
+    -fx-text-fill: black; /* Warna teks */
+    -fx-font: 21px Montserrat; /* Gaya font */
+    -fx-background-color: white; /* Warna latar belakang */
+    -fx-border-color: gray; /* Warna border */
+    -fx-border-radius: 5; /* Radius border */
+    -fx-background-radius: 5; /* Radius latar belakang */
+    -fx-padding: 5; /* Padding */
+    -fx-pref-width: 1000; /* Menyesuaikan lebar dengan grid */
+}
+
+
+.button {
+    -fx-background-color: blue; /* Warna latar belakang */
+    -fx-text-fill: white; /* Warna teks */
+    -fx-font: bold 21px Montserrat; /* Gaya font */
+    -fx-border-radius: 10; /* Radius border */
+    -fx-background-radius: 10; /* Radius latar belakang */
+    -fx-padding: 10; /* Padding */
+}
+
+.button:hover {
+    -fx-background-color: darkblue; /* Warna latar belakang saat hover */
+    -fx-text-fill: white; /* Warna teks saat hover */
+    -fx-font: bold 21px Montserrat; /* Gaya font */
+    -fx-border-radius: 10; /* Radius border */
+    -fx-background-radius: 10; /* Radius latar belakang */
+    -fx-padding: 10; /* Padding */
+}
+
