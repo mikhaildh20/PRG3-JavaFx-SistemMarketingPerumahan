@@ -3,6 +3,7 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -18,6 +19,7 @@ public class Update extends Library {
     private TextField idDeveloperField; // Ganti dari idRoleField menjadi idDeveloperField
     @FXML
     private TextField namaDeveloperField; // Ganti dari namaField menjadi namaDeveloperField
+    @FXML private Button btnUpdate;
 
     private Developer developer; // Ganti dari Role menjadi Developer
     private Database connection = new Database();
@@ -61,14 +63,14 @@ public class Update extends Library {
 
         if (namaDeveloperField.getText().isEmpty())
         {
-            fillBox();
+            fillBox(btnUpdate,"Please fill in the field");
             return;
         }
 
         for (int i=0;i<developerList.size();i++)
         {
             if (namaDeveloperField.getText().equals(developerList.get(i).getNamaDeveloper()) && !idDeveloperField.getText().equals(developerList.get(i).getIdDeveloper())){
-                errorBox();
+                errorBox(btnUpdate,"Name already exist");
                 return;
             }
         }

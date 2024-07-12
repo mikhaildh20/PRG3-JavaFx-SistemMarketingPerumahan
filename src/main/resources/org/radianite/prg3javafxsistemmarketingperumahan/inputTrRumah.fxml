@@ -12,69 +12,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="1535.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah.Pembelian">
+<AnchorPane fx:id="mainpane" prefHeight="1200.0" prefWidth="1535.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah.Pembelian">
    <children>
-      <ImageView fitHeight="1128.0" fitWidth="1535.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1128.0" fitWidth="1535.0" layoutX="7.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@App/Resource/Dasboard/background.png" />
          </image>
       </ImageView>
-      <GridPane hgap="10.0" layoutX="50.0" layoutY="243.0" prefHeight="774.0" prefWidth="1451.0" stylesheets="@App/Css/text.css">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.33331298828125" minWidth="10.0" prefWidth="286.6666564941406" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="443.0" minWidth="10.0" prefWidth="393.6666259765625" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="285.3333740234375" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.6666259765625" minWidth="10.0" prefWidth="480.6666259765625" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints />
-          <RowConstraints maxHeight="71.0" minHeight="38.0" prefHeight="64.0" />
-          <RowConstraints maxHeight="88.0" minHeight="7.0" prefHeight="70.0" />
-            <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label styleClass="label-custom" stylesheets="@App/Css/text.css" text="NIK" GridPane.rowIndex="3" />
-            <Label text="Nama" GridPane.rowIndex="4" />
-            <Label text="Contact" GridPane.rowIndex="5" />
-            <TextField fx:id="txtNIK" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="txtNama" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txtContact" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Blok" GridPane.rowIndex="6" />
-            <ComboBox fx:id="cbBlok" onAction="#onActionBlok" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="Payment" GridPane.rowIndex="7" />
-            <ComboBox fx:id="cbPayment" onAction="#onActionCbPay" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label text="Bank" GridPane.rowIndex="8" />
-            <ComboBox fx:id="cbBank" onAction="#onActionBank" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Label text="Rekening" GridPane.rowIndex="9" />
-            <TextField fx:id="txtRekening" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label text="Periode" GridPane.rowIndex="10" />
-            <ComboBox fx:id="cbPeriode" onAction="#onActionPeriode" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Label text="Price" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <TextField fx:id="txtTotal" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="Down Pay" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextField fx:id="txtMinCicil" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Label text="First Pay" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <TextField fx:id="txtCicil" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Label text="Tunggakan" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <TextField fx:id="txtPinjaman" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Label text="Bulanan" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <TextField fx:id="txtBulanan" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Button fx:id="btnFile" mnemonicParsing="false" onAction="#onActionDocument" text="Document" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Label fx:id="LabFile" text="Choose document.." GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Label text="No Invoice" GridPane.rowIndex="1" />
-            <Label text="Date" GridPane.rowIndex="2" />
-            <TextField fx:id="txtDate" prefHeight="25.0" prefWidth="84.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtId" prefHeight="25.0" prefWidth="84.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-      <Button layoutX="719.0" layoutY="1042.0" mnemonicParsing="false" onAction="#onActionSave" prefHeight="62.0" prefWidth="129.0" stylesheets="@App/Css/text.css" text="Buy" />
       <AnchorPane layoutX="27.0" layoutY="53.0" prefHeight="148.0" prefWidth="1482.0" style="-fx-background-color: #050C9C; -fx-background-radius: 10;">
          <children>
             <Label layoutX="649.0" layoutY="42.0" prefHeight="61.0" prefWidth="190.0" text="Invoice" textFill="WHITE">
@@ -82,6 +26,84 @@
                   <Font name="Montserrat Bold" size="49.0" />
                </font>
             </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="27.0" layoutY="230.0" prefHeight="927.0" prefWidth="728.0" style="-fx-background-radius: 10; -fx-border-color: #3572ef; -fx-border-radius: 10;">
+         <children>
+            <GridPane layoutX="48.0" layoutY="31.0" prefHeight="799.0" prefWidth="575.0" stylesheets="@App/Css/text.css">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.33331298828125" minWidth="10.0" prefWidth="286.6666564941406" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="443.0" minWidth="10.0" prefWidth="393.6666259765625" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints />
+                <RowConstraints maxHeight="71.0" minHeight="38.0" prefHeight="64.0" />
+                <RowConstraints maxHeight="88.0" minHeight="7.0" prefHeight="70.0" />
+                  <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label styleClass="label-custom" stylesheets="@App/Css/text.css" text="NIK" GridPane.rowIndex="3" />
+                  <Label text="Nama" GridPane.rowIndex="4" />
+                  <Label text="Contact" GridPane.rowIndex="5" />
+                  <TextField fx:id="txtNIK" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtNama" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtContact" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label text="Blok" GridPane.rowIndex="6" />
+                  <ComboBox fx:id="cbBlok" onAction="#onActionBlok" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="Payment" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="cbPayment" onAction="#onActionCbPay" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label text="Bank" GridPane.rowIndex="8" />
+                  <ComboBox fx:id="cbBank" onAction="#onActionBank" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label text="Rekening" GridPane.rowIndex="9" />
+                  <TextField fx:id="txtRekening" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Label text="Periode" GridPane.rowIndex="10" />
+                  <ComboBox fx:id="cbPeriode" onAction="#onActionPeriode" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <Label text="No Invoice" GridPane.rowIndex="1" />
+                  <Label text="Date" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtDate" prefHeight="25.0" prefWidth="84.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtId" prefHeight="25.0" prefWidth="84.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <Button fx:id="btnback" layoutX="12.0" layoutY="856.0" mnemonicParsing="false" onAction="#onActionBtnBack" prefHeight="61.0" prefWidth="176.0" stylesheets="@App/Css/text.css" text="Back" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="786.0" layoutY="231.0" prefHeight="927.0" prefWidth="722.0" style="-fx-background-radius: 10; -fx-border-color: #3572ef; -fx-border-radius: 10;">
+         <children>
+            <GridPane layoutX="34.0" layoutY="22.0" prefHeight="527.0" prefWidth="579.0" stylesheets="@App/Css/text.css">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="215.33331298828125" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.66668701171875" minWidth="10.0" prefWidth="363.66668701171875" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Price" />
+                  <Label text="Down Pay" GridPane.rowIndex="1" />
+                  <TextField fx:id="txtTotal" GridPane.columnIndex="1" />
+                  <TextField fx:id="txtMinCicil" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="First Pay" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtCicil" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Tunggakan" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtPinjaman" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Bulanan" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtBulanan" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Button fx:id="btnFile" mnemonicParsing="false" onAction="#onActionDocument" text="Document" GridPane.rowIndex="4" />
+                  <Label fx:id="LabFile" text="Choose document.." GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+            </GridPane>
+            <Button layoutX="202.0" layoutY="633.0" mnemonicParsing="false" onAction="#onActionSave" prefHeight="81.0" prefWidth="273.0" stylesheets="@App/Css/text.css" text="Buy" />
          </children>
       </AnchorPane>
    </children>

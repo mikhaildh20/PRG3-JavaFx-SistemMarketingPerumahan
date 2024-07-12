@@ -1,8 +1,7 @@
 
 .label {
-    -fx-text-fill: white; /* Warna teks */
-    -fx-font: 21px Montserrat; /* Gaya font */
-    -fx-background-color: blue; /* Warna latar belakang */
+    -fx-text-fill: black; /* Warna teks */
+    -fx-font: bold 21px Montserrat; /* Gaya font */
     -fx-background-radius: 10; /* Radius latar belakang */
     -fx-pref-width: 200px; /* Lebar tetap */
     -fx-pref-height: 50px; /* Tinggi tetap */
@@ -28,7 +27,7 @@
 
 
 .button {
-    -fx-background-color: blue; /* Warna latar belakang */
+    -fx-background-color: darkblue; /* Warna latar belakang */
     -fx-text-fill: white; /* Warna teks */
     -fx-font: bold 21px Montserrat; /* Gaya font */
     -fx-border-radius: 10; /* Radius border */
@@ -37,11 +36,47 @@
 }
 
 .button:hover {
-    -fx-background-color: darkblue; /* Warna latar belakang saat hover */
+    -fx-background-color: blue; /* Warna latar belakang saat hover */
     -fx-text-fill: white; /* Warna teks saat hover */
     -fx-font: bold 21px Montserrat; /* Gaya font */
     -fx-border-radius: 10; /* Radius border */
     -fx-background-radius: 10; /* Radius latar belakang */
     -fx-padding: 10; /* Padding */
 }
+
+.text {
+    -fx-text-fill: darkblue; /* Warna teks */
+    -fx-font: 21px Montserrat; /* Gaya font */
+
+    -fx-border-color: black; /* Warna border */
+    -fx-border-radius: 5; /* Radius border */
+    -fx-padding: 5; /* Padding */
+}
+
+.text-modified {
+    -fx-text-fill: red; /* Warna teks merah */
+    -fx-font: italic 24px Arial; /* Gaya font miring dengan ukuran 24px dan font Arial */
+    -fx-background-color: yellow; /* Warna latar belakang kuning */
+    -fx-border-color: green; /* Warna border hijau */
+    -fx-border-radius: 10; /* Radius border 10 */
+    -fx-padding: 10; /* Padding 10 */
+}
+
+.image-view {
+    -fx-alignment: center; /* Menyelaraskan gambar di tengah */
+    -fx-background-color: transparent; /* Warna latar belakang transparan */
+    -fx-padding: 10; /* Padding */
+}
+
+
+.anchor-pane {
+    -fx-border-width: 3; /* Ketebalan border */
+}
+
+
+
+
+
+
+
 

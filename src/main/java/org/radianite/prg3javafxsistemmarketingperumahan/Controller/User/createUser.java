@@ -11,7 +11,9 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Perumahan;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Roles;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +35,10 @@ public class createUser extends Library implements Initializable {
     private Button btnFile;
     @FXML
     private Label LabFile;
+    @FXML private Label validationLabel;
+    @FXML private Label validationpass;
+    @FXML private Label validationEmail;
+    private ObservableList<User> listUser = FXCollections.observableArrayList();
     File file;
 
     private ObservableList<Perumahan> listPerum = FXCollections.observableArrayList();
@@ -40,8 +46,12 @@ public class createUser extends Library implements Initializable {
     ToggleGroup group = new ToggleGroup();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        validationLabel.setOpacity(0);
+        validationpass.setOpacity(0);
+        validationEmail.setOpacity(0);
         loadPerumahan();
         loadRoles();
+        loadData();
         rbMale.setToggleGroup(group);
         rbFemale.setToggleGroup(group);
         cbResidence.setCellFactory(param->new javafx.scene.control.ListCell<Perumahan>(){
@@ -88,6 +98,91 @@ public class createUser extends Library implements Initializable {
                 return null;
             }
         });
+        txtUsn.textProperty().addListener((observable, oldValue, newValue) -> validateUsername(newValue));
+        txtPass.textProperty().addListener((observable, oldValue, newValue) -> validatePassword(newValue));
+        txtEmail.textProperty().addListener((observable, oldValue, newValue) -> validateEmail(newValue));
+        txtName.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z\\s]*")) {
+            txtName.setText(newValue.replaceAll("[^a-zA-Z\\s]", ""));
+        }
+         });
+        txtAge.textProperty().addListener((observable, oldValue, newValue) -> {
+        if (!newValue.matches("\\d*")) {
+            txtAge.setText(newValue.replaceAll("[^\\d]", ""));
+        }
+        if (newValue.length() > 0 && Integer.parseInt(newValue) < 18) {
+            warningBox(btnFile, "Umur harus di atas 18 tahun.");
+        }
+    });
+    }
+
+    private int validateEmail(String email) {
+        validationEmail.setOpacity(1);
+        if (email.isEmpty()) {
+            validationEmail.setText("");
+            return 1;
+        }
+
+        if (!email.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+            validationEmail.setText("Invalid email format.");
+            validationEmail.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+            return 0;
+        } else {
+            validationEmail.setText("Email is valid.");
+            validationEmail.setStyle("-fx-text-fill: green; -fx-font-size: 12;");
+            return 1;
+        }
+        
+    }
+
+    private int validateUsername(String username) {
+        validationLabel.setOpacity(1);
+        if (username.isEmpty()) {
+            validationLabel.setText("");
+            return 1;
+        }
+
+        if (username.length() < 8) {
+            validationLabel.setText("Username must be at least 8 characters.");
+            validationLabel.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+            return 0;
+        }
+
+        boolean isTaken = false;
+        for (User user : listUser) {
+            if (user.getUsn().equals(username)) {
+                isTaken = true;
+                break;
+            }
+        }
+        if (isTaken) {
+            validationLabel.setText("Username is already taken.");
+            validationLabel.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+            return 0;
+        } else {
+            validationLabel.setText("Username is available.");
+            validationLabel.setStyle("-fx-text-fill: green; -fx-font-size: 12;");
+            return 1;
+        }
+    }
+
+    private int validatePassword(String password) {
+        validationpass.setOpacity(1);
+        if (password.isEmpty()) {
+            validationpass.setText("");
+            return 1;
+        }else
+        if (password.length() < 8) {
+            validationpass.setText("Password must be at least 8 characters.");
+            validationpass.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+
+            return 0;
+
+        } else {
+            validationpass.setText("Password is valid.");
+            validationpass.setStyle("-fx-text-fill: green; -fx-font-size: 12;");
+            return 1;
+        }
     }
 
     public void clear(){
@@ -137,11 +232,55 @@ public class createUser extends Library implements Initializable {
         }
         cbResidence.setItems(listPerum);
     }
+    public void loadData(){
+        listUser.clear();
+        try{
+            Database connect = new Database();
+            connect.stat = connect.conn.createStatement();
+            String query = "EXEC sp_viewUser";
+            connect.result = connect.stat.executeQuery(query);
+            while(connect.result.next()){
+                listUser.add(new User(connect.result.getString("username"),
+                        connect.result.getString("password"),
+                        connect.result.getString("id_perumahan"),
+                        connect.result.getString("id_role"),
+                        connect.result.getString("nama_lengkap"),
+                        connect.result.getString("email"),
+                        connect.result.getString("alamat"),
+                        connect.result.getString("jenis_kelamin"),
+                        connect.result.getInt("umur"),
+                        convertToImage(connect.result.getBytes("photo")),
+                        connect.result.getString("nama_perumahan"),
+                        connect.result.getString("nama_role"),
+                        connect.result.getInt("status") // Tambahkan status
+                ));
+            }
+            connect.result.close();
+            connect.stat.close();
+        }catch (SQLException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }
+    }
 
     public void onActionSave(ActionEvent actionEvent) {
+        String username = txtUsn.getText();
+        String password = txtPass.getText();
+
         if (isEmpty())
         {
-            fillBox();
+            fillBox(btnFile,"Please fill all the fields");
+            return;
+        }else
+        if (validateUsername(username) != 1) {
+            fillBox(btnFile, "Invalid username. Ensure it is between 6-12 characters long.");
+            return;
+        }else
+        if (validatePassword(password) != 1) {
+            fillBox(btnFile, "Invalid password. Ensure it is at least 8 characters long and contains uppercase letters, lowercase letters, and numbers.");
+            return;
+        }else
+        if (validateEmail(txtEmail.getText()) != 1) {
+            fillBox(btnFile, "Invalid email.");
             return;
         }
         Toggle selected = group.getSelectedToggle();
@@ -162,7 +301,7 @@ public class createUser extends Library implements Initializable {
             connect.pstat.setBytes(10,imageToByte(file));
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox();
+            successBox(btnFile,"Success");
             clear();
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());
@@ -171,7 +310,7 @@ public class createUser extends Library implements Initializable {
 
     public boolean isEmpty()
     {
-        if (txtUsn.getText().isEmpty() || txtPass.getText().isEmpty() || txtName.getText().isEmpty() || txtEmail.getText().isEmpty() || txtAddress.getText().isEmpty() || !rbMale.isSelected() && !rbFemale.isSelected() || txtAge.getText().isEmpty() || file == null){
+        if (txtUsn.getText().isEmpty() && txtPass.getText().isEmpty() && txtName.getText().isEmpty() && txtEmail.getText().isEmpty() && txtAddress.getText().isEmpty() && !rbMale.isSelected() && !rbFemale.isSelected() && txtAge.getText().isEmpty() && file == null){
             return true;
         }
         return false;

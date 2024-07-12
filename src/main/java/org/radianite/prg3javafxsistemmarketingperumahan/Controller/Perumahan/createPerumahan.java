@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
 public class createPerumahan extends Library implements Initializable {
     @FXML
     private TextField txtId,txtNama;
+    @FXML private Button btnSave;
     @FXML
     private ComboBox<Developers> cbDeveloper;
     private ObservableList<Developers> listDev = FXCollections.observableArrayList();
@@ -105,7 +107,7 @@ public class createPerumahan extends Library implements Initializable {
 
     public void onActionSave(ActionEvent actionEvent) {
         if (txtNama.getText().isEmpty()){
-            fillBox();
+            fillBox(btnSave,"Please fill all the field");
             return;
         }
 
@@ -113,7 +115,7 @@ public class createPerumahan extends Library implements Initializable {
         {
             if (txtNama.getText().equals(listResidence.get(i).getName()) && !txtId.getText().equals(listResidence.get(i).getId()))
             {
-                errorBox();
+                errorBox(btnSave,"Residence Already Register");
                 return;
             }
         }
@@ -127,7 +129,7 @@ public class createPerumahan extends Library implements Initializable {
             connect.pstat.setString(3,txtNama.getText());
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox();
+            successBox(btnSave,"Data Saved");
             clear();
             txtId.setText(generateID("ms_perumahan","PRM","id_perumahan"));
         }catch (SQLException ex){

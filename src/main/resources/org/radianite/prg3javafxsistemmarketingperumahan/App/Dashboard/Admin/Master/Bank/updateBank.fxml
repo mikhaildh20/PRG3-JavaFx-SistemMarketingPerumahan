@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank.updateBank">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank.updateBank">
    <children>
       <Label layoutX="243.0" layoutY="81.0" text="UPDATE BANK">
          <font>
@@ -19,6 +17,6 @@
       <TextField fx:id="txtId" layoutX="256.0" layoutY="129.0" />
       <TextField fx:id="txtNama" layoutX="256.0" layoutY="174.0" />
       <TextField fx:id="txtBunga" layoutX="256.0" layoutY="218.0" />
-      <Button layoutX="269.0" layoutY="266.0" mnemonicParsing="false" onAction="#onActionUpdate" prefHeight="25.0" prefWidth="62.0" text="Update" />
+      <Button fx:id="btnUpdate" layoutX="269.0" layoutY="266.0" mnemonicParsing="false" onAction="#onActionUpdate" prefHeight="25.0" prefWidth="62.0" text="Update" />
    </children>
 </AnchorPane>

@@ -4,41 +4,72 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRuko.Penyewaan">
+<AnchorPane fx:id="mainpane" prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRuko.Penyewaan">
    <children>
-      <AnchorPane layoutX="21.0" layoutY="30.0" prefHeight="341.0" prefWidth="739.0">
+      <AnchorPane prefHeight="341.0" prefWidth="739.0" style="-fx-background-color: white;" stylesheets="@App/Css/text.css">
          <children>
-            <Label layoutX="297.0" layoutY="22.0" text="Penyewaan Ruko">
+            <ImageView fitHeight="1103.0" fitWidth="1542.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@App/Resource/Dasboard/background.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="686.0" layoutY="71.0" text="Penyewaan Ruko">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="24.0" layoutY="72.0" text="ID Transaksi" />
-            <TextField fx:id="txtId" layoutX="107.0" layoutY="68.0" />
-            <Label layoutX="24.0" layoutY="116.0" text="ID Ruko" />
-            <Label layoutX="24.0" layoutY="157.0" text="NIK" />
-            <TextField fx:id="txtNIK" layoutX="107.0" layoutY="153.0" />
-            <Label layoutX="28.0" layoutY="200.0" text="Nama" />
-            <TextField fx:id="txtNama" layoutX="107.0" layoutY="196.0" />
-            <Label layoutX="283.0" layoutY="72.0" text="Telephone" />
-            <TextField fx:id="txtTelp" layoutX="349.0" layoutY="68.0" />
-            <Label layoutX="283.0" layoutY="200.0" text="Payment" />
-            <Label layoutX="283.0" layoutY="116.0" text="Periode" />
-            <Label layoutX="283.0" layoutY="157.0" text="Total" />
-            <Label fx:id="LabFile" layoutX="579.0" layoutY="157.0" text="Choose file here.." />
-            <Button fx:id="btnFile" layoutX="518.0" layoutY="153.0" mnemonicParsing="false" onAction="#onActionFile" prefHeight="25.0" prefWidth="47.0" text="File" />
-            <TextField fx:id="txtTotal" layoutX="349.0" layoutY="153.0" />
-            <TextField fx:id="txtPeriode" layoutX="349.0" layoutY="112.0" onKeyTyped="#onTypedPeriode" />
-            <ComboBox fx:id="cbRuko" layoutX="107.0" layoutY="112.0" onAction="#onActionRuko" prefWidth="150.0" />
-            <ComboBox fx:id="cbPayment" layoutX="349.0" layoutY="196.0" onAction="#onActionCbPay" prefWidth="150.0" />
-            <Button layoutX="324.0" layoutY="272.0" mnemonicParsing="false" onAction="#onActionAdd" prefHeight="17.0" prefWidth="91.0" text="Add" />
-            <Label layoutX="512.0" layoutY="73.0" text="Bank" />
-            <Label layoutX="512.0" layoutY="117.0" text="Rekening" />
-            <TextField fx:id="txtRek" layoutX="578.0" layoutY="113.0" />
-            <ComboBox fx:id="cbBank" layoutX="578.0" layoutY="70.0" prefHeight="25.0" prefWidth="145.0" />
+            <Button layoutX="696.0" layoutY="1059.0" mnemonicParsing="false" onAction="#onActionAdd" prefHeight="47.0" prefWidth="190.0" text="Buy" />
+            <GridPane layoutX="53.0" layoutY="129.0" prefHeight="875.0" prefWidth="1427.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="ID Transaksi" />
+                  <TextField fx:id="txtId" GridPane.columnIndex="1" />
+                  <Label text="ID Ruko" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cbRuko" onAction="#onActionRuko" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="NIK" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtNIK" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Nama" GridPane.rowIndex="3" />
+                  <TextField fx:id="txtNama" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Telephone" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtTelp" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Periode" GridPane.rowIndex="5" />
+                  <TextField fx:id="txtPeriode" onKeyTyped="#onTypedPeriode" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label text="Total" GridPane.rowIndex="6" />
+                  <TextField fx:id="txtTotal" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="Payment" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="cbPayment" onAction="#onActionCbPay" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Label text="Bank" GridPane.rowIndex="8" />
+                  <ComboBox fx:id="cbBank" prefHeight="25.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <Label text="Rekening" GridPane.rowIndex="9" />
+                  <TextField fx:id="txtRek" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <Button fx:id="btnFile" mnemonicParsing="false" onAction="#onActionFile" prefHeight="47.0" prefWidth="226.0" text="File" GridPane.rowIndex="10" />
+                  <Label fx:id="LabFile" text="Choose file here.." GridPane.columnIndex="1" GridPane.rowIndex="10" />
+               </children>
+            </GridPane>
          </children>
       </AnchorPane>
    </children>

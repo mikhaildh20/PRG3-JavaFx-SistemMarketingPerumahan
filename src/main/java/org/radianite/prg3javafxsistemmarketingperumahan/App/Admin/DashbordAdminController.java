@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -15,6 +17,9 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DashbordAdminController {
@@ -44,13 +49,14 @@ public class DashbordAdminController {
     private AnchorPane btnRole;
     @FXML
     private AnchorPane btnHouseType;
+    @FXML private Circle imageCircle;
+    @FXML private Text txtLastOnline;
+    @FXML private Text textNama;
+    private ArrayList<User> userList = new ArrayList<>();
     @FXML
     private Text tglLabel;
     Database connection = new Database();
-    ArrayList<User> userList = new ArrayList<>();
-    public void setDataList(User data){
-        userList.add(data);
-    }
+
 
     public void Animasi(){
         Group1.setTranslateX(-100);
@@ -191,6 +197,28 @@ public class DashbordAdminController {
         ParallelTransition parallelTransition = new ParallelTransition(SwipeGroup1, FadeGroup1);
         parallelTransition.play();
 
+    }
+
+    public void setDataList(User data) {
+        userList.add(data);
+        if (!userList.isEmpty()) {
+            imageCircle.setFill(new ImagePattern(userList.get(0).getFoto()));
+            textNama.setText(userList.get(0).getName());
+        }
+        try {
+            String queryRole = "SELECT logDate FROM LoginLog WHERE username = ? ORDER BY logDate DESC";
+            connection.pstat = connection.conn.prepareStatement(queryRole);
+            connection.pstat.setString(1, userList.get(0).getUsn());
+            connection.result = connection.pstat.executeQuery();
+            connection.result.next();
+/*            String logDate = connection.result.getString("logDate");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy HH:mm ");
+            LocalDateTime dateTime = LocalDateTime.parse(logDate, inputFormatter);
+            txtLastOnline.setText(dateTime.format(outputFormatter));*/
+        }catch (SQLException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }
     }
     @FXML
     protected void btnDeveloperclick() {
@@ -433,6 +461,37 @@ public class DashbordAdminController {
         btnShopHouse.getStyleClass().removeAll("buttonDashboard-on");
         btnShopHouse.getStyleClass().add("buttonDashboard-off");
     }
+
+    @FXML
+    protected void btnBankclick() {
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Bank/DasboardManageBank.fxml");
+        btnDashboard.getStyleClass().removeAll("buttonDashboard-on");
+        btnDashboard.getStyleClass().add("buttonDashboard-off");
+
+        btnDeveloper.getStyleClass().removeAll("buttonDashboard-on");
+        btnDeveloper.getStyleClass().add("buttonDashboard-off");
+
+        btnRole.getStyleClass().removeAll("buttonDashboard-on");
+        btnRole.getStyleClass().add("buttonDashboard-off");
+
+        btnHouseType.getStyleClass().removeAll("buttonDashboard-on");
+        btnHouseType.getStyleClass().add("buttonDashboard-off");
+
+        btnHouse.getStyleClass().removeAll("buttonDashboard-on");
+        btnHouse.getStyleClass().add("buttonDashboard-off");
+
+        btnUser.getStyleClass().removeAll("buttonDashboard-on");
+        btnUser.getStyleClass().add("buttonDashboard-off");
+
+        btnPlot.getStyleClass().removeAll("buttonDashboard-off");
+        btnPlot.getStyleClass().add("buttonDashboard-on");
+
+        btnHousingArea.getStyleClass().removeAll("buttonDashboard-on");
+        btnHousingArea.getStyleClass().add("buttonDashboard-off");
+
+        btnShopHouse.getStyleClass().removeAll("buttonDashboard-on");
+        btnShopHouse.getStyleClass().add("buttonDashboard-off");
+    }
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -446,8 +505,8 @@ public class DashbordAdminController {
         btnDashboard.getStyleClass().removeAll("buttonDashboard-off");
         btnDashboard.getStyleClass().add("buttonDashboard-on");
 
-
     }
+
     @FXML
     public void btnlogout() {
         try {

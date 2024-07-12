@@ -92,7 +92,7 @@ public class createRuko extends Library implements Initializable {
 
     public void onActionSave(ActionEvent actionEvent) {
         if (isEmpty()){
-            fillBox();
+            fillBox(btnFile,"Please fill all the boxes");
             return;
         }
         try{
@@ -109,7 +109,7 @@ public class createRuko extends Library implements Initializable {
             connect.pstat.setDouble(8,Double.parseDouble(txtRent.getText()));
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox();
+            successBox(btnFile,"Success");
             clear();
             txtId.setText(generateID("ms_ruko","RKO","id_ruko"));
         }catch (SQLException | IOException ex){

@@ -6,18 +6,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah.ViewUpdateDelete">
+<AnchorPane prefHeight="760.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah.ViewUpdateDelete">
    <children>
-       <TableView fx:id="tableTipeRumah" layoutY="59.0" prefHeight="553.0" prefWidth="1403.0" stylesheets="@../../../../Css/Button.css">
+       <TableView fx:id="tableTipeRumah" layoutY="59.0" prefHeight="701.0" prefWidth="1495.0" stylesheets="@../../../../Css/Button.css">
            <columns>
                <TableColumn fx:id="idTipe" prefWidth="216.0" text="ID Tipe" />
                <TableColumn fx:id="nama" prefWidth="527.0" text="Nama" />
-               <TableColumn fx:id="status" prefWidth="393.0" text="Status" />
-               <TableColumn fx:id="actionCol" prefWidth="267.0" text="Action" />
+               <TableColumn fx:id="status" prefWidth="590.0" text="Status" />
+               <TableColumn fx:id="actionCol" prefWidth="161.0" text="Action" />
            </columns>
        </TableView>
-       <TextField layoutX="171.0" layoutY="2.0" prefHeight="49.0" prefWidth="1230.0" promptText="Search" style="-fx-background-radius: 10;" />
-       <Button layoutX="1237.0" layoutY="1.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="164.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Search" />
+       <TextField fx:id="txtSearch" layoutX="171.0" layoutY="2.0" prefHeight="49.0" prefWidth="1322.0" promptText="Search" style="-fx-background-radius: 10; -fx-border-color: darkblue; -fx-border-radius: 10;" />
+       <Button fx:id="btnSerach" layoutX="1329.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="49.0" prefWidth="164.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Search" />
    </children>
 </AnchorPane>

@@ -44,7 +44,6 @@ public class DashboardManageShopHouseController {
 
     public void setDataList(User data) {
         userList.add(data);
-        textNama.setText(data.getName()); // Menampilkan nama pengguna pada textNama
     }
 
     @FXML

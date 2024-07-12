@@ -174,7 +174,7 @@ public class updateUser extends Library implements Initializable {
     public void onActionUpdate(ActionEvent actionEvent) {
         if (isEmpty())
         {
-            fillBox();
+            fillBox(btnFile,"Please fill all the fields");
             return;
         }
         Toggle selected = group.getSelectedToggle();
@@ -195,7 +195,7 @@ public class updateUser extends Library implements Initializable {
             connect.pstat.setBytes(10,file != null ? imageToByte(file) : convertImageToBytes(image));
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox();
+            successBox(btnFile,"User has been updated");
             loadPage(actionEvent,"viewUser");
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());

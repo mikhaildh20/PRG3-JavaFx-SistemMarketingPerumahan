@@ -168,7 +168,7 @@ public class updateRumah extends Library implements Initializable {
     public void onActionUpdate(ActionEvent actionEvent) {
         if (isEmpty())
         {
-            fillBox();
+            fillBox(btnFile,"Please fill all the field");
             return;
         }
         try{
@@ -189,7 +189,7 @@ public class updateRumah extends Library implements Initializable {
             connect.pstat.setInt(12,Integer.parseInt(txtBuild.getText()));
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox();
+            successBox(btnFile,"Data has been updated");
             loadPage(actionEvent,"viewRumah");
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());

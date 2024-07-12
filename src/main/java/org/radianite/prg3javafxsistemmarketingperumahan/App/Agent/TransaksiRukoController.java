@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -16,12 +15,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageDeveloperController;
-import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageHouseTypeController;
-import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageHousingAreaController;
-import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.MainDashboardController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRuko.Penyewaan;
 import org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah.Pembelian;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Ruko;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Rumah;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
@@ -29,7 +26,7 @@ import java.io.ByteArrayInputStream;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class TransaksiRumahController {
+public class TransaksiRukoController {
 
     @FXML
     private ScrollPane mainScrollPane;
@@ -37,13 +34,8 @@ public class TransaksiRumahController {
     private AnchorPane mainPane;
     @FXML
     private AnchorPane mainpane;
-
     @FXML private Text txtBlok;
-    @FXML private Text txtSince;
-    @FXML private Text txtInterior;
-    @FXML private Text txtBedroom;
     @FXML private Text txtBathroom;
-    @FXML private Text txtType;
     @FXML private Text txtArea;
     @FXML private Text txtPrice;
     @FXML private TextArea txtDesc;
@@ -52,41 +44,27 @@ public class TransaksiRumahController {
     @FXML private AnchorPane ancorePenutup;
     @FXML private Button btnBuy;
 
-    public static Rumah rumah;
-
-
-
     private String idr;
-    private String idper;
-    private ArrayList<Rumah> rumahlist = new ArrayList<>();
-    private ArrayList<User> userlist = new ArrayList<>();
 
-    private Database db = new Database();
+    ArrayList<Ruko> rukolist = new ArrayList<>();
+    ArrayList<User> userlist = new ArrayList<>();
+
+
+    Database db = new Database();
 
     @FXML
     public void initialize() {
-        // Inisialisasi data saat form pertama kali dibuka
-        if (!userlist.isEmpty()) {
-            setCard(userlist.get(0).getIdp());
-        }
-    }
 
+    }
     public void setDataList(User data) {
-        userlist.add(data);
+        System.out.println(data.getIdp());
         setCard(data.getIdp());
-    }
-
-    public ArrayList<User> getUserList() {
-        return userlist;
-    }
-
-    public ArrayList<Rumah> getRumahList() {
-        return rumahlist;
+        userlist.add(data);
     }
 
     @FXML
     private void btnBuyClixk() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/inputTrRumah.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/inputTrRuko.fxml");
     }
 
     private void setPane(String fxml) {
@@ -99,9 +77,15 @@ public class TransaksiRumahController {
             fadeOut.setToValue(0.0);
             fadeOut.setOnFinished(eventFadeOut -> {
                 mainpane.getChildren().setAll(pane);
-                Pembelian pembelian = loader.getController();
+                Penyewaan penyewaan = loader.getController();
+                penyewaan.setDataList(idr, userlist.get(0).getIdp(), userlist.get(0));
+                /*Pembelian pembelian = loader.getController();
                 pembelian.setDataList(idr, userlist.get(0).getIdp(), userlist.get(0));
-
+                System.out.println(idr);*/
+            /*    if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/MainDashboard.fxml")) {
+                    RumahController controller = loader.getController();
+                    controller.setDataList(rumahlist.get(0));
+                }*/
                 mainpane.setTranslateX(-50);
                 TranslateTransition translate = new TranslateTransition(Duration.seconds(0.5), mainpane);
                 translate.setToX(0);
@@ -118,19 +102,18 @@ public class TransaksiRumahController {
     }
 
     public void setCard(String idper) {
-        System.out.println("setCard dipanggil dengan idper: " + idper); // Debugging line
         // Inisialisasi mainPane dan set konten mainScrollPane
         mainPane = new AnchorPane();
         mainScrollPane.setContent(mainPane);
 
-        // Dimensi dan jarak untuk grid
+        // Dimensi Dimensi dan jarak untuk grid
         double paneWidth = 350;
         double paneHeight = 200;
         double spacing = 10;
         int cols = 3; // Jumlah kolom
 
         // Ambil data dari database
-        ResultSet rs = db.getDataRumah(idper);
+        ResultSet rs = db.getDataRuko(idper);
 
         int row = 0;
         int col = 0;
@@ -141,53 +124,42 @@ public class TransaksiRumahController {
             while (rs.next()) {
                 // Buat child AnchorPane
                 AnchorPane childPane = new AnchorPane();
-                childPane.setStyle("-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: darkblue; -fx-background-color: white;");
-                childPane.setPrefSize(paneWidth, paneHeight);
+                childPane.setStyle("-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: darkblue; -fx-background-color: white;"); // Background linier dengan radius 5, border warna darkblue, dan background warna putih
+                childPane.setPrefSize(paneWidth, paneHeight); // Set ukuran preferensi child pane
 
                 // Ambil data dari ResultSet
-                String rumahId = rs.getString("id_rumah");
+                String rukoId = rs.getString("id_ruko");
                 String blok = rs.getString("blok");
-                String jmlKmrTdr = rs.getString("jml_kmr_tdr");
                 String jmlKmrMdn = rs.getString("jml_kmr_mdn");
-                String since = rs.getString("thn_bangun");
-                String interior = rs.getString("interior");
-                String type = rs.getString("nama_tipe");
                 String area = rs.getString("nama_perumahan");
-                String price = rs.getString("harga");
+                String price = rs.getString("harga_sewa");
                 String desc = rs.getString("descrption");
                 Integer daya = rs.getInt("daya_listrik");
-                byte[] fotoRumahBytes = rs.getBytes("foto_rumah");
+                byte[] fotoRumahBytes = rs.getBytes("foto_ruko"); // Ambil foto dari database
 
                 // Tambahkan event listener untuk klik mouse pada child pane
                 childPane.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
                     ancorePenutup.setOpacity(0.0);
                     ancorePenutup.setDisable(true);
-                    idr = rumahId;
+                    idr = rukoId;
 
                     txtBlok.setText(": " + blok);
-                    txtSince.setText(": " + since);
-                    txtInterior.setText(": " + interior);
-                    txtBedroom.setText(": " + jmlKmrTdr);
                     txtBathroom.setText(": " + jmlKmrMdn);
-                    txtVoltage.setText(": " + daya + "Va");
-                    txtType.setText(": " + type);
+                    txtVoltage.setText(": "+daya+"Va");
                     txtArea.setText(": " + area);
+                    // Menggunakan Double.parseDouble untuk menangani angka desimal
                     txtPrice.setText(": Rp." + String.format("%,.0f", Double.parseDouble(price)).replace(',', '.'));
                     txtDesc.setText(desc);
                     imageHouse.setImage(new Image(new ByteArrayInputStream(fotoRumahBytes)));
                 });
 
                 // Tambahkan efek hover pada child pane
-                childPane.setOnMouseEntered(event -> childPane.setStyle("-fx-background-color: grey; -fx-background-radius: 5; -fx-border-color: darkblue; -fx-border-radius: 5;"));
+                childPane.setOnMouseEntered(event -> childPane.setStyle("-fx-background-color: grey ;-fx-background-radius: 5; -fx-border-color: darkblue;  -fx-border-radius: 5;"));
                 childPane.setOnMouseExited(event -> childPane.setStyle("-fx-background-radius: 5; -fx-border-color: darkblue; -fx-background-color: white; -fx-border-radius: 5;"));
 
                 // Tambahkan teks dari database ke child pane
-                Label lblasu = new Label("Rumah " + area);
-                lblasu.setStyle("-fx-font-size: 12px; -fx-font-family: 'Montserrat'; -fx-font-weight: bold; -fx-fill: darkblue;");
                 Text textBlok = new Text(blok);
                 textBlok.setStyle("-fx-font-size: 12px; -fx-font-family: 'Montserrat'; -fx-font-weight: bold; -fx-fill: darkblue;");
-                Text textKmrTdr = new Text("Kamar Tidur: " + jmlKmrTdr);
-                textKmrTdr.setStyle("-fx-font-size: 12px; -fx-font-family: 'Montserrat'; -fx-fill: darkblue; -fx-font-weight: bold;");
                 Text textKmrMdn = new Text("Kamar Mandi: " + jmlKmrMdn);
                 textKmrMdn.setStyle("-fx-font-size: 12px; -fx-font-family: 'Montserrat'; -fx-fill: darkblue; -fx-font-weight: bold;");
                 Text textPrice = new Text("Harga: Rp." + String.format("%,.0f", Double.parseDouble(price)).replace(',', '.'));
@@ -197,8 +169,7 @@ public class TransaksiRumahController {
                 // Set posisi elemen dalam child pane
                 AnchorPane.setTopAnchor(textBlok, 15.0);
                 AnchorPane.setLeftAnchor(textBlok, 185.0);
-                AnchorPane.setTopAnchor(textKmrTdr, 140.0);
-                AnchorPane.setLeftAnchor(textKmrTdr, 185.0);
+
                 AnchorPane.setTopAnchor(textKmrMdn, 160.0);
                 AnchorPane.setLeftAnchor(textKmrMdn, 185.0);
                 AnchorPane.setTopAnchor(textPrice, 180.0);
@@ -207,7 +178,7 @@ public class TransaksiRumahController {
                 houseImageView.setFitHeight(180);
                 AnchorPane.setTopAnchor(houseImageView, 10.0);
                 AnchorPane.setLeftAnchor(houseImageView, 5.0);
-                childPane.getChildren().addAll(houseImageView, textBlok, textKmrTdr, textKmrMdn, textPrice);
+                childPane.getChildren().addAll(houseImageView, textBlok,  textKmrMdn, textPrice);
 
                 // Hitung posisi untuk child pane
                 double topAnchor = row * (paneHeight + spacing);

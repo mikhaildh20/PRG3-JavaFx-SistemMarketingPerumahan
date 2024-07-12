@@ -13,7 +13,7 @@
     <Label text="Nama Developer:" GridPane.columnIndex="0" GridPane.rowIndex="1" /> <!-- Ganti dari Nama menjadi Nama Developer -->
     <TextField fx:id="namaDeveloperField" GridPane.columnIndex="1" GridPane.rowIndex="1" /> <!-- Ganti dari namaField menjadi namaDeveloperField -->
     <!-- Tambahkan field lainnya sesuai kebutuhan -->
-    <Button onAction="#handleUpdateAction" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <Button fx:id="btnUpdate" onAction="#handleUpdateAction" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />

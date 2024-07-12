@@ -17,6 +17,7 @@ import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminC
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.DashbordAgenController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Manager.DashbordManagerController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
@@ -27,7 +28,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class LoginController extends Library implements Initializable {
 
     @FXML
     private AnchorPane GroupWelcome;
@@ -35,6 +36,8 @@ public class LoginController implements Initializable {
     private AnchorPane groupLoginFild;
     @FXML
     private Label labelLogin;
+    @FXML
+    private Button btnSignIn;
     @FXML
     private ImageView Image1;
     @FXML
@@ -195,12 +198,7 @@ public class LoginController implements Initializable {
 
             // Memeriksa apakah result set kosong
             if (!connection.result.isBeforeFirst()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Login Failed");
-                alert.setContentText("Username or Password is incorrect");
-                alert.showAndWait();
-                return;
+                errorBox(btnSignIn, "Username and password do not match");
             } else {
                 String idr = "";
                 // Iterasi melalui result set dan menambahkan data ke ArrayList
@@ -228,6 +226,10 @@ public class LoginController implements Initializable {
                 connection.result = connection.pstat.executeQuery();
                 connection.result.next();
                 String roleName = connection.result.getString("nama_role");
+
+
+
+
 
                 // Mengatur tahap berikutnya setelah menyimpan data di ArrayList
                 try {

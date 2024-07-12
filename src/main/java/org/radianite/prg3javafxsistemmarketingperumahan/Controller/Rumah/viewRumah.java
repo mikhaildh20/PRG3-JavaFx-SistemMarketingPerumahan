@@ -10,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -38,6 +35,28 @@ public class viewRumah extends Library implements Initializable {
     @FXML
     private TableColumn<Rumah,Void> colAction;
     private ObservableList<Rumah> listRumah = FXCollections.observableArrayList();
+    @FXML
+    private Button btnSerach;
+    @FXML
+    private TextField txtSearch;
+
+    @FXML
+    private void handleSearch() {
+        String searchText = txtSearch.getText().toLowerCase();
+        ObservableList<Rumah> filteredList = FXCollections.observableArrayList();
+
+        if (searchText.isEmpty()) {
+            loadData();
+        } else {
+            for (Rumah rumah : listRumah) {
+                if (rumah.getResidence().toLowerCase().contains(searchText) ||
+                    rumah.getType().toLowerCase().contains(searchText)) {
+                    filteredList.add(rumah);
+                }
+            }
+            tableView.setItems(filteredList);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadData();
@@ -45,12 +64,22 @@ public class viewRumah extends Library implements Initializable {
         colResidence.setCellValueFactory(new PropertyValueFactory<>("residence"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("harga"));
+        colPrice.setCellFactory(column -> new TableCell<Rumah, Double>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("Rp %,.0f", item).replace(",", "."));
+                }
+            }
+        });
         colStatus.setCellValueFactory(cellData -> {
             int status = cellData.getValue().getStatus();
             SimpleStringProperty statusProperty = new SimpleStringProperty(status == 1 ? "Available" : "Not Available");
             return statusProperty;
         });
-
         colStatus.setCellFactory(column -> new TableCell<Rumah, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -74,8 +103,25 @@ public class viewRumah extends Library implements Initializable {
                 });
 
                 btnDelete.setOnAction(event -> {
-                    deleteData("sp_deleteRumah",listRumah.get(getIndex()).getId());
-                    loadData();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Delete Confirmation");
+                    alert.setHeaderText("Are you sure you want to delete this data?");
+                    alert.setContentText("Deleted data cannot be recovered.");
+
+                    ButtonType buttonTypeYes = new ButtonType("Yes");
+                    ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                    // Show alert as a pop-up above the main form
+                    Stage stage = (Stage) getTableView().getScene().getWindow();
+                    alert.initOwner(stage);
+
+                    alert.showAndWait().ifPresent(type -> {
+                        if (type == buttonTypeYes) {
+                            deleteData("sp_deleteRumah",listRumah.get(getIndex()).getId());
+                            loadData();
+                        }
+                    });
                 });
             }
 

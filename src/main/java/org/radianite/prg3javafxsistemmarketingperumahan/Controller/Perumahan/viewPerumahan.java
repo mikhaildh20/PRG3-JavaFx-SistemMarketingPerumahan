@@ -10,16 +10,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Controller.User.updateUser;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Bank;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Perumahan;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
@@ -37,6 +35,10 @@ public class viewPerumahan extends Library implements Initializable {
     private TableColumn<Perumahan, String> colStatus; // Changed to String type
     @FXML
     private TableColumn<Perumahan, Void> colAction;
+    @FXML
+    private Button btnSerach;
+    @FXML
+    private TextField txtSearch;
     private ObservableList<Perumahan> listResidence = FXCollections.observableArrayList();
 
     @Override
@@ -73,8 +75,27 @@ public class viewPerumahan extends Library implements Initializable {
                 });
 
                 btnDelete.setOnAction(event -> {
-                    deleteData("sp_deletePerumahan",listResidence.get(getIndex()).getId());
-                    loadData();
+                    Perumahan perumahan = getTableView().getItems().get(getIndex());
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Delete Confirmation");
+                    alert.setHeaderText("Are you sure you want to delete this data?");
+                    alert.setContentText("Deleted data cannot be recovered.");
+
+                    ButtonType buttonTypeYes = new ButtonType("Yes");
+                    ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                    alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                    // Show alert as a pop-up above the main form
+                    Stage stage = (Stage) getTableView().getScene().getWindow();
+                    alert.initOwner(stage);
+
+                    alert.showAndWait().ifPresent(type -> {
+                        if (type == buttonTypeYes) {
+                            deleteData("sp_deletePerumahan",listResidence.get(getIndex()).getId());
+                            loadData();
+                        }
+                    });
                 });
             }
 
@@ -90,6 +111,24 @@ public class viewPerumahan extends Library implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    private void handleSearch() {
+        String searchText = txtSearch.getText().toLowerCase();
+        ObservableList<Perumahan> filteredList = FXCollections.observableArrayList();
+
+        if (searchText.isEmpty()) {
+            loadData();
+        } else {
+            for (Perumahan perumahan : listResidence) {
+                if (perumahan.getName().toLowerCase().contains(searchText) ||
+                    perumahan.getNamadev().toLowerCase().contains(searchText)) {
+                    filteredList.add(perumahan);
+                }
+            }
+            tableView.setItems(filteredList);
+        }
     }
 
     public void loadData(){

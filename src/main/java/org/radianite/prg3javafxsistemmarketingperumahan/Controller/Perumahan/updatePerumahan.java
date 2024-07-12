@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -21,6 +22,7 @@ import java.util.ResourceBundle;
 public class updatePerumahan extends Library implements Initializable {
     @FXML
     private TextField txtId,txtNama;
+    @FXML private Button btnUpdate;
     @FXML
     private ComboBox<Developers> cbDeveloper;
     private ObservableList<Developers> listDev = FXCollections.observableArrayList();
@@ -95,7 +97,7 @@ public class updatePerumahan extends Library implements Initializable {
 
     public void onActionUpdate(ActionEvent actionEvent) {
         if (txtNama.getText().isEmpty()){
-            fillBox();
+            fillBox(btnUpdate,"Please fill Developer Name");
             return;
         }
         try{
@@ -107,7 +109,7 @@ public class updatePerumahan extends Library implements Initializable {
             connect.pstat.setString(3,txtNama.getText());
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox();
+            successBox(btnUpdate,"Update Success");
             clear();
             loadPage(actionEvent,"viewPerumahan");
         }catch (SQLException ex){

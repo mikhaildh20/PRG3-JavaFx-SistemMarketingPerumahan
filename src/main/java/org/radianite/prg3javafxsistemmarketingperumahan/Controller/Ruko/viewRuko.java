@@ -10,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Role;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Ruko;
 
 import java.io.IOException;
@@ -42,6 +40,29 @@ public class viewRuko extends Library implements Initializable {
     @FXML
     private TableColumn<Ruko, Void> colAction;
     private ObservableList<Ruko> listRuko = FXCollections.observableArrayList();
+
+    @FXML
+    private Button btnSerach;
+    @FXML
+    private TextField txtSearch;
+
+    @FXML
+    private void handleSearch() {
+        String searchText = txtSearch.getText().toLowerCase();
+        ObservableList<Ruko> filteredList = FXCollections.observableArrayList();
+
+        if (searchText.isEmpty()) {
+            loadData();
+        } else {
+            for (Ruko ruko : listRuko) {
+                if (ruko.getBlok().toLowerCase().contains(searchText) ||
+                    ruko.getNamaperum().toLowerCase().contains(searchText)) {
+                    filteredList.add(ruko);
+                }
+            }
+            tableView.setItems(filteredList);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadData();
@@ -66,6 +87,17 @@ public class viewRuko extends Library implements Initializable {
         });
         colBlok.setCellValueFactory(new PropertyValueFactory<>("blok"));
         colRent.setCellValueFactory(new PropertyValueFactory<>("rent"));
+        colRent.setCellFactory(column -> new TableCell<Ruko, Double>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("Rp %,.0f", item).replace(",", "."));
+                }
+            }
+        });
         colStatus.setCellValueFactory(cellData -> {
             int status = cellData.getValue().getStatus();
             return new SimpleStringProperty(status == 1 ? "Available" : "Not Available"); // Changed to display "Available" or "Not Available"
@@ -94,8 +126,25 @@ public class viewRuko extends Library implements Initializable {
                 });
 
                 btnDelete.setOnAction(event -> {
-                    deleteData("sp_deleteRuko",listRuko.get(getIndex()).getId());
-                    loadData();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Delete Confirmation");
+                    alert.setHeaderText("Are you sure you want to delete this data?");
+                    alert.setContentText("Deleted data cannot be recovered.");
+
+                    ButtonType buttonTypeYes = new ButtonType("Yes");
+                    ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                    // Show alert as a pop-up above the main form
+                    Stage stage = (Stage) getTableView().getScene().getWindow();
+                    alert.initOwner(stage);
+
+                    alert.showAndWait().ifPresent(type -> {
+                        if (type == buttonTypeYes) {
+                            deleteData("sp_deleteRuko",listRuko.get(getIndex()).getId());
+                            loadData();
+                        }
+                    });
                 });
             }
 

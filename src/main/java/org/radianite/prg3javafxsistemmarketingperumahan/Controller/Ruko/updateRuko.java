@@ -103,7 +103,7 @@ public class updateRuko extends Library implements Initializable {
     public void onActionUpdate(ActionEvent actionEvent) {
         if (isEmpty())
         {
-            fillBox();
+            fillBox(btnFile,"Please fill all the fields");
             return;
         }
         try{
@@ -120,7 +120,7 @@ public class updateRuko extends Library implements Initializable {
             connect.pstat.setDouble(8,Double.parseDouble(txtRent.getText()));
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox();
+            successBox(btnFile,"Data updated successfully");
             loadPage(actionEvent,"viewRuko");
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());

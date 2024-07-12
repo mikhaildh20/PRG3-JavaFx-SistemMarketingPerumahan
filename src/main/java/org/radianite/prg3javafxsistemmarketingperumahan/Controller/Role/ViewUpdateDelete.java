@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Perumahan;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Role;
 
 import java.io.IOException;
@@ -34,6 +35,25 @@ public class ViewUpdateDelete implements Initializable {
     private TableColumn<Role, Integer> status;
     @FXML
     private TableColumn<Role, Void> actionCol;
+
+    @FXML
+    private Button btnSearch;
+    @FXML
+    private TextField txtSearch;
+
+    @FXML
+    private void handleSearch() {
+        String searchText = txtSearch.getText().toLowerCase();
+        ObservableList<Role> filteredList = FXCollections.observableArrayList();
+
+        for (Role role : tableRole.getItems()) {
+            if (role.getNamaRole().toLowerCase().contains(searchText)) {
+                filteredList.add(role);
+            }
+        }
+
+        tableRole.setItems(filteredList);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,12 +130,29 @@ public class ViewUpdateDelete implements Initializable {
                     e.printStackTrace();
                 }
             });
-
             deleteButton.setOnAction(event -> {
-                Role role = getTableView().getItems().get(getIndex());
-                deleteDataFromDatabase(role);
-                loaddata();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete Confirmation");
+                alert.setHeaderText("Are you sure you want to delete this data?");
+                alert.setContentText("Deleted data cannot be recovered.");
+
+                ButtonType buttonTypeYes = new ButtonType("Yes");
+                ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                // Show alert as a pop-up above the main form
+                Stage stage = (Stage) getTableView().getScene().getWindow();
+                alert.initOwner(stage);
+
+                alert.showAndWait().ifPresent(type -> {
+                    if (type == buttonTypeYes) {
+                        Role role = getTableView().getItems().get(getIndex());
+                        deleteDataFromDatabase(role);
+                        loaddata();
+                    }
+                });
             });
+
 
             HBox hbox = new HBox(5);
             hbox.getChildren().addAll(editButton, deleteButton);
