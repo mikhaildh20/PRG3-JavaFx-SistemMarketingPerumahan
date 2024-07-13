@@ -7,6 +7,8 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     requires java.desktop;
     requires org.apache.poi.poi;
     requires org.apache.poi.ooxml;
+    requires jasperreports;
+    requires javafx.swing;
 
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah to javafx.fxml;

@@ -2,21 +2,32 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Laporan;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.ShopHouseReport;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
+
+import javax.swing.*;
+import java.net.URLDecoder;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -24,6 +35,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -195,7 +207,34 @@ public class LaporanRuko extends Library implements Initializable {
 
     @FXML
     void printButton(ActionEvent event) {
+        Database connect = new Database();
+        try {
+            URL url = getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/Report/LaporanRuko.jrxml");
+            String jrxmlPath = URLDecoder.decode(url.getFile(), "UTF-8");
+            JasperReport jasperReport = JasperCompileManager.compileReport(jrxmlPath);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, new HashMap<>(), connect.conn);
 
+            // Create a JasperViewer
+            final JasperViewer viewer = new JasperViewer(jasperPrint);
+
+            // Get the component that displays the report
+            final JComponent reportComponent = (JComponent) viewer.getComponent(0);
+
+            // Create a JavaFX window to display the report
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            SwingNode swingNode = new SwingNode();
+            swingNode.setContent(reportComponent); // Add the report component to the SwingNode
+            BorderPane borderPane = new BorderPane();
+            borderPane.setCenter(swingNode); // Add the SwingNode to the BorderPane
+            Scene scene = new Scene(borderPane);
+            stage.setScene(scene);
+            stage.show();
+        } catch (JRException ex) {
+            ex.printStackTrace();
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML
