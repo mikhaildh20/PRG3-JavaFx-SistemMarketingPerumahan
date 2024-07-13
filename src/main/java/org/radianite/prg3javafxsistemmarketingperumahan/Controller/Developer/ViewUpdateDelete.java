@@ -106,7 +106,7 @@ public class ViewUpdateDelete extends Library implements Initializable  {
     }
 
     public void loaddata() {
-
+    developerList.clear();
         try {
             connection.stat = connection.conn.createStatement();
             String query = "SELECT * FROM ms_developer"; // Ganti dari ms_role menjadi ms_developer
