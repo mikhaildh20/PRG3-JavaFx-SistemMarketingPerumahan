@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="760.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah.Input">
+<AnchorPane prefHeight="760.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah.Input">
    <children>
         <Label fx:id="messageLabel" textFill="red" />
       <GridPane layoutX="390.0" layoutY="94.0" prefHeight="475.0" prefWidth="716.0" stylesheets="@../../../../Css/text.css">
@@ -22,7 +17,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-               <Button onAction="#onBtnSimpanClick" prefHeight="47.0" prefWidth="129.0" text="Simpan" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <Button fx:id="btnSimpan" onAction="#onBtnSimpanClick" prefHeight="47.0" prefWidth="129.0" text="Simpan" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                <Button onAction="#onBatalSimpanClick" prefHeight="47.0" prefWidth="135.0" text="Batal" GridPane.rowIndex="2" />
                <TextField fx:id="txtNama" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                <Label text="Nama:" GridPane.rowIndex="1" />

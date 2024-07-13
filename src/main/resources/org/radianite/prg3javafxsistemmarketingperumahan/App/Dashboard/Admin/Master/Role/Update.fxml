@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role.UpdateRole">
-    <padding>
-        <Insets bottom="10" left="10" right="10" top="10" />
-    </padding>
-    <Label text="ID Role:" GridPane.columnIndex="0" GridPane.rowIndex="0" /> <!-- Ganti dari ID Tipe Rumah menjadi ID Role -->
-    <TextField fx:id="idRoleField" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" /> <!-- Ganti dari idTipeRumahField menjadi idRoleField -->
-    <Label text="Nama:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <TextField fx:id="namaField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-    <!-- Tambahkan field lainnya sesuai kebutuhan -->
-    <Button onAction="#handleUpdateAction" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
-</GridPane>
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role.UpdateRole">
+    <children>
+        <Label fx:id="messageLabel" layoutX="663.0" layoutY="445.0" textFill="red" />
+        <GridPane layoutX="427.0" layoutY="51.0" prefHeight="709.0" prefWidth="551.0" stylesheets="@../../../../Css/text.css">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="ID Role:" />
+                <TextField fx:id="txtIdRole" editable="false" GridPane.columnIndex="1" />
+                <Label text="Nama Role:" GridPane.rowIndex="1" />
+                <TextField fx:id="txtNamaRole" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Button fx:id="btnSave" onAction="#handleUpdateAction" prefHeight="47.0" prefWidth="124.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

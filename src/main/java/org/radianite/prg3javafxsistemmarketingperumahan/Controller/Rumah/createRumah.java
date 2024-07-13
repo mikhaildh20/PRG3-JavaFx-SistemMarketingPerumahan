@@ -43,7 +43,7 @@ public class createRumah extends Library implements Initializable {
         loadPerum();
         loadType();
 
-        txtId.setDisable(true);
+        txtId.setEditable(false);
         txtId.setText(generateID("ms_rumah","RMA","id_rumah"));
         cbResidence.setCellFactory(param->new javafx.scene.control.ListCell<Perumahan>(){
             protected void updateItem(Perumahan item,boolean empty){
@@ -110,20 +110,6 @@ public class createRumah extends Library implements Initializable {
         txtRest.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 txtRest.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        txtPrice.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                txtPrice.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-            if (newValue.length() > 3) {
-                try {
-                    String formattedPrice = String.format("%,.0f", Double.parseDouble(newValue.replace(",", "")));
-                    txtPrice.setText(formattedPrice);
-                } catch (NumberFormatException e) {
-                    txtPrice.setText("");
-                    errorBox(btnFile, "Harga harus berupa angka");
-                }
             }
         });
     }
@@ -195,7 +181,7 @@ public class createRumah extends Library implements Initializable {
             connect.pstat.setInt(12,Integer.parseInt(txtBuild.getText()));
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox(btnFile,"Data has been saved");
+            successBox(btnFile,"Data Successfully Saved");
             clear();
             txtId.setText(generateID("ms_rumah","RMA","id_rumah"));
         }catch (SQLException | IOException ex){
@@ -223,6 +209,9 @@ public class createRumah extends Library implements Initializable {
         txtPrice.setText("");
         txtDesc.setText("");
         LabFile.setText("Choose photo here..");
+        cbResidence.getSelectionModel().clearSelection();
+        cbType.getSelectionModel().clearSelection();
+        cbInterior.getSelectionModel().clearSelection();
     }
 
     public void onActionFile(ActionEvent actionEvent) {

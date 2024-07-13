@@ -1,4 +1,4 @@
-package org.radianite.prg3javafxsistemmarketingperumahan.Controller.User;
+package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko;
 
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
@@ -6,31 +6,27 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Ruko;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
-import javafx.scene.image.ImageView;
 
-import java.io.ByteArrayInputStream;
-
-public class DetailUser {
+public class DetailRuko {
     @FXML
-    private Label labelNama;
+    private Label labelBlok;
     @FXML
-    private Label labelEmail;
+    private Label labelPerumahan;
     @FXML
-    private Label labelAlamat;
+    private Label labelHarga;
     @FXML
-    private Label labelKelamin;
+    private Label labelTegangan;
     @FXML
-    private Label labelUmur;
+    private Label labelKetersediaan;
     @FXML
-    private Label labelRole;
+    private Label labelToilet;
     @FXML
-    private Label labelUsn;
-    @FXML
-    private Label labelPsw;
+    private Label labelDeskripsi;
     @FXML
     private ImageView imageFoto;
     @FXML
@@ -39,21 +35,21 @@ public class DetailUser {
     private AnchorPane AncoreMaster;
 
 
-    public void setData(User user){
-        labelUsn.setText(user.getUsn());
-        labelPsw.setText(user.getPass());
-        labelRole.setText(user.getRName());
-        labelNama.setText(user.getName());
-        labelEmail.setText(user.getEmail());
-        labelUmur.setText(user.getAge().toString());
-        labelKelamin.setText(user.getGender());
-        imageFoto.setImage(user.getFoto());
-        labelAlamat.setText(user.getAddress());
-
+    public void setData(Ruko ruko){
+        System.out.println(ruko.getBlok());
+        labelBlok.setText(ruko.getBlok());
+        labelPerumahan.setText(ruko.getNamaperum());
+        labelHarga.setText("Rp " + String.format("%,.0f", ruko.getRent()));
+        labelTegangan.setText(String.valueOf(ruko.getElectric()));
+        labelToilet.setText(String.valueOf(ruko.getToilet()));
+        labelDeskripsi.setText(ruko.getDesc());
+        labelKetersediaan.setText(ruko.getKetersediaan() == 0 ? "Available" : "Rented");
+        labelKetersediaan.setStyle(ruko.getKetersediaan() == 0 ? "-fx-text-fill: green;" : "-fx-text-fill: red;");
+        imageFoto.setImage(ruko.getFoto());
     }
 
     public void back() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/User/viewUser.fxml");
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Ruko/View.fxml");
     }
 
     private void setPane(String fxml) {

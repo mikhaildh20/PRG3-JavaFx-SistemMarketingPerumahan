@@ -1,5 +1,7 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,19 +11,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageDeveloperController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Controller.Rumah.DetailRumah;
+import org.radianite.prg3javafxsistemmarketingperumahan.Controller.Rumah.updateRumah;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Developer;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Rumah;
+import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class ViewUpdateDelete implements Initializable {
+public class ViewUpdateDelete extends Library implements Initializable  {
 
     private Database connection = new Database();
     @FXML
@@ -38,6 +47,40 @@ public class ViewUpdateDelete implements Initializable {
     private Button btnSerach;
     @FXML
     private TextField txtSearch;
+    ObservableList<Developer> developerList = FXCollections.observableArrayList(); // Ganti dari roleList menjadi developerList
+    @FXML
+    private AnchorPane GroupMenu;
+    @FXML
+    private void btnAdd() {
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/Add.fxml", null);
+
+    }
+
+    private void setPane(String fxml, Developer data) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent pane = loader.load();
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+            GroupMenu.setOpacity(1.0);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(eventFadeOut -> {
+                GroupMenu.getChildren().setAll(pane);
+                if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/Update.fxml")) {
+                    Update controller = loader.getController();
+                    controller.setDeveloper(data);
+                }
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                ParallelTransition parallelTransition = new ParallelTransition(fadeIn);
+                parallelTransition.play();
+            });
+            fadeOut.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,7 +106,7 @@ public class ViewUpdateDelete implements Initializable {
     }
 
     public void loaddata() {
-        ObservableList<Developer> developerList = FXCollections.observableArrayList(); // Ganti dari roleList menjadi developerList
+
         try {
             connection.stat = connection.conn.createStatement();
             String query = "SELECT * FROM ms_developer"; // Ganti dari ms_role menjadi ms_developer
@@ -113,51 +156,31 @@ public class ViewUpdateDelete implements Initializable {
         private final Button deleteButton = new Button("Delete");
 
         public TableCellWithButton() {
+            editButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+            editButton.setOnMouseEntered(event -> {
+                editButton.setStyle("-fx-background-color: darkblue; -fx-text-fill: white;");
+            });
+            editButton.setOnMouseExited(event -> {
+                editButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+            });
             editButton.setOnAction(event -> {
-                Developer developer = getTableView().getItems().get(getIndex());
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/Master/Developer/Update.fxml"));
-                    Parent parent = loader.load();
-
-                    Update controller = loader.getController();
-                    controller.setDeveloper(developer); // Ganti dari setRole menjadi setDeveloper
-
-                    Stage stage = new Stage();
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.setScene(new Scene(parent));
-                    stage.showAndWait();
-
-                    getTableView().refresh();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/Update.fxml", developerList.get(getIndex()));
+            });
+            deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+            deleteButton.setOnMouseEntered(event -> {
+                deleteButton.setStyle("-fx-background-color: darkred; -fx-text-fill: white;");
+            });
+            deleteButton.setOnMouseExited(event -> {
+                deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
             });
             deleteButton.setOnAction(event -> {
-                Developer developer = getTableView().getItems().get(getIndex());
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Delete Confirmation");
-                alert.setHeaderText("Are you sure you want to delete this data?");
-                alert.setContentText("Deleted data cannot be recovered.");
-
-                ButtonType buttonTypeYes = new ButtonType("Yes");
-                ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
-
-                // Show alert as a pop-up above the main form
-                Stage stage = (Stage) getTableView().getScene().getWindow();
-                alert.initOwner(stage);
-
-                alert.showAndWait().ifPresent(type -> {
-                    if (type == buttonTypeYes) {
-                        deleteDataFromDatabase(developer);
-                        loaddata();
-                    }
-                });
+                confirmBox("sp_deleteDeveloper", developerList.get(getIndex()).getIdDeveloper(),btnSerach);
+                loaddata();
             });
 
             HBox hbox = new HBox(5);
             hbox.getChildren().addAll(editButton, deleteButton);
+            hbox.setSpacing(10);
             setGraphic(hbox);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }
@@ -188,4 +211,5 @@ public class ViewUpdateDelete implements Initializable {
             System.out.println("Terjadi error saat menghapus data dari database: " + ex);
         }
     }
+
 }

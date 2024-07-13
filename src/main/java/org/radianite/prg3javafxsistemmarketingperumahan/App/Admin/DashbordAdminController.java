@@ -211,11 +211,21 @@ public class DashbordAdminController {
             connection.pstat.setString(1, userList.get(0).getUsn());
             connection.result = connection.pstat.executeQuery();
             connection.result.next();
-/*            String logDate = connection.result.getString("logDate");
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            String logDate = connection.result.getString("logDate");
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy HH:mm ");
             LocalDateTime dateTime = LocalDateTime.parse(logDate, inputFormatter);
-            txtLastOnline.setText(dateTime.format(outputFormatter));*/
+            txtLastOnline.setText(dateTime.format(outputFormatter));
+        }catch (SQLException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }
+        try{
+            Database connect = new Database();
+            String queryinputlog = "EXEC sp_inputLogin ?";
+            connect.pstat = connect.conn.prepareStatement(queryinputlog);
+            connect.pstat.setString(1, data.getUsn());
+            connect.pstat.executeUpdate();
+            connect.pstat.close();
         }catch (SQLException ex){
             System.out.println("Error: "+ex.getMessage());
         }

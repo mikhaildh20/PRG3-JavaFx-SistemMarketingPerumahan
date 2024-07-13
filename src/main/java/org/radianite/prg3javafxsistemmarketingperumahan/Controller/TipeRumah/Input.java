@@ -17,7 +17,7 @@ public class Input extends Library {
     @FXML
     private TextField txtNama;
     @FXML
-    private Button simpanButton;
+    private Button btnSimpan;
     @FXML
     private Button batalButton;
     @FXML
@@ -31,7 +31,12 @@ public class Input extends Library {
     @FXML
     public void initialize() {
         txtIdTipe.setText(generateID("ms_tipe_rumah","TRM","id_tipe"));
-        txtNama.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
+    txtNama.textProperty().addListener((observable, oldValue, newValue) -> {
+        if (!newValue.matches("[a-zA-Z\\s]*")) {
+            txtNama.setText(newValue.replaceAll("[^a-zA-Z\\s]", ""));
+        }
+    });
+        
     }
 
 
@@ -41,6 +46,12 @@ public class Input extends Library {
         idTipe = txtIdTipe.getText();
         nama = txtNama.getText();
         status = 1;
+        if (idTipe.isEmpty() || nama.isEmpty()) {
+            fillBox(btnSimpan, "Please fill all the fields");
+            return;
+        } else {
+            messageLabel.setText("");
+        }
 
         try {
             // Menggunakan stored procedure spInsertTipeRumah
@@ -52,7 +63,7 @@ public class Input extends Library {
 
             connection.pstat.executeUpdate();
             connection.pstat.close();
-
+            successBox(btnSimpan, "Data Successfully Saved");
             clear();
         } catch (SQLException ex) {
             System.out.println("Terjadi error saat insert data tipe rumah: " + ex);

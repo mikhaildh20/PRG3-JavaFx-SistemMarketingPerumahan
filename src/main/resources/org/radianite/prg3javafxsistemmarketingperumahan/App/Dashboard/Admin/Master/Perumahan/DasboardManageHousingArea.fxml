@@ -23,8 +23,8 @@
         </AnchorPane>
         <AnchorPane layoutX="1108.0" layoutY="22.0" prefHeight="96.0" prefWidth="362.0" />
         <AnchorPane fx:id="AncoreMaster" layoutX="23.0" layoutY="400.0" minHeight="0.0" minWidth="0.0" prefHeight="760.0" prefWidth="1495.0" />
-        <Button fx:id="btnAdd" layoutX="23.0" layoutY="401.0" mnemonicParsing="false" onAction="#btnAddClick" prefHeight="49.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Add Data" />
-        <Button fx:id="btnView" layoutX="23.0" layoutY="401.0" mnemonicParsing="false" onAction="#btnViewClick" prefHeight="49.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Back" />
+
+        <Button fx:id="btnView" layoutX="27.0" layoutY="1107.0" mnemonicParsing="false" onAction="#btnViewClick" prefHeight="49.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Back" />
         <AnchorPane layoutX="22.0" layoutY="26.0" prefHeight="122.0" prefWidth="1495.0" style="-fx-background-color: darkblue; -fx-background-radius: 10;">
             <children>
                 <Text fx:id="DasbordNama1" fill="WHITE" layoutX="28.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Housing">

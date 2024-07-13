@@ -227,10 +227,6 @@ public class LoginController extends Library implements Initializable {
                 connection.result.next();
                 String roleName = connection.result.getString("nama_role");
 
-
-
-
-
                 // Mengatur tahap berikutnya setelah menyimpan data di ArrayList
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/" + roleName + "/Dasbord.fxml"));

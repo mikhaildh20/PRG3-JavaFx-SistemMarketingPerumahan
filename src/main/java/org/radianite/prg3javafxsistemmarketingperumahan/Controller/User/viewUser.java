@@ -24,7 +24,9 @@ import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.MainDashboardC
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.TransaksiRukoController;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.TransaksiRumahController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer.Update;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Developer;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.IOException;
@@ -49,6 +51,37 @@ public class viewUser extends Library implements Initializable {
     private Button btnSerach;
     @FXML
     private TextField txtSearch;
+    @FXML
+    private void btnAdd() {
+        setPanes("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/User/inputUser.fxml", null);
+
+    }
+
+    private void setPanes(String fxml, Developer data) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent pane = loader.load();
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+            GroupMenu.setOpacity(1.0);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(eventFadeOut -> {
+                GroupMenu.getChildren().setAll(pane);
+                if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/Update.fxml")) {
+                    Update controller = loader.getController();
+                    controller.setDeveloper(data);
+                }
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                ParallelTransition parallelTransition = new ParallelTransition(fadeIn);
+                parallelTransition.play();
+            });
+            fadeOut.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void handleSearch(ActionEvent event) {
@@ -103,38 +136,33 @@ public class viewUser extends Library implements Initializable {
             }
         });
         colAction.setCellFactory(param -> new TableCell<>() {
-            private final Button btnUpdate = new Button("Update");
+            private final Button btnUpdate = new Button("Edit");
             private final Button btnDelete = new Button("Delete");
             private final Button btnDetail = new Button("Detail");
 
             {
-                btnUpdate.setOnAction(event -> {
-                    loadPage(event, "updateUser", listUser.get(getIndex()));
+                btnUpdate.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                btnUpdate.setOnMouseEntered(event -> {
+                    btnUpdate.setStyle("-fx-background-color: darkblue; -fx-text-fill: white;");
                 });
-                btnUpdate.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // Memberikan warna biru untuk tombol Update
+                btnUpdate.setOnMouseExited(event -> {
+                    btnUpdate.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                });
+                btnUpdate.setOnAction(event -> {
+                    setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/User/updateUser.fxml", listUser.get(getIndex()));
+                });
 
                 btnDelete.setOnAction(event -> {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Delete Confirmation");
-                    alert.setHeaderText("Are you sure you want to delete this data?");
-                    alert.setContentText("Deleted data cannot be recovered.");
-
-                    ButtonType buttonTypeYes = new ButtonType("Yes");
-                    ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-                    alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
-
-                    // Show alert as a pop-up above the main form
-                    Stage stage = (Stage) getTableView().getScene().getWindow();
-                    alert.initOwner(stage);
-
-                    alert.showAndWait().ifPresent(type -> {
-                        if (type == buttonTypeYes) {
-                            deleteData("sp_deleteUser", listUser.get(getIndex()).getUsn());
-                            loadData();
-                        }
-                    });
+                    confirmBox("sp_deleteUser", listUser.get(getIndex()).getUsn(), btnDelete);
+                    loadData();
                 });
-                btnDelete.setStyle("-fx-background-color: red; -fx-text-fill: white;"); // Memberikan warna merah untuk tombol Delete
+                btnDelete.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                btnDelete.setOnMouseEntered(event -> {
+                    btnDelete.setStyle("-fx-background-color: darkred; -fx-text-fill: white;");
+                });
+                btnDelete.setOnMouseExited(event -> {
+                    btnDelete.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                });
 
                 btnDetail.setOnAction(event -> {
                     setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/User/DetailUser.fxml",listUser.get(getIndex()));
@@ -224,14 +252,15 @@ public class viewUser extends Library implements Initializable {
                     DetailUser controller = loader.getController();
                     controller.setData(data);
                     /*    controller.setDataList(userList.get(0));*/
+                } else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/User/updateUser.fxml")) {
+                    updateUser controller = loader.getController();
+                    controller.setDataList(data);
                 }
-                GroupMenu.setTranslateX(-50);
-                TranslateTransition translate = new TranslateTransition(Duration.seconds(0.5), GroupMenu);
-                translate.setToX(0);
+
                 FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), GroupMenu);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
-                ParallelTransition parallelTransition = new ParallelTransition(translate, fadeIn);
+                ParallelTransition parallelTransition = new ParallelTransition( fadeIn);
                 parallelTransition.play();
             });
             fadeOut.play();

@@ -301,7 +301,7 @@ public class createUser extends Library implements Initializable {
             connect.pstat.setBytes(10,imageToByte(file));
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox(btnFile,"Success");
+            successBox(btnFile,"Data Successfully Saved");
             clear();
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());

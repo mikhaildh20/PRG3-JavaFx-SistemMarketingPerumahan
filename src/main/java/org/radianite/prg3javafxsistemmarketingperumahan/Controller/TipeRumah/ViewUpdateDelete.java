@@ -1,5 +1,7 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,11 +11,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Developer;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.TipeRumah;
 
 import java.io.IOException;
@@ -21,7 +27,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class ViewUpdateDelete implements Initializable {
+public class ViewUpdateDelete extends Library implements Initializable {
 
     private Database connection = new Database();
     @FXML
@@ -34,11 +40,46 @@ public class ViewUpdateDelete implements Initializable {
     private TableColumn<TipeRumah, Integer> status;
     @FXML
     private TableColumn<TipeRumah, Void> actionCol;
+    ObservableList<TipeRumah> TPList = FXCollections.observableArrayList();
 
     @FXML
     private Button btnSerach;
     @FXML
     private TextField txtSearch;
+
+    @FXML
+    private AnchorPane GroupMenu;
+    @FXML
+    private void btnAdd() {
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/TipeRumah/Input.fxml", null);
+
+    }
+
+    private void setPane(String fxml, TipeRumah data) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent pane = loader.load();
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+            GroupMenu.setOpacity(1.0);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(eventFadeOut -> {
+                GroupMenu.getChildren().setAll(pane);
+                if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/TipeRumah/UpdateTipeRumah.fxml")) {
+                    Update controller = loader.getController();
+                    controller.setTipeRumah(data);
+                }
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                ParallelTransition parallelTransition = new ParallelTransition(fadeIn);
+                parallelTransition.play();
+            });
+            fadeOut.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void handleSearch() {
@@ -59,7 +100,7 @@ public class ViewUpdateDelete implements Initializable {
         loaddata();
     }
     private void loaddata() {
-        ObservableList<TipeRumah> TPList = FXCollections.observableArrayList();
+        TPList.clear();
         try {
             connection.stat = connection.conn.createStatement();
             String query = "SELECT * FROM ms_tipe_rumah";
@@ -110,47 +151,26 @@ public class ViewUpdateDelete implements Initializable {
 
         public TableCellWithButton() {
             // Konfigurasi aksi untuk tombol edit
-            editButton.setOnAction(event -> {
-                TipeRumah tipeRumah = getTableView().getItems().get(getIndex());
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/Master/TipeRumah/UpdateTipeRumah.fxml"));
-                    Parent parent = loader.load();
-
-                    Update controller = loader.getController();
-                    controller.setTipeRumah(tipeRumah);
-
-                    Stage stage = new Stage();
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.setScene(new Scene(parent));
-                    stage.showAndWait();
-
-                    getTableView().refresh();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            editButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+            editButton.setOnMouseEntered(event -> {
+                editButton.setStyle("-fx-background-color: darkblue; -fx-text-fill: white;");
             });
-
+            editButton.setOnMouseExited(event -> {
+                editButton.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+            });
+            editButton.setOnAction(event -> {
+                setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/TipeRumah/UpdateTipeRumah.fxml", TPList.get(getIndex()));
+            });
+            deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+            deleteButton.setOnMouseEntered(event -> {
+                deleteButton.setStyle("-fx-background-color: darkred; -fx-text-fill: white;");
+            });
+            deleteButton.setOnMouseExited(event -> {
+                deleteButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+            });
             deleteButton.setOnAction(event -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Delete Confirmation");
-                alert.setHeaderText("Are you sure you want to delete this data?");
-                alert.setContentText("Deleted data cannot be recovered.");
-
-                ButtonType buttonTypeYes = new ButtonType("Yes");
-                ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
-
-                // Show alert as a pop-up above the main form
-                Stage stage = (Stage) getTableView().getScene().getWindow();
-                alert.initOwner(stage);
-
-                alert.showAndWait().ifPresent(type -> {
-                    if (type == buttonTypeYes) {
-                        TipeRumah tipeRumah = getTableView().getItems().get(getIndex());
-                        deleteDataFromDatabase(tipeRumah);
-                        loaddata();
-                    }
-                });
+                confirmBox("sp_deleteTipeRumah", TPList.get(getIndex()).getIdTipe(), btnSerach);
+                loaddata();
             });
 
             // Membuat HBox yang berisi tombol edit dan delete

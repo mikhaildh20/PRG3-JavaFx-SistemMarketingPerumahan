@@ -70,7 +70,6 @@ public class updateBank extends Library implements Initializable {
             connect.pstat.setInt(3,Integer.parseInt(txtBunga.getText()));
             connect.pstat.executeUpdate();
             successBox(btnUpdate,"Update Success");
-            loadPage(actionEvent,"viewBank");
         }catch (SQLException ex){
             System.out.println("Error: "+ex.getMessage());
         }

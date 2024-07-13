@@ -35,8 +35,6 @@ public class DashboardManageBankController {
     @FXML
     private void initialize() {
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Bank/viewBank.fxml");
-        btnView.setOpacity(0.0);
-        btnView.setDisable(true);
     }
 
     public void setDataList(User data) {
@@ -57,10 +55,6 @@ public class DashboardManageBankController {
     @FXML
     public void btnViewClick() {
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Bank/viewBank.fxml");
-        btnAdd.setOpacity(1.0);
-        btnAdd.setDisable(false);
-        btnView.setDisable(true);
-        btnView.setOpacity(0.0);
         // Mengganti tampilan pane dengan form lihat developer
     }
 

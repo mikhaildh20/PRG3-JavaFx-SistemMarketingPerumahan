@@ -53,6 +53,7 @@ public class Input extends Library {
             connection.pstat.executeUpdate();
             connection.pstat.close();
 
+            successBox(simpanButton, "Data Successfully Saved");
             clear();
         } catch (SQLException ex) {
             System.out.println("Terjadi error saat insert data role: " + ex);

@@ -6,17 +6,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="AncoreMaster" prefHeight="760.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.User.DetailUser">
+<AnchorPane fx:id="AncoreMaster" prefHeight="760.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Rumah.DetailRumah">
    <children>
       <ImageView fx:id="imageFoto" fitHeight="531.0" fitWidth="388.0" layoutX="-9.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Resource/Dasboard/shopCard.png" />
          </image>
       </ImageView>
-      <GridPane layoutX="408.0" layoutY="33.0" prefHeight="642.0" prefWidth="970.0">
+      <GridPane layoutX="413.0" layoutY="37.0" prefHeight="642.0" prefWidth="970.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -26,112 +27,135 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nama Lengkap" textFill="DARKBLUE">
+            <Label text="Blok" textFill="DARKBLUE">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="Email" textFill="DARKBLUE" GridPane.rowIndex="1">
+            <Label text="Residence" textFill="DARKBLUE" GridPane.rowIndex="1">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
             
-            <Label text="Alamat" textFill="DARKBLUE" GridPane.rowIndex="2">
+            <Label text="Electricity" textFill="DARKBLUE" GridPane.rowIndex="2">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="Jenis Kelamin" textFill="DARKBLUE" GridPane.rowIndex="3">
+            <Label text="availability" textFill="DARKBLUE" GridPane.rowIndex="3">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="Umur" textFill="DARKBLUE" GridPane.rowIndex="4">
+            <Label text="Bathroom" textFill="DARKBLUE" GridPane.columnIndex="1">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="Role" textFill="DARKBLUE" GridPane.columnIndex="1">
+            <Label text="Descripsion" textFill="DARKBLUE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="Username" textFill="DARKBLUE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label fx:id="labelBlok" text="Label">
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="90.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelPerumahan" text="Label" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="90.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelTegangan" text="Label" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="90.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelKetersediaan" text="Label" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="90.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelToilet" text="Label" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="90.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelDeskripsi" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="90.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Montserrat Regular" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="495.0" layoutY="62.0" text="Bedhroom" textFill="DARKBLUE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="Password" textFill="DARKBLUE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label fx:id="labelBedroom" layoutX="495.0" layoutY="339.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Montserrat Regular" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="50.0" top="90.0" />
+               </GridPane.margin>
+            </Label>
+            <Label layoutX="495.0" layoutY="447.0" text="House Type" textFill="DARKBLUE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="labelNama" text="Label">
-               <GridPane.margin>
-                  <Insets bottom="50.0" top="90.0" />
-               </GridPane.margin>
+            <Label fx:id="labelType" layoutX="495.0" layoutY="211.0" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Montserrat Regular" size="20.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="35.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Build Year" textFill="DARKBLUE" GridPane.columnIndex="2">
+               <font>
+                  <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="labelEmail" text="Label" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets bottom="50.0" top="90.0" />
-               </GridPane.margin>
+            <Label fx:id="labelYear" layoutX="334.0" layoutY="82.0" text="Label" GridPane.columnIndex="2">
                <font>
                   <Font name="Montserrat Regular" size="20.0" />
                </font>
-            </Label>
-            <Label fx:id="labelAlamat" text="Label" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets bottom="50.0" top="90.0" />
+                  <Insets top="35.0" />
                </GridPane.margin>
-               <font>
-                  <Font name="Montserrat Regular" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelKelamin" text="Label" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets bottom="50.0" top="90.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Montserrat Regular" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelUmur" text="Label" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets bottom="50.0" top="90.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Montserrat Regular" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelRole" text="Label" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets bottom="50.0" top="90.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Montserrat Regular" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelUsn" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets bottom="50.0" top="90.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Montserrat Regular" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelPsw" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets bottom="50.0" top="90.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Montserrat Regular" size="20.0" />
-               </font>
             </Label>
          </children>
       </GridPane>
+      <Label layoutX="1.0" layoutY="605.0" text="Rent Fee" textFill="DARKBLUE">
+         <font>
+            <Font name="Montserrat Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelHarga" layoutX="1.0" layoutY="624.0" text="Label">
+         <font>
+            <Font name="Montserrat Regular" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

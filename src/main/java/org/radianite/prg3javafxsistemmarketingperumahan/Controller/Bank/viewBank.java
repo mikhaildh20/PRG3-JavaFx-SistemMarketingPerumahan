@@ -1,5 +1,7 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,9 +15,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer.Update;
 import org.radianite.prg3javafxsistemmarketingperumahan.Controller.User.updateUser;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Bank;
@@ -42,8 +47,40 @@ public class viewBank extends Library implements Initializable {
     @FXML private Button btnSerach;
     @FXML
     private TextField txtSearch;
-
     private ObservableList<Bank> listBank = FXCollections.observableArrayList();
+    @FXML
+    private AnchorPane GroupMenu;
+    @FXML
+    private void btnAdd() {
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Bank/inputBank.fxml", null);
+
+    }
+
+    private void setPane(String fxml, Bank data) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent pane = loader.load();
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+            GroupMenu.setOpacity(1.0);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(eventFadeOut -> {
+                GroupMenu.getChildren().setAll(pane);
+                if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Bank/updateBank.fxml")) {
+                    updateBank controller = loader.getController();
+                    controller.setDataList(data);
+                }
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                ParallelTransition parallelTransition = new ParallelTransition(fadeIn);
+                parallelTransition.play();
+            });
+            fadeOut.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadData();
@@ -71,35 +108,30 @@ public class viewBank extends Library implements Initializable {
         });
 
         colAction.setCellFactory(param->new TableCell<>(){
-            private final Button btnUpdate = new Button("Update");
+            private final Button btnUpdate = new Button("Edit");
             private final Button btnDelete = new Button("Delete");
 
             {
+                btnUpdate.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                btnUpdate.setOnMouseEntered(event -> {
+                    btnUpdate.setStyle("-fx-background-color: darkblue; -fx-text-fill: white;");
+                });
+                btnUpdate.setOnMouseExited(event -> {
+                    btnUpdate.setStyle("-fx-background-color: blue; -fx-text-fill: white;");
+                });
                 btnUpdate.setOnAction(event -> {
-                    loadPage(event,"updateBank",listBank.get(getIndex()));
+                    setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Bank/updateBank.fxml", listBank.get(getIndex()));
+                });
+                btnDelete.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                btnDelete.setOnMouseEntered(event -> {
+                    btnDelete.setStyle("-fx-background-color: darkred; -fx-text-fill: white;");
+                });
+                btnDelete.setOnMouseExited(event -> {
+                    btnDelete.setStyle("-fx-background-color: red; -fx-text-fill: white;");
                 });
                 btnDelete.setOnAction(event -> {
-                    Bank Bank = getTableView().getItems().get(getIndex());
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Delete Confirmation");
-                    alert.setHeaderText("Are you sure you want to delete this data?");
-                    alert.setContentText("Deleted data cannot be recovered.");
-
-                    ButtonType buttonTypeYes = new ButtonType("Yes");
-                    ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-                    alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
-
-                    // Show alert as a pop-up above the main form
-                    Stage stage = (Stage) getTableView().getScene().getWindow();
-                    alert.initOwner(stage);
-
-                    alert.showAndWait().ifPresent(type -> {
-                        if (type == buttonTypeYes) {
-                            deleteData("sp_deleteBank",listBank.get(getIndex()).getId());
-                            loadData();
-                        }
-                    });
+                    confirmBox("sp_deleteBank",listBank.get(getIndex()).getId(),btnDelete);
+                    loadData();
                 });
             }
 

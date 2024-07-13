@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class updatePerumahan extends Library implements Initializable {
     @FXML
     private TextField txtId,txtNama;
-    @FXML private Button btnUpdate;
+    @FXML private Button btnSave;
     @FXML
     private ComboBox<Developers> cbDeveloper;
     private ObservableList<Developers> listDev = FXCollections.observableArrayList();
@@ -57,7 +57,7 @@ public class updatePerumahan extends Library implements Initializable {
 
     public void setDataList(Perumahan data){
         txtId.setText(data.getId());
-        setDSelectedCbBox(data.getId());
+        setDSelectedCbBox(data.getIdv());
         txtNama.setText(data.getName());
     }
 
@@ -97,7 +97,7 @@ public class updatePerumahan extends Library implements Initializable {
 
     public void onActionUpdate(ActionEvent actionEvent) {
         if (txtNama.getText().isEmpty()){
-            fillBox(btnUpdate,"Please fill Developer Name");
+            fillBox(btnSave,"Please fill Developer Name");
             return;
         }
         try{
@@ -109,11 +109,12 @@ public class updatePerumahan extends Library implements Initializable {
             connect.pstat.setString(3,txtNama.getText());
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox(btnUpdate,"Update Success");
+            successBox(btnSave,"Update Success");
             clear();
             loadPage(actionEvent,"viewPerumahan");
         }catch (SQLException ex){
             System.out.println("Error : "+ex.getMessage());
         }
     }
+
 }

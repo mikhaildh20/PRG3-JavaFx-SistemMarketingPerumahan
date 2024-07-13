@@ -56,6 +56,21 @@ public class createRuko extends Library implements Initializable {
                 return null;
             }
         });
+    txtElec.textProperty().addListener((observable, oldValue, newValue) -> {
+        if (!newValue.matches("\\d*")) {
+            txtElec.setText(newValue.replaceAll("[^\\d]", ""));
+        }
+    });
+    txtToilet.textProperty().addListener((observable, oldValue, newValue) -> {
+        if (!newValue.matches("\\d*")) {
+            txtToilet.setText(newValue.replaceAll("[^\\d]", ""));
+        }
+    });
+    txtRent.textProperty().addListener((observable, oldValue, newValue) -> {
+        if (!newValue.matches("\\d*")) {
+            txtRent.setText(newValue.replaceAll("[^\\d]", ""));
+        }
+    });
     }
     public void loadPerum(){
         listPerum.clear();
@@ -109,7 +124,7 @@ public class createRuko extends Library implements Initializable {
             connect.pstat.setDouble(8,Double.parseDouble(txtRent.getText()));
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox(btnFile,"Success");
+            successBox(btnFile,"Data Successfully Saved");
             clear();
             txtId.setText(generateID("ms_ruko","RKO","id_ruko"));
         }catch (SQLException | IOException ex){

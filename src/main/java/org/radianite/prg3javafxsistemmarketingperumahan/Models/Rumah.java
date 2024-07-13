@@ -13,10 +13,10 @@ public class Rumah {
     private Double harga;
     private Integer tahun;
     private String residence, type;
-    private int status; // Tambahkan atribut status
+    private int status ,ketersediaan; // Tambahkan atribut status
 
 
-    public Rumah(String id, String idp, Image foto, String blok, Integer watt, String interior, Integer bed, Integer rest, String idt, String desc, Double harga, Integer tahun, String residence, String type, int status) {
+    public Rumah(String id, String idp, Image foto, String blok, Integer watt, String interior, Integer bed, Integer rest, String idt, String desc, Double harga, Integer tahun, String residence, String type, int status,int ketersediaan) {
         this.id = id;
         this.idp = idp;
         this.foto = foto;
@@ -32,6 +32,7 @@ public class Rumah {
         this.residence = residence;
         this.type = type;
         this.status = status; // Set nilai status
+        this.ketersediaan = ketersediaan;
 
     }
 
@@ -103,5 +104,9 @@ public class Rumah {
 
     public void setStatus(int status) { // Tambahkan setter untuk status
         this.status = status;
+    }
+
+    public int getKetersediaan() {
+        return ketersediaan;
     }
 }

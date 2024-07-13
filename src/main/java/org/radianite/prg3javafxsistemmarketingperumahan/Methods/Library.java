@@ -103,7 +103,7 @@ public class Library {
         alert.showAndWait();
     }
 
-    public void confirmBox(String sp,String id){
+    public void confirmBox(String sp,String id,Button button){
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Delete Record");
@@ -111,7 +111,11 @@ public class Library {
 
         ButtonType buttonTypeYes = new ButtonType("Yes");
         ButtonType buttonTypeNo = new ButtonType("No");
+
         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+        Stage stage = (Stage) button.getScene().getWindow();
+        alert.initOwner(stage);
+        /*alert.showAndWait();*/
 
         alert.showAndWait().ifPresent(response -> {
             if (response == buttonTypeYes) {
@@ -145,7 +149,7 @@ public class Library {
     }
 
     public void deleteData(String sp, String id) {
-        confirmBox(sp, id);
+        confirmBox(sp, id, null);
     }
 
     public File imageChooser(Button button){

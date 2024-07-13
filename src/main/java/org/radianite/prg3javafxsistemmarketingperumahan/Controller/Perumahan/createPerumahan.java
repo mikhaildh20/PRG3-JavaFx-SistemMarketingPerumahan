@@ -30,7 +30,7 @@ public class createPerumahan extends Library implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadDev();
-        txtId.setDisable(true);
+        txtId.setEditable(false);
         txtId.setText(generateID("ms_perumahan","PRM","id_perumahan"));
 
         cbDeveloper.setCellFactory(param->new javafx.scene.control.ListCell<Developers>(){
@@ -129,7 +129,7 @@ public class createPerumahan extends Library implements Initializable {
             connect.pstat.setString(3,txtNama.getText());
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox(btnSave,"Data Saved");
+            successBox(btnSave,"Data Successfully Saved");
             clear();
             txtId.setText(generateID("ms_perumahan","PRM","id_perumahan"));
         }catch (SQLException ex){

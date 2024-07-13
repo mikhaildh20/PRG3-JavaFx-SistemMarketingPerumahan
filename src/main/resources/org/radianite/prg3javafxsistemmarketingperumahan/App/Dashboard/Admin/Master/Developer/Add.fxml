@@ -31,7 +31,7 @@
                <GridPane.margin>
                   <Insets left="50.0" right="50.0" />
                </GridPane.margin></Button>
-            <TextField fx:id="txtIdDeveloper" prefHeight="39.0" prefWidth="272.0" style="-fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.columnIndex="1">
+            <TextField fx:id="txtIdDeveloper" editable="false" prefHeight="39.0" prefWidth="272.0" style="-fx-border-color: #000000; -fx-background-radius: 5; -fx-border-radius: 5;" GridPane.columnIndex="1">
                <font>
                   <Font name="Montserrat Regular" size="18.0" />
                </font></TextField>

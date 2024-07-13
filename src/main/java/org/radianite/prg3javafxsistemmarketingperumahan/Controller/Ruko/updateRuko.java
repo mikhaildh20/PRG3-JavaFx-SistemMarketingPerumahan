@@ -1,12 +1,18 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import javafx.util.StringConverter;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
@@ -24,6 +30,8 @@ public class updateRuko extends Library implements Initializable {
     private TextField txtId,txtBlok,txtElec,txtToilet,txtRent;
     @FXML
     private TextArea txtDesc;
+    @FXML
+    private AnchorPane GroupMenu;
     @FXML
     private ComboBox<Perumahan> cbResidence;
     @FXML
@@ -121,10 +129,10 @@ public class updateRuko extends Library implements Initializable {
             connect.pstat.executeUpdate();
             connect.pstat.close();
             successBox(btnFile,"Data updated successfully");
-            loadPage(actionEvent,"viewRuko");
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());
         }
+        clear();
     }
     public boolean isEmpty(){
         if (txtBlok.getText().isEmpty() || txtElec.getText().isEmpty() || txtToilet.getText().isEmpty() || txtDesc.getText().isEmpty() || txtRent.getText().isEmpty()){
@@ -132,4 +140,42 @@ public class updateRuko extends Library implements Initializable {
         }
         return false;
     }
+
+    public void back() {
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Ruko/View.fxml");
+    }
+
+    private void setPane(String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent pane = loader.load();
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+            GroupMenu.setOpacity(1.0);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(eventFadeOut -> {
+                GroupMenu.getChildren().setAll(pane);
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                ParallelTransition parallelTransition = new ParallelTransition( fadeIn);
+                parallelTransition.play();
+            });
+            fadeOut.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+public void clear() {
+    txtId.clear();
+    txtBlok.clear();
+    txtElec.clear();
+    txtToilet.clear();
+    txtRent.clear();
+    txtDesc.clear();
+    cbResidence.getSelectionModel().clearSelection();
+    LabFile.setText("Choose file here");
+    file = null;
+}
 }

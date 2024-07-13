@@ -1,6 +1,7 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -13,9 +14,11 @@ import java.sql.SQLException;
 public class Update extends Library {
 
     @FXML
-    private TextField idTipeRumahField;
+    private TextField txtNama;
     @FXML
-    private TextField namaField;
+    private TextField txtIdTipe;
+    @FXML
+    private Button btnSimpan;
     // Tambahkan field lainnya sesuai kebutuhan
 
     private TipeRumah tipeRumah;
@@ -27,27 +30,23 @@ public class Update extends Library {
 
     public void setTipeRumah(TipeRumah tipeRumah) {
         this.tipeRumah = tipeRumah;
-        idTipeRumahField.setText(tipeRumah.getIdTipe());
-        namaField.setText(tipeRumah.getNama());
+        txtIdTipe.setText(tipeRumah.getIdTipe());
+        txtNama.setText(tipeRumah.getNama());
         // Isi field lainnya sesuai kebutuhan
-        namaField.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
+        txtNama.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
     }
 
     @FXML
     private void handleUpdateAction() {
-        tipeRumah.setNama(namaField.getText());
-        // Perbarui nilai lainnya
+        tipeRumah.setNama(txtNama.getText());
 
         try {
             updateDataInDatabase(tipeRumah);
+            successBox(btnSimpan, "Data Tipe Rumah Berhasil");
         } catch (SQLException e) {
             e.printStackTrace();
-            // Tampilkan pesan error jika diperlukan
-        }
 
-        // Tutup form setelah update
-        Stage stage = (Stage) idTipeRumahField.getScene().getWindow();
-        stage.close();
+        }
     }
 
     private void updateDataInDatabase(TipeRumah tipeRumah) throws SQLException {

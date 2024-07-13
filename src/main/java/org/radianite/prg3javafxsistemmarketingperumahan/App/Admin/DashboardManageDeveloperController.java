@@ -50,8 +50,6 @@ public class DashboardManageDeveloperController {
     @FXML
     private void initialize() {
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/View.fxml");
-        btnView.setOpacity(0.0);
-        btnView.setDisable(true);
     }
 
     // Metode untuk membersihkan input nama developer
@@ -75,12 +73,8 @@ public class DashboardManageDeveloperController {
     @FXML
     public void btnViewClick() {
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/View.fxml");
-        btnAdd.setOpacity(1.0);
-        btnAdd.setDisable(false);
-        btnView.setDisable(true);
-        btnView.setOpacity(0.0);
-        // Mengganti tampilan pane dengan form lihat developer
     }
+
 
     // Metode untuk menghapus data developer dari database
 

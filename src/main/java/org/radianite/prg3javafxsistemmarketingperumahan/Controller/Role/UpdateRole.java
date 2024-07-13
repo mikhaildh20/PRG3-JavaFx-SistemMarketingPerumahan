@@ -1,6 +1,7 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -10,41 +11,44 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Models.Role;
 
 import java.sql.SQLException;
 
-public class Update extends Library {
+public class UpdateRole extends Library {
 
     @FXML
-    private TextField idRoleField;
+    private TextField txtIdRole;
     @FXML
-    private TextField namaField;
+    private TextField txtNamaRole;
+    @FXML
+    private Button btnSave;
     private Role role;
-    private Database connection = new Database();
-    public Update() {
 
+    private Database connection = new Database();
+    @FXML
+    public void initialize() {
+        txtNamaRole.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
     }
 
     public void setRole(Role role) { // Ganti dari setTipeRumah menjadi setRole
         this.role = role;
-        idRoleField.setText(role.getIdRole()); // Ganti dari getIdTipe menjadi getIdRole
-        namaField.setText(role.getNamaRole()); // Ganti dari getNama menjadi getNamaRole
+        txtIdRole.setText(role.getIdRole()); // Ganti dari getIdTipe menjadi getIdRole
+        txtNamaRole.setText(role.getNamaRole()); // Ganti dari getNama menjadi getNamaRole
         // Isi field lainnya sesuai kebutuhan
-        namaField.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
+        txtNamaRole.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
     }
 
     @FXML
     private void handleUpdateAction() {
-        role.setNamaRole(namaField.getText()); // Ganti dari setNama menjadi setNamaRole
-        // Perbarui nilai lainnya
-
+        if (txtNamaRole.getText().isEmpty()){
+            fillBox(btnSave,"Please fill in the field");
+            return;
+        }
+        role.setNamaRole(txtNamaRole.getText());
         try {
             updateDataInDatabase(role);
+            successBox(btnSave, "Update Success");
         } catch (SQLException e) {
             e.printStackTrace();
-            // Tampilkan pesan error jika diperlukan
         }
 
-        // Tutup form setelah update
-        Stage stage = (Stage) idRoleField.getScene().getWindow(); // Ganti dari idTipeRumahField menjadi idRoleField
-        stage.close();
     }
 
     private void updateDataInDatabase(Role role) throws SQLException {

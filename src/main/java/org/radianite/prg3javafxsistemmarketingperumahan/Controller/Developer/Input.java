@@ -108,7 +108,7 @@ public class Input extends Library {
 
             connection.pstat.executeUpdate();
             connection.pstat.close();
-
+            successBox(btnSave, "Developer inserted successfully");
             clear();
         } catch (SQLException ex) {
             System.out.println("Terjadi error saat insert data developer: " + ex);

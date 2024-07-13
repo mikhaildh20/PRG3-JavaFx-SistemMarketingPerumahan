@@ -72,7 +72,7 @@ public class createBank extends Library implements Initializable {
             connect.pstat.setString(2,txtNama.getText());
             connect.pstat.setInt(3,Integer.parseInt(txtBunga.getText()));
             connect.pstat.executeUpdate();
-            successBox(btnSave,"Data Saved");
+            successBox(btnSave,"Data Successfully Saved");
             clear();
             txtId.setText(generateID("ms_bank","BNK","id_bank"));
         }catch (SQLException ex){
