@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="598.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Laporan.LaporanRuko">
    <children>
       <TableView fx:id="tableView" layoutX="41.0" layoutY="179.0" prefHeight="328.0" prefWidth="850.0">
@@ -25,7 +24,7 @@
             <TableColumn fx:id="colDocument" prefWidth="107.199951171875" text="Document" />
         </columns>
       </TableView>
-      <Button layoutX="115.0" layoutY="518.0" mnemonicParsing="false" onAction="#printButton" prefHeight="26.0" prefWidth="94.0" text="Print Jasper" />
+      <Button layoutX="115.0" layoutY="518.0" mnemonicParsing="false" onAction="#printButton" prefHeight="26.0" prefWidth="101.0" text="Export to Jasper" />
       <Label layoutX="41.0" layoutY="147.0" text="Search: " />
       <TextField fx:id="txtSearch" layoutX="124.0" layoutY="143.0" onKeyPressed="#keySearch" prefHeight="26.0" prefWidth="170.0" />
       <Label layoutX="410.0" layoutY="47.0" text="Laporan Ruko">
@@ -41,6 +40,6 @@
       <Label layoutX="573.0" layoutY="147.0" text="End: " />
       <DatePicker fx:id="endDate" layoutX="608.0" layoutY="143.0" />
       <Button layoutX="809.0" layoutY="143.0" mnemonicParsing="false" onAction="#filterButton" prefHeight="26.0" prefWidth="78.0" text="Filter" />
-      <Button layoutX="224.0" layoutY="518.0" mnemonicParsing="false" onAction="#excelButton" text="Export to Excel" />
+      <Button layoutX="237.0" layoutY="518.0" mnemonicParsing="false" onAction="#excelButton" text="Export to Excel" />
    </children>
 </AnchorPane>
