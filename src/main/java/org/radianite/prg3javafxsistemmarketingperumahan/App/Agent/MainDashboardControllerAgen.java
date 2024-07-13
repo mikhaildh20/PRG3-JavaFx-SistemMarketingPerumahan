@@ -53,7 +53,7 @@ public class MainDashboardControllerAgen {
         userList.add(data);
             txtHalo.setText("Halo, " + userList.get(0).getName());
             txtTransaction.setText(String.valueOf(callUDFTotal(data.getUsn())));
-
+            txtIncome.setText(String.valueOf(callUDFPnedapatan(data.getUsn())));
     }
 
     private int callUDFTotal(String usn) {
@@ -71,12 +71,13 @@ public class MainDashboardControllerAgen {
         }
         return count;
     }
-    private int callUDFCountMsPerumahan() {
+    private int callUDFPnedapatan(String usn) {
         int count = 0;
         try {
-            String udfQuery = "{? = CALL dbo.udfCountMsPerumahan()}";
+            String udfQuery = "{? = CALL dbo.fn_TotalPembayaranByUsername(?)}";
             CallableStatement callableStatement = connection.conn.prepareCall(udfQuery);
             callableStatement.registerOutParameter(1, Types.INTEGER);
+            callableStatement.setString(2,usn );
             callableStatement.execute();
             count = callableStatement.getInt(1);
             callableStatement.close();
