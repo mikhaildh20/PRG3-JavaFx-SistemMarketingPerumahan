@@ -1,0 +1,212 @@
+package org.radianite.prg3javafxsistemmarketingperumahan.Controller.Laporan;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.ShopHouseReport;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+public class LaporanRuko extends Library implements Initializable {
+    @FXML
+    private ComboBox<String> cbPayment;
+
+    @FXML
+    private TableColumn<ShopHouseReport, String> colAddress;
+
+    @FXML
+    private TableColumn<ShopHouseReport, String> colBank;
+
+    @FXML
+    private TableColumn<ShopHouseReport, String> colDate;
+
+    @FXML
+    private TableColumn<ShopHouseReport, Void> colDocument;
+
+    @FXML
+    private TableColumn<ShopHouseReport, String> colInvoice;
+
+    @FXML
+    private TableColumn<ShopHouseReport, String> colPayment;
+
+    @FXML
+    private TableColumn<ShopHouseReport, String> colRenter;
+
+    @FXML
+    private TableColumn<ShopHouseReport, String> colTotal;
+
+    @FXML
+    private DatePicker endDate;
+
+    @FXML
+    private DatePicker startDate;
+
+    @FXML
+    private TableView<ShopHouseReport> tableView;
+
+    @FXML
+    private TextField txtSearch;
+    private ObservableList<ShopHouseReport> listLaporann = FXCollections.observableArrayList();
+    private ObservableList<ShopHouseReport> listFilter = FXCollections.observableArrayList();
+    private ObservableList<String> listPayment = FXCollections.observableArrayList("Tunai","Debit");
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        cbPayment.setItems(listPayment);
+        loadLaporan();
+        colInvoice.setCellValueFactory(new PropertyValueFactory<>("invoice"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("tanggal"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("blok"));
+        colRenter.setCellValueFactory(new PropertyValueFactory<>("penyewa"));
+        colPayment.setCellValueFactory(new PropertyValueFactory<>("pembayaran"));
+        colBank.setCellValueFactory(new PropertyValueFactory<>("bank"));
+        colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        colDocument.setCellFactory(param->new TableCell<>(){
+            private final Button btnExport = new Button("Export");
+            {
+                btnExport.setOnAction(event -> {
+                    downloadPDF(listFilter.get(getIndex()).getInvoice(),
+                            "C:/Users/Herdiansah/Mikhail/Laporan/ShopHouseRenter_"+ listFilter.get(getIndex()).getPenyewa()+".pdf",
+                            "tr_ruko",
+                            "dokumen_kontrak",
+                            "id_trRuko");
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    HBox buttons = new HBox(btnExport);
+                    setGraphic(buttons);
+                }
+            }
+        });
+    }
+
+    public void loadLaporan()
+    {
+        try{
+            Database connect = new Database();
+            String query = "EXEC LaporanRuko";
+            connect.stat = connect.conn.createStatement();
+            connect.result = connect.stat.executeQuery(query);
+
+            while (connect.result.next())
+            {
+                listLaporann.add(new ShopHouseReport(
+                        connect.result.getString("INVOICE"),
+                        connect.result.getString("TANGGAL"),
+                        connect.result.getString("BLOK"),
+                        connect.result.getString("PENYEWA"),
+                        connect.result.getString("PEMBAYARAN"),
+                        connect.result.getString("BANK"),
+                        connect.result.getString("TOTAL")
+                ));
+            }
+
+            connect.stat.close();
+            connect.result.close();
+        }catch (SQLException ex)
+        {
+            System.out.println("Error: "+ex.getMessage());
+        }
+        listFilter = listLaporann;
+        tableView.setItems(listFilter);
+    }
+
+    @FXML
+    void excelButton(ActionEvent event) {
+        try(Workbook workbook = new XSSFWorkbook()){
+            Sheet sheet = workbook.createSheet("ShopHouseReport"+LocalDate.now());
+
+            Row headerRow = sheet.createRow(0);
+            headerRow.createCell(0).setCellValue("Invoice");
+            headerRow.createCell(1).setCellValue("Tanggal");
+            headerRow.createCell(2).setCellValue("Blok");
+            headerRow.createCell(3).setCellValue("Penyewa");
+            headerRow.createCell(4).setCellValue("Pembayaran");
+            headerRow.createCell(5).setCellValue("Bank");
+            headerRow.createCell(6).setCellValue("Total");
+
+            int rowIdx = 1;
+            for (ShopHouseReport data : listFilter)
+            {
+                Row row = sheet.createRow(rowIdx++);
+                row.createCell(0).setCellValue(data.getInvoice());
+                row.createCell(1).setCellValue(data.getTanggal());
+                row.createCell(2).setCellValue(data.getBlok());
+                row.createCell(3).setCellValue(data.getPenyewa());
+                row.createCell(4).setCellValue(data.getPembayaran());
+                row.createCell(5).setCellValue(data.getBank());
+                row.createCell(6).setCellValue(data.getTotal());
+            }
+
+            try(FileOutputStream fileOut = new FileOutputStream("C:/Users/Herdiansah/Mikhail/Laporan/ShopHouseReport"+LocalDate.now()+".xlsx")){
+                workbook.write(fileOut);
+            }
+        }catch (IOException ex)
+        {
+            System.out.println("Error: "+ex.getMessage());
+        }
+    }
+
+    @FXML
+    void filterButton(ActionEvent event) {
+
+    }
+
+    @FXML
+    void printButton(ActionEvent event) {
+
+    }
+
+    @FXML
+    void refreshButton(ActionEvent event) {
+        listFilter = listLaporann;
+        tableView.setItems(listFilter);
+        tableView.refresh();
+    }
+
+    @FXML
+    void filterPayment(ActionEvent event) {
+        listFilter.clear();
+        String selectedPayment = cbPayment.getSelectionModel().getSelectedItem();
+            for (ShopHouseReport data : listLaporann) {
+                if (data.getPembayaran().equals(selectedPayment)) {
+                    listFilter.add(new ShopHouseReport(data.getInvoice(),
+                            data.getTanggal(),
+                            data.getBlok(),
+                            data.getPenyewa(),
+                            data.getPembayaran(),
+                            data.getBank(),
+                            data.getTotal()));
+                }
+            }
+
+        tableView.setItems(listFilter);
+        tableView.refresh();
+    }
+
+    @FXML
+    void keySearch(KeyEvent event) {
+
+    }
+}

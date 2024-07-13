@@ -147,7 +147,7 @@ public class Penyewaan extends Library implements Initializable {
     }
 
     public void onActionFile(ActionEvent actionEvent) {
-        file = imageChooser(btnFile);
+        file = documentChooser(btnFile);
         LabFile.setText(file.getName());
     }
 

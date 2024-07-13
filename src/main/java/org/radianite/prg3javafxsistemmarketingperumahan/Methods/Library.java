@@ -19,12 +19,9 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.sql.SQLException;
-import java.io.ByteArrayOutputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -204,5 +201,35 @@ public class Library {
         if (!character.matches("[0-9]")) {
             event.consume();
         }
+    }
+
+    public void downloadPDF(String id, String path, String table, String column, String columnId)
+    {
+        try{
+            Database connect = new Database();
+            String query  = "SELECT "+column+" FROM "+table+" WHERE "+columnId+" = '"+id+"'";
+            connect.stat = connect.conn.createStatement();
+            connect.result = connect.stat.executeQuery(query);
+
+            if (connect.result.next())
+            {
+                byte[] fileBytes = connect.result.getBytes(column);
+                try(OutputStream targetFile = new FileOutputStream(path)){
+                    targetFile.write(fileBytes);
+                }
+            }
+        }catch (SQLException | IOException ex)
+        {
+            System.out.println("Error: "+ex.getMessage());
+        }
+    }
+
+    public File documentChooser(Button button){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Document Files","*.pdf"));
+
+        Stage stage = (Stage) button.getScene().getWindow();
+
+        return fileChooser.showOpenDialog(stage);
     }
 }

@@ -1,13 +1,16 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Models;
 
 public class Cicilan {
-    private String id,blok,tgl;
-    private Double tunggakan;
+   private String id,blok,nama;
+   private Integer telat;
+   private Double denda,tunggakan;
 
-    public Cicilan(String id, String blok, String tgl, Double tunggakan) {
+    public Cicilan(String id, String blok, String nama, Integer telat, Double denda, Double tunggakan) {
         this.id = id;
         this.blok = blok;
-        this.tgl = tgl;
+        this.nama = nama;
+        this.telat = telat;
+        this.denda = denda;
         this.tunggakan = tunggakan;
     }
 
@@ -19,8 +22,16 @@ public class Cicilan {
         return blok;
     }
 
-    public String getTgl() {
-        return tgl;
+    public String getNama() {
+        return nama;
+    }
+
+    public Integer getTelat() {
+        return telat;
+    }
+
+    public Double getDenda() {
+        return denda;
     }
 
     public Double getTunggakan() {
