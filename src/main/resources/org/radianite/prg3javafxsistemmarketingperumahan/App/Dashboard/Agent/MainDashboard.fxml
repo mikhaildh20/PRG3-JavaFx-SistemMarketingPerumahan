@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="GroupMenu" prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.MainDashboardControllerAgen">
+    <children>
+      <ImageView fitHeight="1182.0" fitWidth="1540.0" layoutX="-2.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Resource/Dasboard/1719282740185.png" />
+         </image>
+      </ImageView>
+        <AnchorPane fx:id="Group3" layoutX="29.0" layoutY="437.0" prefHeight="337.0" prefWidth="555.0" style="-fx-background-radius: 30;">
+         <children>
+            <ImageView fitHeight="327.0" fitWidth="725.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Group%2047.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="txtTransaction" fill="WHITE" layoutX="80.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER">
+               <font>
+                  <Font name="Montserrat Regular" size="40.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
+        <AnchorPane fx:id="Group2" layoutX="33.0" layoutY="152.0" prefHeight="261.0" prefWidth="1465.0" style="-fx-background-radius: 30;">
+         <children>
+            <ImageView fitHeight="273.0" fitWidth="1490.0" layoutX="-10.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Resource/Dasboard/Rectangle%2070%20(2).png" />
+               </image>
+            </ImageView>
+                <ImageView fitHeight="265.0" fitWidth="273.0" layoutX="1193.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../Resource/Dasboard/Hello-amico%201.png" />
+                    </image>
+                </ImageView>
+            <Text fx:id="txtHalo" fill="WHITE" layoutX="82.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hello, Radit Surya">
+               <font>
+                  <Font name="Montserrat SemiBold" size="36.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="82.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The agent advised the client on improvements &#10;to increase property value." wrappingWidth="582.8480834960938">
+               <font>
+                  <Font name="Montserrat Light" size="24.0" />
+               </font>
+            </Text>
+         </children>
+        </AnchorPane>
+        <Text fx:id="tglLabel" fill="DARKBLUE" layoutX="59.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal">
+         <font>
+            <Font name="Montserrat Regular" size="20.0" />
+         </font></Text>
+      <Text fx:id="DasbordNama1" fill="DARKBLUE" layoutX="55.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
+         <font>
+            <Font name="Montserrat Bold" size="44.0" />
+         </font>
+      </Text>
+      <AnchorPane fx:id="Group32" layoutX="766.0" layoutY="438.0" prefHeight="322.0" prefWidth="721.0" style="-fx-background-radius: 30;">
+         <children>
+            <ImageView fitHeight="341.0" fitWidth="753.0" layoutX="-3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Group%2048.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="txtIncome" fill="WHITE" layoutX="56.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER">
+               <font>
+                  <Font name="Montserrat Regular" size="40.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <LineChart layoutX="27.0" layoutY="795.0" prefHeight="414.0" prefWidth="1489.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis prefHeight="267.0" prefWidth="37.0" side="LEFT" />
+        </yAxis>
+      </LineChart>
+    </children>
+</AnchorPane>

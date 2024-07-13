@@ -5,14 +5,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.*;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.HelloApplication;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
@@ -28,7 +26,16 @@ public class DashbordAgenController {
     @FXML
     private AnchorPane GroupMenu;
     @FXML
-   private AnchorPane btnsignout;
+    private AnchorPane btnDashboard;
+    @FXML
+    private AnchorPane btnsignout;
+    @FXML
+    private AnchorPane btntrRumah;
+    @FXML
+    private AnchorPane btntrRuko;
+    @FXML
+    private AnchorPane btntrCicilan;
+
     @FXML private Circle imageCircle;
     @FXML private Text txtLastOnline;
     @FXML private Text textNama;
@@ -46,11 +53,11 @@ public class DashbordAgenController {
             connection.pstat.setString(1, userList.get(0).getUsn());
             connection.result = connection.pstat.executeQuery();
             connection.result.next();
-            String logDate = connection.result.getString("logDate");
+   /*         String logDate = connection.result.getString("logDate");
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy HH:mm ");
             LocalDateTime dateTime = LocalDateTime.parse(logDate, inputFormatter);
-            txtLastOnline.setText(dateTime.format(outputFormatter));
+            txtLastOnline.setText(dateTime.format(outputFormatter));*/
         }catch (SQLException ex){
             System.out.println("Error: "+ex.getMessage());
         }
@@ -80,8 +87,8 @@ public class DashbordAgenController {
             fadeOut.setToValue(0.0);
             fadeOut.setOnFinished(eventFadeOut -> {
                 GroupMenu.getChildren().setAll(pane);
-                if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/MainDashboard.fxml")) {
-                    MainDashboardController controller = loader.getController();
+                if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/MainDashboard.fxml")) {
+                    MainDashboardControllerAgen controller = loader.getController();
                     controller.setDataList(userList.get(0));
                 } else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/TransaksiRumah.fxml")) {
                     TransaksiRumahController controller = loader.getController();
@@ -103,6 +110,53 @@ public class DashbordAgenController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    public void btntransaksiRumah() {
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/TransaksiRumah.fxml");
+        btnDashboard.getStyleClass().removeAll("buttonDashboard-on");
+        btnDashboard.getStyleClass().add("buttonDashboard-off");
+
+        btntrRumah.getStyleClass().removeAll("buttonDashboard-off");
+        btntrRumah.getStyleClass().add("buttonDashboard-on");
+
+        btntrRuko.getStyleClass().removeAll("buttonDashboard-on");
+        btntrRuko.getStyleClass().add("buttonDashboard-off");
+
+        btntrCicilan.getStyleClass().removeAll("buttonDashboard-on");
+        btntrCicilan.getStyleClass().add("buttonDashboard-off");
+    }
+    @FXML
+    public void btnDashboard() {
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/MainDashboard.fxml");
+        btnDashboard.getStyleClass().removeAll("buttonDashboard-0ff");
+        btnDashboard.getStyleClass().add("buttonDashboard-on");
+
+        btntrRumah.getStyleClass().removeAll("buttonDashboard-on");
+        btntrRumah.getStyleClass().add("buttonDashboard-off");
+
+        btntrRuko.getStyleClass().removeAll("buttonDashboard-on");
+        btntrRuko.getStyleClass().add("buttonDashboard-off");
+
+        btntrCicilan.getStyleClass().removeAll("buttonDashboard-on");
+        btntrCicilan.getStyleClass().add("buttonDashboard-off");
+    }
+    @FXML
+    public void btntransaksiRuko() {
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/TransaksiRuko.fxml");
+        btnDashboard.getStyleClass().removeAll("buttonDashboard-on");
+        btnDashboard.getStyleClass().add("buttonDashboard-off");
+
+        btntrRumah.getStyleClass().removeAll("buttonDashboard-on");
+        btntrRumah.getStyleClass().add("buttonDashboard-off");
+
+        btntrRuko.getStyleClass().removeAll("buttonDashboard-off");
+        btntrRuko.getStyleClass().add("buttonDashboard-on");
+
+        btntrCicilan.getStyleClass().removeAll("buttonDashboard-on");
+        btntrCicilan.getStyleClass().add("buttonDashboard-off");
+    }
+    public void btntransaksiCicilan() {
     }
     public void btnlog() {
         try {

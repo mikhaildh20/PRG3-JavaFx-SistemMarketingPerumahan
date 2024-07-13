@@ -15,15 +15,6 @@
 
 <AnchorPane fx:id="mainpane" focusTraversable="true" prefHeight="1200.0" prefWidth="1535.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.TransaksiRukoController">
    <children>
-      <AnchorPane fx:id="ancorePenutup" layoutX="1059.0" layoutY="54.0" prefHeight="1113.0" prefWidth="454.0" style="-fx-background-color: #050C9C; -fx-background-radius: 10;">
-         <children>
-            <Text fill="WHITE" layoutX="136.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jalani harimu dengan bahagia" wrappingWidth="182.13671875">
-               <font>
-                  <Font name="Montserrat Bold" size="41.0" />
-               </font>
-            </Text>
-         </children>
-      </AnchorPane>
       <ImageView fitHeight="1104.0" fitWidth="1897.0" layoutX="-1.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Resource/Dasboard/background.png" />
@@ -128,6 +119,15 @@
                   </Text>
                </children>
             </GridPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ancorePenutup" layoutX="1059.0" layoutY="54.0" prefHeight="1113.0" prefWidth="454.0" style="-fx-background-color: #050C9C; -fx-background-radius: 10;">
+         <children>
+            <Text fill="WHITE" layoutX="136.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jalani harimu dengan bahagia" wrappingWidth="182.13671875">
+               <font>
+                  <Font name="Montserrat Bold" size="41.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>
