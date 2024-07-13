@@ -88,6 +88,44 @@ public class createRumah extends Library implements Initializable {
                 return null;
             }
         });
+        txtWatt.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtWatt.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtBed.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtBed.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtBuild.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtBuild.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+
+        txtRest.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtRest.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        txtPrice.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtPrice.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            if (newValue.length() > 3) {
+                try {
+                    String formattedPrice = String.format("%,.0f", Double.parseDouble(newValue.replace(",", "")));
+                    txtPrice.setText(formattedPrice);
+                } catch (NumberFormatException e) {
+                    txtPrice.setText("");
+                    errorBox(btnFile, "Harga harus berupa angka");
+                }
+            }
+        });
     }
 
     public void loadPerum()
@@ -136,7 +174,7 @@ public class createRumah extends Library implements Initializable {
     public void onActionSave(ActionEvent actionEvent) {
         if (isEmpty())
         {
-            fillBox();
+            fillBox(btnFile,"Please fill all the fields");
             return;
         }
         try{
@@ -157,7 +195,7 @@ public class createRumah extends Library implements Initializable {
             connect.pstat.setInt(12,Integer.parseInt(txtBuild.getText()));
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox();
+            successBox(btnFile,"Data has been saved");
             clear();
             txtId.setText(generateID("ms_rumah","RMA","id_rumah"));
         }catch (SQLException | IOException ex){

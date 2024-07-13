@@ -61,8 +61,6 @@ public class MainDashboardController {
         userList.add(data);
         if (!userList.isEmpty()) {
             txtHalo.setText("Halo, " + userList.get(0).getName());
-            textNama.setText(userList.get(0).getName());
-            imageCircle.setFill(new ImagePattern(userList.get(0).getFoto()));
         }
     }
 

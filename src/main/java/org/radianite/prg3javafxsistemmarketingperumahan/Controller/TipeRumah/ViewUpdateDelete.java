@@ -35,6 +35,25 @@ public class ViewUpdateDelete implements Initializable {
     @FXML
     private TableColumn<TipeRumah, Void> actionCol;
 
+    @FXML
+    private Button btnSerach;
+    @FXML
+    private TextField txtSearch;
+
+    @FXML
+    private void handleSearch() {
+        String searchText = txtSearch.getText().toLowerCase();
+        ObservableList<TipeRumah> filteredList = FXCollections.observableArrayList();
+
+        for (TipeRumah tipeRumah : tableTipeRumah.getItems()) {
+            if (tipeRumah.getNama().toLowerCase().contains(searchText)) {
+                filteredList.add(tipeRumah);
+            }
+        }
+
+        tableTipeRumah.setItems(filteredList);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loaddata();
@@ -111,11 +130,27 @@ public class ViewUpdateDelete implements Initializable {
                 }
             });
 
-            // Konfigurasi aksi untuk tombol delete
             deleteButton.setOnAction(event -> {
-                TipeRumah tipeRumah = getTableView().getItems().get(getIndex());
-                deleteDataFromDatabase(tipeRumah);
-                loaddata();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete Confirmation");
+                alert.setHeaderText("Are you sure you want to delete this data?");
+                alert.setContentText("Deleted data cannot be recovered.");
+
+                ButtonType buttonTypeYes = new ButtonType("Yes");
+                ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                // Show alert as a pop-up above the main form
+                Stage stage = (Stage) getTableView().getScene().getWindow();
+                alert.initOwner(stage);
+
+                alert.showAndWait().ifPresent(type -> {
+                    if (type == buttonTypeYes) {
+                        TipeRumah tipeRumah = getTableView().getItems().get(getIndex());
+                        deleteDataFromDatabase(tipeRumah);
+                        loaddata();
+                    }
+                });
             });
 
             // Membuat HBox yang berisi tombol edit dan delete

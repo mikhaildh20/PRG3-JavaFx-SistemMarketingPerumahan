@@ -15,6 +15,7 @@ public class Rumah {
     private String residence, type;
     private int status; // Tambahkan atribut status
 
+
     public Rumah(String id, String idp, Image foto, String blok, Integer watt, String interior, Integer bed, Integer rest, String idt, String desc, Double harga, Integer tahun, String residence, String type, int status) {
         this.id = id;
         this.idp = idp;
@@ -31,6 +32,7 @@ public class Rumah {
         this.residence = residence;
         this.type = type;
         this.status = status; // Set nilai status
+
     }
 
     public Rumah(String id, String blok, Double harga) {

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 public class createBank extends Library implements Initializable {
     @FXML
     private TextField txtId,txtNama,txtBunga;
+    @FXML private Button btnSave;
     private ObservableList<Bank> listBank = FXCollections.observableArrayList();
 
     @Override
@@ -50,14 +52,14 @@ public class createBank extends Library implements Initializable {
     public void onActionSave(ActionEvent actionEvent) {
         if (isEmpty())
         {
-            fillBox();
+            fillBox(btnSave,"Please fill all the field");
             return;
         }
 
         for (int i=0;i<listBank.size();i++){
             if (txtNama.getText().equals(listBank.get(i).getName()))
             {
-                errorBox();
+                errorBox(btnSave,"Bank Already Register");
                 return;
             }
         }
@@ -70,7 +72,7 @@ public class createBank extends Library implements Initializable {
             connect.pstat.setString(2,txtNama.getText());
             connect.pstat.setInt(3,Integer.parseInt(txtBunga.getText()));
             connect.pstat.executeUpdate();
-            successBox();
+            successBox(btnSave,"Data Saved");
             clear();
             txtId.setText(generateID("ms_bank","BNK","id_bank"));
         }catch (SQLException ex){

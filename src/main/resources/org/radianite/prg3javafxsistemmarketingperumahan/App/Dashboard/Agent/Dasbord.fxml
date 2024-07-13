@@ -1,53 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="1920.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.DashbordAgenController">
+<AnchorPane prefHeight="1200.0" prefWidth="1920.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.DashbordAgenController">
    <children>
       <AnchorPane fx:id="Group1" layoutX="32.0" layoutY="48.0" prefHeight="1106.44" prefWidth="353.98" style="-fx-background-color: #050C9C; -fx-background-radius: 12;">
          <children>
-            <ImageView fitHeight="304.0" fitWidth="280.0" layoutX="38.0" layoutY="-27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Resource/Dasboard/model3%203.png" />
-               </image>
-            </ImageView>
-            <AnchorPane fx:id="btnDashboard" layoutX="43.0" layoutY="217.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
-               <children>
-                  <ImageView fx:id="Button12" fitHeight="42.0" fitWidth="180.0" layoutX="28.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Resource/Dasboard/Group%2056.png" />
-                     </image>
-                  </ImageView>
-               </children></AnchorPane>
-            <AnchorPane fx:id="btnDeveloper" layoutX="50.0" layoutY="331.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
-               <children>
-                  <ImageView fx:id="Button1" fitHeight="56.0" fitWidth="251.0" layoutX="14.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Resource/AdminDashboard/Group%2028.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="btnHousingArea" layoutX="54.0" layoutY="442.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
-               <children>
-                  <ImageView fx:id="Button11" fitHeight="54.0" fitWidth="259.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Resource/AdminDashboard/Group%2025.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="btnRole" layoutX="45.0" layoutY="571.0" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
-               <children>
-                  <ImageView fx:id="Button111" fitHeight="36.0" fitWidth="119.0" layoutX="28.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Resource/Dasboard/Group%2030-1.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
             <AnchorPane fx:id="btnsignout" layoutX="40.0" layoutY="1017.0" onMouseClicked="#btnlog" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
                   <ImageView fx:id="Button11111" fitHeight="41.0" fitWidth="44.0" layoutX="26.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
@@ -63,8 +25,91 @@
                   </ImageView>
                </children>
             </AnchorPane>
+            <VBox layoutX="39.0" layoutY="306.0" prefHeight="284.0" prefWidth="268.0" spacing="50.0">
+               <children>
+                  <AnchorPane fx:id="btnDashboard" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
+                     <children>
+                        <ImageView fx:id="Button12" fitHeight="42.0" fitWidth="180.0" layoutX="16.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resource/Dasboard/Group%2056.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="btnDeveloper" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
+                     <children>
+                        <ImageView fx:id="Button1" fitHeight="56.0" fitWidth="251.0" layoutX="9.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resource/AdminDashboard/Group%2028.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="btnHousingArea" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
+                     <children>
+                        <ImageView fx:id="Button11" fitHeight="54.0" fitWidth="259.0" layoutX="9.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resource/AdminDashboard/Group%2025.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="btnRole" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
+                     <children>
+                        <ImageView fx:id="Button111" fitHeight="36.0" fitWidth="119.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resource/Dasboard/Group%2030-1.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+            <AnchorPane fx:id="Group6" layoutY="87.0" prefHeight="220.0" prefWidth="353.0" style="-fx-background-radius: 30;">
+               <children>
+                  <Circle fx:id="imageCircle" fill="DODGERBLUE" layoutX="84.0" layoutY="71.0" radius="65.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#1fadff00" layoutX="84.0" layoutY="71.0" radius="66.0" stroke="#b2b2b2" strokeType="INSIDE" strokeWidth="5.0" />
+                  <VBox alignment="CENTER" layoutY="121.0" prefHeight="102.0" prefWidth="355.0">
+                     <children>
+                        <AnchorPane prefHeight="41.0" prefWidth="359.0" style="-fx-background-radius: 5; -fx-background-color: #ffffffff;">
+                           <children>
+                              <Text fill="DARKBLUE" layoutX="131.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agent" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Montserrat ExtraBold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <Circle fill="#01ff00" layoutX="119.0" layoutY="126.0" radius="13.0" stroke="#01ff00" strokeType="INSIDE" />
+                  <Text fx:id="textNama" fill="WHITE" layoutX="160.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama">
+                     <font>
+                        <Font name="Montserrat SemiBold" size="20.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="txtLastOnline" fill="WHITE" layoutX="161.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Online" textAlignment="CENTER">
+                     <font>
+                        <Font name="Montserrat Regular" size="16.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="txtLastOnline1" fill="WHITE" layoutX="160.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Online" textAlignment="CENTER">
+                     <font>
+                        <Font name="Montserrat Regular" size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="184.0" fitWidth="161.0" layoutX="1.0" layoutY="-45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Resource/Dasboard/model3%203.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="GroupMenu" layoutX="394.0" layoutY="-1.0" prefHeight="1200.0" prefWidth="1535.0" />
+      <AnchorPane fx:id="GroupMenu" layoutX="384.0" prefHeight="1200.0" prefWidth="1535.0" />
    </children>
 </AnchorPane>

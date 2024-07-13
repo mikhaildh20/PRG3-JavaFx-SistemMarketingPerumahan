@@ -1,33 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role.Input">
-    <children>
-        <Label text="Input Data Role" />
-        <GridPane hgap="10" vgap="10">
-            <padding>
-                <Insets bottom="10" left="10" right="10" top="10" />
-            </padding>
-            <Label text="ID Role:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="txtIdRole" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Label text="Nama Role:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="txtNamaRole" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button onAction="#onBatalSimpanClick" text="Batal" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button onAction="#onBtnSimpanClick" text="Simpan" GridPane.rowIndex="3" />
-            <columnConstraints>
-                <ColumnConstraints />
-                <ColumnConstraints />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-                <RowConstraints />
-            </rowConstraints>
-        </GridPane>
-        <Label fx:id="messageLabel" textFill="red" />
-    </children>
-</VBox>
+<AnchorPane prefHeight="760.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role.Input">
+   <children>
+        <Label fx:id="messageLabel" layoutX="663.0" layoutY="445.0" textFill="red" />
+      <GridPane layoutX="427.0" layoutY="51.0" prefHeight="709.0" prefWidth="551.0" stylesheets="@../../../../Css/text.css">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+               <Label text="ID Role:" />
+               <TextField fx:id="txtIdRole" editable="false" GridPane.columnIndex="1" />
+               <Label text="Nama Role:" GridPane.rowIndex="1" />
+               <TextField fx:id="txtNamaRole" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <Button onAction="#onBtnSimpanClick" prefHeight="47.0" prefWidth="124.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <Button onAction="#onBatalSimpanClick" prefHeight="47.0" prefWidth="106.0" text="Clear" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

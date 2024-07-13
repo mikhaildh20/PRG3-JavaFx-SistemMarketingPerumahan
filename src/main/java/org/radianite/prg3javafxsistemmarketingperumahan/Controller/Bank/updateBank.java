@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 public class updateBank extends Library implements Initializable {
     @FXML
     private TextField txtId,txtNama,txtBunga;
+    @FXML private Button btnUpdate;
     private ObservableList<Bank> listBank = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -47,14 +49,14 @@ public class updateBank extends Library implements Initializable {
     public void onActionUpdate(ActionEvent actionEvent) {
         if (isEmpty())
         {
-            fillBox();
+            fillBox(btnUpdate,"Please fill in the blank");
             return;
         }
 
         for (int i=0;i<listBank.size();i++)
         {
             if (txtNama.getText().equals(listBank.get(i).getName()) && !txtId.getText().equals(listBank.get(i).getId())){
-                errorBox();
+                errorBox(btnUpdate,"Bank name already exist");
                 return;
             }
         }
@@ -67,7 +69,7 @@ public class updateBank extends Library implements Initializable {
             connect.pstat.setString(2,txtNama.getText());
             connect.pstat.setInt(3,Integer.parseInt(txtBunga.getText()));
             connect.pstat.executeUpdate();
-            successBox();
+            successBox(btnUpdate,"Update Success");
             loadPage(actionEvent,"viewBank");
         }catch (SQLException ex){
             System.out.println("Error: "+ex.getMessage());

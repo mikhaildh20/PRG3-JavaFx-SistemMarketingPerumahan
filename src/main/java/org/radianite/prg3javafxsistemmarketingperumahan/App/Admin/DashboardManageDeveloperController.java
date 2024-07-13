@@ -44,7 +44,6 @@ public class DashboardManageDeveloperController {
     // Metode untuk menambahkan data pengguna ke daftar dan menampilkan nama pengguna
     public void setDataList(User data) {
         userList.add(data);
-        textNama.setText(data.getName());
     }
 
     // Metode inisialisasi yang dipanggil saat controller diinisialisasi

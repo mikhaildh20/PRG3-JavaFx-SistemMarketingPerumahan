@@ -5,10 +5,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController">
+<AnchorPane prefHeight="1200.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController">
    <children>
-      <AnchorPane fx:id="Group1" layoutX="32.0" layoutY="20.0" prefHeight="1135.0" prefWidth="354.0" style="-fx-background-color: #050C9C; -fx-background-radius: 12;">
+      <AnchorPane fx:id="Group1" layoutX="20.0" layoutY="20.0" prefHeight="1135.0" prefWidth="354.0" style="-fx-background-color: #050C9C; -fx-background-radius: 12;">
          <children>
             <AnchorPane fx:id="btnsignout" layoutX="40.0" layoutY="1017.0" onMouseClicked="#btnlogout" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                <children>
@@ -25,7 +28,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <VBox alignment="TOP_CENTER" layoutX="39.0" layoutY="233.0" prefHeight="749.0" prefWidth="277.0" spacing="10.0">
+            <VBox alignment="TOP_CENTER" layoutX="39.0" layoutY="309.0" prefHeight="670.0" prefWidth="277.0" spacing="10.0">
                <children>
                   <AnchorPane fx:id="btnDashboard" onMouseClicked="#btnDashboardclick" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                      <children>
@@ -90,7 +93,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="btnPlot" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
+                  <AnchorPane fx:id="btnPlot" onMouseClicked="#btnBankclick" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                      <children>
                         <ImageView fx:id="Button1111211" fitHeight="43.0" fitWidth="191.0" layoutX="28.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -113,13 +116,48 @@
                   <Insets bottom="20.0" right="20.0" />
                </opaqueInsets>
             </VBox>
-            <ImageView fitHeight="304.0" fitWidth="280.0" layoutX="39.0" layoutY="-52.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="184.0" fitWidth="161.0" layoutX="11.0" layoutY="-50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../Resource/Dasboard/model3%203.png" />
                </image>
             </ImageView>
+            <AnchorPane fx:id="Group6" layoutX="-1.0" layoutY="73.0" prefHeight="220.0" prefWidth="353.0" style="-fx-background-radius: 30;">
+               <children>
+                  <Circle fx:id="imageCircle" fill="DODGERBLUE" layoutX="84.0" layoutY="71.0" radius="65.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#1fadff00" layoutX="84.0" layoutY="71.0" radius="66.0" stroke="#b2b2b2" strokeType="INSIDE" strokeWidth="5.0" />
+                  <VBox alignment="CENTER" layoutY="121.0" prefHeight="102.0" prefWidth="355.0">
+                     <children>
+                        <AnchorPane prefHeight="41.0" prefWidth="359.0" style="-fx-background-radius: 5; -fx-background-color: #ffffffff;">
+                           <children>
+                              <Text fill="DARKBLUE" layoutX="131.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Montserrat ExtraBold" size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <Circle fill="#01ff00" layoutX="119.0" layoutY="126.0" radius="13.0" stroke="#01ff00" strokeType="INSIDE" />
+                  <Text fx:id="textNama" fill="WHITE" layoutX="160.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama">
+                     <font>
+                        <Font name="Montserrat SemiBold" size="20.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="txtLastOnline" fill="WHITE" layoutX="161.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Online" textAlignment="CENTER">
+                     <font>
+                        <Font name="Montserrat Regular" size="16.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="txtLastOnline1" fill="WHITE" layoutX="160.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Online" textAlignment="CENTER">
+                     <font>
+                        <Font name="Montserrat Regular" size="16.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="GroupMenu" layoutX="394.0" layoutY="-1.0" prefHeight="1200.0" prefWidth="1535.0" />
+      <AnchorPane fx:id="GroupMenu" layoutX="382.0" layoutY="-1.0" prefHeight="1200.0" prefWidth="1535.0" />
    </children>
 </AnchorPane>

@@ -16,12 +16,15 @@ import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Bank;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Ruko;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Rumah;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Penyewaan extends Library implements Initializable {
@@ -40,11 +43,13 @@ public class Penyewaan extends Library implements Initializable {
     private ObservableList<String> listPay = FXCollections.observableArrayList("Tunai","Debit");
     private ObservableList<Ruko> listRuko = FXCollections.observableArrayList();
     private ObservableList<Bank> listBank = FXCollections.observableArrayList();
+    private ArrayList<User> userlist = new ArrayList<>();
     private Double price;
+    private String id;
+    private String idper;
     File file;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadRuko();
         loadBank();
         cbPayment.setItems(listPay);
         txtId.setDisable(true);
@@ -98,7 +103,7 @@ public class Penyewaan extends Library implements Initializable {
         });
     }
 
-    public void loadRuko(){
+/*    public void loadRuko(){
         listRuko.clear();
         try{
             Database connect = new Database();
@@ -121,6 +126,51 @@ public class Penyewaan extends Library implements Initializable {
             System.out.println("Error: "+ex.getMessage());
         }
         cbRuko.setItems(listRuko);
+    }*/
+
+    public void setDataList(String id, String idper, User user) {
+        this.id = id;
+        this.idper = idper;
+        listRuko.clear();
+        userlist.add(user);
+        try{
+            Database connect = new Database();
+            connect.stat = connect.conn.createStatement();
+            String query = "SELECT id_ruko,blok,harga_sewa,ketersediaan,status FROM ms_ruko where id_ruko='"+id+"'";
+            connect.result = connect.stat.executeQuery(query);
+            while (connect.result.next())
+            {
+                if (connect.result.getInt("ketersediaan") == 1 && connect.result.getInt("status") == 1){
+                    listRuko.add(new Ruko(
+                            connect.result.getString("id_ruko"),
+                            connect.result.getString("blok"),
+                            connect.result.getDouble("harga_sewa")
+                    ));
+                }
+            }
+            connect.stat.close();
+            connect.result.close();
+        }catch (SQLException ex){
+            System.out.println("Error: "+ex.getMessage());
+        }
+        cbRuko.setItems(listRuko);
+
+        if (!listRuko.isEmpty()) {
+            cbRuko.getSelectionModel().select(0);
+            Ruko selectedRuko = cbRuko.getSelectionModel().getSelectedItem();
+            if (selectedRuko != null) {
+                txtTotal.setText(convertDoubleString(selectedRuko.getRent()));
+            }
+        }
+
+/*        if (!listRumah.isEmpty()) {
+            cbBlok.getSelectionModel().select(0);
+            Rumah selectedRumah = cbBlok.getSelectionModel().getSelectedItem();
+            if (selectedRumah != null) {
+                txtTotal.setText(convertDoubleString(selectedRumah.getHarga()));
+                txtMinCicil.setText(convertDoubleString(minFirstPayment(selectedRumah.getHarga())));
+            }
+        }*/
     }
 
     public void loadBank(){
@@ -154,7 +204,7 @@ public class Penyewaan extends Library implements Initializable {
     public void onActionAdd(ActionEvent actionEvent) {
         if (isEmpty())
         {
-            fillBox();
+            fillBox(btnFile,"Please fill in all the fields");
             return;
         }
         int choice=0;
@@ -186,9 +236,8 @@ public class Penyewaan extends Library implements Initializable {
             connect.pstat.setDate(13,sqlDate);
             connect.pstat.executeUpdate();
             connect.pstat.close();
-            successBox();
+            successBox(btnFile,"Data added successfully");
             clear();
-            loadRuko();
             txtId.setText(generateID("tr_ruko","TRO","id_trRuko"));
         }catch (SQLException | IOException ex){
             System.out.println("Error: "+ex.getMessage());

@@ -46,11 +46,34 @@ public class Database {
         }
     }
 
-    public static ResultSet getDataRumah() {
+    public static ResultSet getDataRumah(String idper) {
+        ResultSet resultSet = null;
+        try {
+            Connection conn = getConnection();
+            if (conn != null) {
+                String query = "SELECT R.id_rumah, T.nama_perumahan, R.foto_rumah, R.blok, R.daya_listrik, R.interior, R.thn_bangun, R.harga, R.jml_kmr_mdn, R.descrption, R.jml_kmr_tdr, TR.nama_tipe " +
+                               "FROM ms_rumah R " +
+                               "JOIN ms_perumahan T ON R.id_perumahan = T.id_perumahan " +
+                               "JOIN ms_tipe_rumah TR ON R.id_tipe = TR.id_tipe " +
+                               "WHERE R.status = 1 AND R.id_perumahan = ? AND R.ketersediaan = 1";
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                pstmt.setString(1, idper);
+                resultSet = pstmt.executeQuery();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+
+    public static ResultSet getDataRuko(String idper) {
         try {
             Connection conn = getConnection();
             Statement stmt = conn.createStatement();
-            return stmt.executeQuery("SELECT * FROM ms_rumah where status = 1");
+            return stmt.executeQuery("SELECT R.id_ruko,P.nama_perumahan,R.foto_ruko,R.blok,R.daya_listrik,R.jml_kmr_mdn,R.descrption,R.harga_sewa" +
+                    " FROM ms_ruko R " +
+                    " JOIN ms_perumahan P ON R.id_perumahan = P.id_perumahan " +
+                    "WHERE R.status = 1 AND r.id_perumahan ='"+idper+"'"+" AND R.ketersediaan = 1");
         } catch (Exception e) {
             e.printStackTrace();
             return null;

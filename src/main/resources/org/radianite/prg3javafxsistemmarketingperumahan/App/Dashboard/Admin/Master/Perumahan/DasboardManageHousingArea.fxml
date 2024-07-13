@@ -12,50 +12,27 @@
                 <Image url="@../../../../Resource/Dasboard/1719282740185.png" />
             </image>
         </ImageView>
-        <Text fx:id="tglLabel" layoutX="72.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal">
-            <font>
-                <Font name="Montserrat Light" size="20.0" />
-            </font></Text>
-        <Text fx:id="DasbordNama1" layoutX="65.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Developer">
-            <font>
-                <Font name="Montserrat Bold" size="44.0" />
-            </font>
-        </Text>
-        <AnchorPane layoutX="56.0" layoutY="177.0" prefHeight="162.0" prefWidth="1047.0">
+        <AnchorPane layoutX="21.0" layoutY="165.0" prefHeight="213.0" prefWidth="1495.0" style="-fx-border-radius: 10; -fx-border-color: darkblue;">
             <children>
-                <ImageView fitHeight="238.0" fitWidth="1478.0" layoutX="-1.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../Resource/Dasboard/GroupDeveloper.png" />
-                    </image>
-                </ImageView>
+                <Label layoutX="583.0" layoutY="75.0" text="Housing Area" textFill="DARKBLUE">
+                    <font>
+                        <Font name="Montserrat Bold" size="50.0" />
+                    </font>
+                </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="1108.0" layoutY="22.0" prefHeight="96.0" prefWidth="362.0">
+        <AnchorPane layoutX="1108.0" layoutY="22.0" prefHeight="96.0" prefWidth="362.0" />
+        <AnchorPane fx:id="AncoreMaster" layoutX="23.0" layoutY="400.0" minHeight="0.0" minWidth="0.0" prefHeight="760.0" prefWidth="1495.0" />
+        <Button fx:id="btnAdd" layoutX="23.0" layoutY="401.0" mnemonicParsing="false" onAction="#btnAddClick" prefHeight="49.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Add Data" />
+        <Button fx:id="btnView" layoutX="23.0" layoutY="401.0" mnemonicParsing="false" onAction="#btnViewClick" prefHeight="49.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Back" />
+        <AnchorPane layoutX="22.0" layoutY="26.0" prefHeight="122.0" prefWidth="1495.0" style="-fx-background-color: darkblue; -fx-background-radius: 10;">
             <children>
-                <ImageView fitHeight="102.0" fitWidth="395.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../Resource/Dasboard/Group%2051.png" />
-                    </image>
-                </ImageView>
-                <Text fx:id="textNama" fill="WHITE" layoutX="111.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama">
+                <Text fx:id="DasbordNama1" fill="WHITE" layoutX="28.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manage Housing">
                     <font>
-                        <Font name="Montserrat SemiBold" size="24.0" />
-                    </font>
-                </Text>
-                <Text fx:id="DasbordNama111" fill="WHITE" layoutX="48.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Onine">
-                    <font>
-                        <Font name="Montserrat Light" size="14.0" />
-                    </font>
-                </Text>
-                <Text fx:id="textTanggal" fill="WHITE" layoutX="128.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal">
-                    <font>
-                        <Font name="Montserrat Light" size="14.0" />
+                        <Font name="Montserrat Bold" size="44.0" />
                     </font>
                 </Text>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="AncoreMaster" layoutX="63.0" layoutY="466.0" minHeight="0.0" minWidth="0.0" prefHeight="612.0" prefWidth="1404.0" />
-        <Button fx:id="btnAdd" layoutX="63.0" layoutY="467.0" mnemonicParsing="false" onAction="#btnAddClick" prefHeight="49.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Add Data" />
-        <Button fx:id="btnView" layoutX="63.0" layoutY="467.0" mnemonicParsing="false" onAction="#btnViewClick" prefHeight="49.0" prefWidth="140.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Back" />
     </children>
 </AnchorPane>

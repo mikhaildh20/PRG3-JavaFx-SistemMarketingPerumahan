@@ -52,7 +52,7 @@
     -fx-text-fill: white; /* Warna teks */
     -fx-font: 36px Montserrat; /* Gaya font */
     -fx-font-weight: bold; /* Gaya font tebal */
-    -fx-background-color: #3573EF; /* Warna latar belakang */
+    -fx-background-color: darkblue; /* Warna latar belakang */
 }
 
 /* CSS file: styles.css */
@@ -138,7 +138,7 @@
 
 /* Mengatur warna latar belakang dan teks tombol */
 .button {
-    -fx-background-color: #0078d7; /* Warna latar belakang tombol */
+    -fx-background-color: darkblue; /* Warna latar belakang tombol */
     -fx-text-fill: white; /* Warna teks tombol */
     -fx-font-family: "Arial";
     -fx-font-size: 14px;
@@ -146,7 +146,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #005bb5; /* Warna latar belakang tombol saat hover */
+    -fx-background-color: #0078d7; /* Warna latar belakang tombol saat hover */
 }
 
 

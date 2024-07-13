@@ -60,35 +60,43 @@ public class Library {
         return formatID+"001";
     }
 
-    public void successBox(){
+    public void successBox(Button button, String message){
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("INFORMATION");
         alert.setHeaderText(null);
-        alert.setContentText("Operation has been done successfully.");
+        alert.setContentText(message);
+        Stage stage = (Stage) button.getScene().getWindow();
+        alert.initOwner(stage);
         alert.showAndWait();
     }
 
-    public void warningBox(){
+    public void warningBox(Button button, String message){
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("WARNING");
         alert.setHeaderText(null);
-        alert.setContentText("You don't have permission!");
+        alert.setContentText(message);
+        Stage stage = (Stage) button.getScene().getWindow();
+        alert.initOwner(stage);
         alert.showAndWait();
     }
 
-    public void fillBox(){
+    public void fillBox(Button button, String message){
         Alert alert = new Alert(AlertType.WARNING);
         alert.setTitle("WARNING");
         alert.setHeaderText(null);
-        alert.setContentText("Please fill all the data!");
+        alert.setContentText(message);
+        Stage stage = (Stage) button.getScene().getWindow();
+        alert.initOwner(stage);
         alert.showAndWait();
     }
 
-    public void errorBox(){
+    public void errorBox(Button button, String message){
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("ERROR");
         alert.setHeaderText(null);
-        alert.setContentText("Unexpected Error.");
+        alert.setContentText(message);
+        Stage stage = (Stage) button.getScene().getWindow();
+        alert.initOwner(stage);
         alert.showAndWait();
     }
 

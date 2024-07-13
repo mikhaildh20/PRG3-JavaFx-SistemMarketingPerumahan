@@ -1,5 +1,8 @@
 package org.radianite.prg3javafxsistemmarketingperumahan.Controller.User;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,13 +13,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashboardManageUserController;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.MainDashboardController;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.TransaksiRukoController;
+import org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.TransaksiRumahController;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
@@ -35,10 +41,43 @@ public class viewUser extends Library implements Initializable {
     private TableColumn<User, String> colStatus; // Ubah tipe data kolom status menjadi String
     @FXML
     private TableColumn<User, Void> colAction;
+    @FXML
+    private AnchorPane GroupMenu;
     private ObservableList<User> listUser = FXCollections.observableArrayList();
+
+    @FXML
+    private Button btnSerach;
+    @FXML
+    private TextField txtSearch;
+
+    @FXML
+    private void handleSearch(ActionEvent event) {
+        String searchText = txtSearch.getText().toLowerCase();
+        ObservableList<User> filteredList = FXCollections.observableArrayList();
+
+        if (!searchText.isEmpty()) {
+            for (User user : listUser) {
+                if (user.getName().toLowerCase().contains(searchText) ||
+                        user.getEmail().toLowerCase().contains(searchText) ||
+                        user.getUsn().toLowerCase().contains(searchText) ||
+                        user.getRName().toLowerCase().contains(searchText) ||
+                        user.getPName().toLowerCase().contains(searchText)
+                ) {
+                    filteredList.add(user);
+                }
+            }
+            tableView.setItems(filteredList);
+        } else {
+            settable();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        settable();
+    }
+
+    public void settable() {
         loadData();
         colUsn.setCellValueFactory(new PropertyValueFactory<>("usn"));
         colResidence.setCellValueFactory(new PropertyValueFactory<>("pName"));
@@ -63,18 +102,42 @@ public class viewUser extends Library implements Initializable {
                 }
             }
         });
-        colAction.setCellFactory(param->new TableCell<>(){
+        colAction.setCellFactory(param -> new TableCell<>() {
             private final Button btnUpdate = new Button("Update");
             private final Button btnDelete = new Button("Delete");
+            private final Button btnDetail = new Button("Detail");
 
             {
                 btnUpdate.setOnAction(event -> {
-                    loadPage(event,"updateUser",listUser.get(getIndex()));
+                    loadPage(event, "updateUser", listUser.get(getIndex()));
                 });
+                btnUpdate.setStyle("-fx-background-color: blue; -fx-text-fill: white;"); // Memberikan warna biru untuk tombol Update
 
                 btnDelete.setOnAction(event -> {
-                    deleteData("sp_deleteUser",listUser.get(getIndex()).getUsn());
-                    loadData();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Delete Confirmation");
+                    alert.setHeaderText("Are you sure you want to delete this data?");
+                    alert.setContentText("Deleted data cannot be recovered.");
+
+                    ButtonType buttonTypeYes = new ButtonType("Yes");
+                    ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                    // Show alert as a pop-up above the main form
+                    Stage stage = (Stage) getTableView().getScene().getWindow();
+                    alert.initOwner(stage);
+
+                    alert.showAndWait().ifPresent(type -> {
+                        if (type == buttonTypeYes) {
+                            deleteData("sp_deleteUser", listUser.get(getIndex()).getUsn());
+                            loadData();
+                        }
+                    });
+                });
+                btnDelete.setStyle("-fx-background-color: red; -fx-text-fill: white;"); // Memberikan warna merah untuk tombol Delete
+
+                btnDetail.setOnAction(event -> {
+                    setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/User/DetailUser.fxml",listUser.get(getIndex()));
                 });
             }
 
@@ -85,21 +148,22 @@ public class viewUser extends Library implements Initializable {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    HBox buttons = new HBox(btnUpdate, btnDelete);
+                    HBox buttons = new HBox(btnUpdate, btnDelete, btnDetail);
+                    buttons.setSpacing(10);
                     setGraphic(buttons);
                 }
             }
         });
     }
 
-    public void loadData(){
+    public void loadData() {
         listUser.clear();
-        try{
+        try {
             Database connect = new Database();
             connect.stat = connect.conn.createStatement();
             String query = "EXEC sp_viewUser";
             connect.result = connect.stat.executeQuery(query);
-            while(connect.result.next()){
+            while (connect.result.next()) {
                 listUser.add(new User(connect.result.getString("username"),
                         connect.result.getString("password"),
                         connect.result.getString("id_perumahan"),
@@ -117,17 +181,17 @@ public class viewUser extends Library implements Initializable {
             }
             connect.result.close();
             connect.stat.close();
-        }catch (SQLException ex){
-            System.out.println("Error: "+ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         }
         tableView.setItems(listUser);
     }
 
     public void onActionAdd(ActionEvent actionEvent) {
-        loadPage(actionEvent,"inputUser");
+        loadPage(actionEvent, "inputUser");
     }
 
-    public void loadPage(ActionEvent event, String page, User data){
+    public void loadPage(ActionEvent event, String page, User data) {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
 
@@ -142,6 +206,37 @@ public class viewUser extends Library implements Initializable {
             stage.show();
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void setPane(String fxml,User data) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+            Parent pane = loader.load();
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+            GroupMenu.setOpacity(1.0);
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(eventFadeOut -> {
+                GroupMenu.getChildren().setAll(pane);
+                if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/User/DetailUser.fxml")) {
+                  /*  MainDashboardController controller = loader.getController();*/
+                    DetailUser controller = loader.getController();
+                    controller.setData(data);
+                    /*    controller.setDataList(userList.get(0));*/
+                }
+                GroupMenu.setTranslateX(-50);
+                TranslateTransition translate = new TranslateTransition(Duration.seconds(0.5), GroupMenu);
+                translate.setToX(0);
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), GroupMenu);
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                ParallelTransition parallelTransition = new ParallelTransition(translate, fadeIn);
+                parallelTransition.play();
+            });
+            fadeOut.play();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -20,7 +20,7 @@ public class Input extends Library {
     @FXML
     private TextField txtNamaDeveloper;
     @FXML
-    private Button simpanButton;
+    private Button btnSave;
     @FXML
     private Button batalButton;
     @FXML
@@ -49,14 +49,23 @@ public class Input extends Library {
         } catch (Exception ex) {
             System.out.println("Terjadi error saat load data: " + ex);
         }
+
     }
+
+
 
     @FXML
     public void initialize() {
         txtIdDeveloper.setText(generateID("ms_developer","DVL","id_developer"));
-        txtNamaDeveloper.addEventFilter(KeyEvent.KEY_TYPED, super::handleLetterKey);
-
+        if (txtNamaDeveloper != null) {
+            txtNamaDeveloper.addEventFilter(KeyEvent.KEY_TYPED, (KeyEvent e) -> {
+                if (!"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".contains(e.getCharacter())) {
+                    e.consume();
+                }
+            });
+        }
         loadData();
+
     }
 
     @FXML
@@ -66,17 +75,28 @@ public class Input extends Library {
 
         if (txtNamaDeveloper.getText().isEmpty())
         {
-            fillBox();
+            fillBox(btnSave, "Please enter Developer name");
             return;
         }
 
-        for (int i=0;i<developerList.size();i++)
-        {
-            if (txtNamaDeveloper.getText().equals(developerList.get(i).getNamaDeveloper()))
-            {
-                errorBox();
-                return;
+        txtNamaDeveloper.addEventFilter(KeyEvent.KEY_TYPED, (KeyEvent e) -> {
+            if (!"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".contains(e.getCharacter())) {
+                e.consume();
             }
+        });
+
+        // Mengecek apakah sudah ada data dengan nama yang sama
+        boolean isDuplicate = false;
+        for (Developer developer : developerList) {
+            if (namaDeveloper.equals(developer.getNamaDeveloper())) {
+                isDuplicate = true;
+                break;
+            }
+        }
+
+        if (isDuplicate) {
+            errorBox(btnSave, "Developer name already exists");
+            return;
         }
 
         try {
@@ -116,3 +136,4 @@ public class Input extends Library {
         System.exit(0);
     }
 }
+

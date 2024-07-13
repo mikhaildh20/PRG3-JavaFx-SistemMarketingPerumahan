@@ -53,7 +53,7 @@ public class DashboardManageHousingAreaController {
     ArrayList<User> userList = new ArrayList<>();
     public void setDataList(User data){
         userList.add(data);
-        textNama.setText(data.getName());
+
     }
     @FXML
     private void initialize() {

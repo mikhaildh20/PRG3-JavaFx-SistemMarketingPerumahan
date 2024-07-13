@@ -34,10 +34,32 @@ public class ViewUpdateDelete implements Initializable {
     private TableColumn<Developer, Integer> status;
     @FXML
     private TableColumn<Developer, Void> actionCol;
+    @FXML
+    private Button btnSerach;
+    @FXML
+    private TextField txtSearch;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loaddata();
+    }
+
+    @FXML
+    private void handleSearch() {
+        String searchText = txtSearch.getText().toLowerCase();
+        ObservableList<Developer> filteredList = FXCollections.observableArrayList();
+
+        if (searchText.isEmpty()) {
+            loaddata();
+        } else {
+            for (Developer developer : tableDeveloper.getItems()) {
+                if (developer.getIdDeveloper().toLowerCase().contains(searchText) ||
+                        developer.getNamaDeveloper().toLowerCase().contains(searchText)) {
+                    filteredList.add(developer);
+                }
+            }
+            tableDeveloper.setItems(filteredList);
+        }
     }
 
     public void loaddata() {
@@ -110,11 +132,28 @@ public class ViewUpdateDelete implements Initializable {
                     e.printStackTrace();
                 }
             });
-
             deleteButton.setOnAction(event -> {
                 Developer developer = getTableView().getItems().get(getIndex());
-                deleteDataFromDatabase(developer); // Ganti dari role menjadi developer
-                loaddata();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Delete Confirmation");
+                alert.setHeaderText("Are you sure you want to delete this data?");
+                alert.setContentText("Deleted data cannot be recovered.");
+
+                ButtonType buttonTypeYes = new ButtonType("Yes");
+                ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+                // Show alert as a pop-up above the main form
+                Stage stage = (Stage) getTableView().getScene().getWindow();
+                alert.initOwner(stage);
+
+                alert.showAndWait().ifPresent(type -> {
+                    if (type == buttonTypeYes) {
+                        deleteDataFromDatabase(developer);
+                        loaddata();
+                    }
+                });
             });
 
             HBox hbox = new HBox(5);
