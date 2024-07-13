@@ -101,6 +101,7 @@ public class LaporanRuko extends Library implements Initializable {
                             "tr_ruko",
                             "dokumen_kontrak",
                             "id_trRuko");
+                    successBox();
                 });
             }
 
@@ -179,6 +180,7 @@ public class LaporanRuko extends Library implements Initializable {
             try(FileOutputStream fileOut = new FileOutputStream("C:/Users/Herdiansah/Mikhail/Laporan/ShopHouseReport"+LocalDate.now()+UUID.randomUUID()+".xlsx")){
                 workbook.write(fileOut);
             }
+            successBox();
         }catch (IOException ex)
         {
             System.out.println("Error: "+ex.getMessage());
