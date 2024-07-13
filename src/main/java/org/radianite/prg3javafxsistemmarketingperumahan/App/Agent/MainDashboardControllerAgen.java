@@ -63,6 +63,7 @@ public class MainDashboardControllerAgen extends Library {
                 txtIncome.setText("Rp " + String.format("%,.0f", pnedapatan).replace(",", "."));
             }
         loadRumah();
+        System.out.println(listRumah.get(0).getHarga());
 
         lblBlok.setText(listRumah.get(0).getBlok());
         lblHarga.setText("Rp " + String.format("%,.0f", listRumah.get(0).getHarga()).replace(",", "."));
@@ -130,7 +131,15 @@ public class MainDashboardControllerAgen extends Library {
         try {
             Database connect = new Database();
             connect.stat = connect.conn.createStatement();
-            String query = "SELECT * FROM ms_rumah WHERE harga = (SELECT MAX(harga) FROM ms_rumah) AND status = 1 AND ketersediaan = 1 AND id_perumahan = '" + userList.get(0).getIdp() + "' ";;
+            String query = "SELECT * FROM ms_rumah " +
+                    "WHERE id_perumahan = '"+userList.get(0).getIdp()+"' " +
+                    "AND status = 1 " +
+                    "AND ketersediaan = 1 " +
+                    "AND harga = (SELECT MAX(harga) " +
+                    "FROM ms_rumah " +
+                    "WHERE id_perumahan = '"+userList.get(0).getIdp()+"' " +
+                    "AND status = 1 " +
+                    "AND ketersediaan = 1)";
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next()) {
                 listRumah.add(new Rumah(connect.result.getString("id_rumah"),

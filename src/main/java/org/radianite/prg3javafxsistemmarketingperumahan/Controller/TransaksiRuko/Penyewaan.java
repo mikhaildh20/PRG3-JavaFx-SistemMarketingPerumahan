@@ -57,6 +57,41 @@ public class Penyewaan extends Library implements Initializable {
         txtRek.setDisable(true);
         txtTotal.setDisable(true);
         txtId.setText(generateID("tr_ruko","TRO","id_trRuko"));
+        txtNIK.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtNIK.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtNama.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z*")) {
+                txtNama.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            }
+        });
+
+        txtTelp.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtTelp.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtPeriode.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtPeriode.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtTotal.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtTotal.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtRek.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtRek.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
 
         cbRuko.setCellFactory(param->new javafx.scene.control.ListCell<Ruko>(){
             protected void updateItem(Ruko item,boolean empty){

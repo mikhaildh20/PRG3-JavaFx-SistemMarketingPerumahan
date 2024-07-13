@@ -53,6 +53,7 @@ public class Pembelian extends Library implements Initializable {
     private Button btnback;
     @FXML
     private AnchorPane mainpane;
+    @FXML private TextField txtBlok;
 
     private ObservableList<Rumah> listRumah = FXCollections.observableArrayList();
     private ObservableList<Bank> listBank = FXCollections.observableArrayList();
@@ -84,6 +85,60 @@ public class Pembelian extends Library implements Initializable {
         txtBulanan.setEditable(false);
         txtId.setText(generateID("tr_rumah", "TRR", "id_trRumah"));
         txtDate.setText(LocalDate.now().toString());
+
+        txtNIK.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtNIK.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtNama.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\sa-zA-Z*")) {
+                txtNama.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+            }
+        });
+
+        txtContact.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtContact.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtRekening.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtRekening.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtTotal.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtTotal.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtMinCicil.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtMinCicil.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtCicil.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtCicil.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtPinjaman.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtPinjaman.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtBulanan.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtBulanan.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
 
         cbBlok.setCellFactory(param -> new javafx.scene.control.ListCell<Rumah>() {
             protected void updateItem(Rumah item, boolean empty) {
@@ -195,6 +250,7 @@ public class Pembelian extends Library implements Initializable {
 
         if (!listRumah.isEmpty()) {
             cbBlok.getSelectionModel().select(0);
+            txtBlok.setText(listRumah.get(0).getBlok());
             Rumah selectedRumah = cbBlok.getSelectionModel().getSelectedItem();
             if (selectedRumah != null) {
                 txtTotal.setText(convertDoubleString(selectedRumah.getHarga()));
