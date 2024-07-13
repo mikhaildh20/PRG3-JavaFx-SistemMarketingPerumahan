@@ -123,7 +123,7 @@
       </AnchorPane>
       <AnchorPane fx:id="ancorePenutup" layoutX="1059.0" layoutY="54.0" prefHeight="1113.0" prefWidth="454.0" style="-fx-background-color: #050C9C; -fx-background-radius: 10;">
          <children>
-            <Text fill="WHITE" layoutX="136.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jalani harimu dengan bahagia" wrappingWidth="182.13671875">
+            <Text fill="WHITE" layoutX="136.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enjoy Your's Day" wrappingWidth="182.13671875">
                <font>
                   <Font name="Montserrat Bold" size="41.0" />
                </font>

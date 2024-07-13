@@ -186,28 +186,32 @@ public class TransaksiRumahController {
                 lblasu.setStyle("-fx-font-size: 12px; -fx-font-family: 'Montserrat'; -fx-font-weight: bold; -fx-fill: darkblue;");
                 Text textBlok = new Text(blok);
                 textBlok.setStyle("-fx-font-size: 12px; -fx-font-family: 'Montserrat'; -fx-font-weight: bold; -fx-fill: darkblue;");
-                Text textKmrTdr = new Text("Kamar Tidur: " + jmlKmrTdr);
+                Text textKmrTdr = new Text("Bedrooms: " + jmlKmrTdr);
                 textKmrTdr.setStyle("-fx-font-size: 12px; -fx-font-family: 'Montserrat'; -fx-fill: darkblue; -fx-font-weight: bold;");
-                Text textKmrMdn = new Text("Kamar Mandi: " + jmlKmrMdn);
+                Text textKmrMdn = new Text("Bathrooms: " + jmlKmrMdn);
                 textKmrMdn.setStyle("-fx-font-size: 12px; -fx-font-family: 'Montserrat'; -fx-fill: darkblue; -fx-font-weight: bold;");
                 Text textPrice = new Text("Harga: Rp." + String.format("%,.0f", Double.parseDouble(price)).replace(',', '.'));
                 textPrice.setStyle("-fx-font-size: 12px; -fx-font-family: 'Montserrat'; -fx-fill: darkblue; -fx-font-weight: bold;");
                 ImageView houseImageView = new ImageView(new Image(new ByteArrayInputStream(fotoRumahBytes)));
+                ImageView background = new ImageView(new Image(getClass().getResource("/org/radianite/prg3javafxsistemmarketingperumahan/App/Resource/Dasboard/card.png").toExternalForm()));
+
 
                 // Set posisi elemen dalam child pane
+                background.setFitWidth(paneWidth);
+                background.setFitHeight(paneHeight);
                 AnchorPane.setTopAnchor(textBlok, 15.0);
                 AnchorPane.setLeftAnchor(textBlok, 185.0);
-                AnchorPane.setTopAnchor(textKmrTdr, 140.0);
+                AnchorPane.setTopAnchor(textKmrTdr, 90.0);
                 AnchorPane.setLeftAnchor(textKmrTdr, 185.0);
-                AnchorPane.setTopAnchor(textKmrMdn, 160.0);
+                AnchorPane.setTopAnchor(textKmrMdn, 40.0);
                 AnchorPane.setLeftAnchor(textKmrMdn, 185.0);
-                AnchorPane.setTopAnchor(textPrice, 180.0);
+                AnchorPane.setTopAnchor(textPrice, 65.0);
                 AnchorPane.setLeftAnchor(textPrice, 185.0);
                 houseImageView.setFitWidth(180);
                 houseImageView.setFitHeight(180);
                 AnchorPane.setTopAnchor(houseImageView, 10.0);
                 AnchorPane.setLeftAnchor(houseImageView, 5.0);
-                childPane.getChildren().addAll(houseImageView, textBlok, textKmrTdr, textKmrMdn, textPrice);
+                childPane.getChildren().addAll(background,houseImageView, textBlok, textKmrTdr, textKmrMdn, textPrice);
 
                 // Hitung posisi untuk child pane
                 double topAnchor = row * (paneHeight + spacing);
