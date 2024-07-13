@@ -203,8 +203,22 @@ public class Pembelian extends Library implements Initializable {
         }
     }
 
-    public void loadRumah() {
-        // Implementasi method loadRumah
+    private void loadRumah() {
+        try {
+            Database connect = new Database();
+            connect.stat = connect.conn.createStatement();
+            String query = "SELECT id_rumah, blok, harga, ketersediaan, status FROM ms_rumah where id_rumah='" + id + "'";
+            connect.result = connect.stat.executeQuery(query);
+            while (connect.result.next()) {
+                listRumah.add(new Rumah(connect.result.getString("id_rumah"),
+                        connect.result.getString("blok"),
+                        connect.result.getDouble("harga")));
+            }
+            connect.stat.close();
+            connect.result.close();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
     }
 
     public void loadBank() {

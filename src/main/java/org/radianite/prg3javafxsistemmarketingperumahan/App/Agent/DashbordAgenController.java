@@ -75,7 +75,10 @@ public class DashbordAgenController {
 
     @FXML
     public void initialize() {
-        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/TransaksiRumah.fxml");
+/*
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/MainDashboard.fxml");
+*/
+        btnDashboard();
     }
     private void setPane(String fxml) {
         try {

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
 import org.radianite.prg3javafxsistemmarketingperumahan.Methods.Library;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.Developer;
@@ -21,6 +22,8 @@ public class Input extends Library {
     private TextField txtNamaDeveloper;
     @FXML
     private Button btnSave;
+    @FXML
+    private AnchorPane GroupMenu;
     @FXML
     private Button batalButton;
     @FXML
@@ -109,6 +112,7 @@ public class Input extends Library {
             connection.pstat.executeUpdate();
             connection.pstat.close();
             successBox(btnSave, "Developer inserted successfully");
+            setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Admin/Master/Developer/View.fxml", null,GroupMenu);
             clear();
         } catch (SQLException ex) {
             System.out.println("Terjadi error saat insert data developer: " + ex);
