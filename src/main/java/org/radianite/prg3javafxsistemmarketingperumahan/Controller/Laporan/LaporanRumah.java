@@ -78,6 +78,8 @@ public class LaporanRumah extends Library implements Initializable {
 
     @FXML
     private TextField txtSearch;
+    @FXML
+    private Button btnExcel;
     private ObservableList<ShopHouseReport> listLaporann = FXCollections.observableArrayList();
     private ObservableList<ShopHouseReport> listFilter = FXCollections.observableArrayList();
     private ObservableList<String> listPayment = FXCollections.observableArrayList("CASH","CREDIT");
@@ -101,7 +103,7 @@ public class LaporanRumah extends Library implements Initializable {
                             "tr_rumah",
                             "dokumen_pembelian",
                             "id_trRumah");
-                    successBox();
+                    successBox(btnExport,"PDF has been exported successfully.");
                 });
             }
 
@@ -180,7 +182,7 @@ public class LaporanRumah extends Library implements Initializable {
             try(FileOutputStream fileOut = new FileOutputStream("C:/Users/Herdiansah/Mikhail/Laporan/HouseReport"+LocalDate.now()+UUID.randomUUID()+".xlsx")){
                 workbook.write(fileOut);
             }
-            successBox();
+            successBox(btnExcel,"Data has been exported successfully.");
         }catch (IOException ex)
         {
             System.out.println("Error: "+ex.getMessage());

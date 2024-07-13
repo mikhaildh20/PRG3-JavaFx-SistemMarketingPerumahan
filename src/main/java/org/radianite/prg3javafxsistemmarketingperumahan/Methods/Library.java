@@ -9,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.input.KeyEvent;
@@ -24,8 +23,6 @@ import java.nio.file.Files;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Locale;
 
 public class Library {

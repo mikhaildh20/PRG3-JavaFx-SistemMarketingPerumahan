@@ -40,6 +40,6 @@
       <Label layoutX="573.0" layoutY="147.0" text="End: " />
       <DatePicker fx:id="endDate" layoutX="608.0" layoutY="143.0" />
       <Button layoutX="809.0" layoutY="143.0" mnemonicParsing="false" onAction="#filterButton" prefHeight="26.0" prefWidth="78.0" text="Filter" />
-      <Button layoutX="237.0" layoutY="518.0" mnemonicParsing="false" onAction="#excelButton" text="Export to Excel" />
+      <Button fx:id="btnExcel" layoutX="237.0" layoutY="518.0" mnemonicParsing="false" onAction="#excelButton" text="Export to Excel" />
    </children>
 </AnchorPane>
