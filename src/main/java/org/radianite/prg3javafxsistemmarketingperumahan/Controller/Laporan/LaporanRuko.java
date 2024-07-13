@@ -19,8 +19,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class LaporanRuko extends Library implements Initializable {
     @FXML
@@ -80,7 +85,7 @@ public class LaporanRuko extends Library implements Initializable {
             {
                 btnExport.setOnAction(event -> {
                     downloadPDF(listFilter.get(getIndex()).getInvoice(),
-                            "C:/Users/Herdiansah/Mikhail/Laporan/ShopHouseRenter_"+ listFilter.get(getIndex()).getPenyewa()+".pdf",
+                            "C:/Users/Herdiansah/Mikhail/Laporan/ShopHouseRenter_"+ listFilter.get(getIndex()).getPenyewa()+ UUID.randomUUID()+".pdf",
                             "tr_ruko",
                             "dokumen_kontrak",
                             "id_trRuko");
@@ -117,8 +122,8 @@ public class LaporanRuko extends Library implements Initializable {
                         connect.result.getString("BLOK"),
                         connect.result.getString("PENYEWA"),
                         connect.result.getString("PEMBAYARAN"),
-                        connect.result.getString("BANK"),
-                        connect.result.getString("TOTAL")
+                        connect.result.getString("BANK") == null ? "Not Applied" :  connect.result.getString("BANK"),
+                        convertDoubleString(connect.result.getDouble("TOTAL"))
                 ));
             }
 
@@ -139,10 +144,10 @@ public class LaporanRuko extends Library implements Initializable {
 
             Row headerRow = sheet.createRow(0);
             headerRow.createCell(0).setCellValue("Invoice");
-            headerRow.createCell(1).setCellValue("Tanggal");
-            headerRow.createCell(2).setCellValue("Blok");
-            headerRow.createCell(3).setCellValue("Penyewa");
-            headerRow.createCell(4).setCellValue("Pembayaran");
+            headerRow.createCell(1).setCellValue("Transaction Date");
+            headerRow.createCell(2).setCellValue("Address");
+            headerRow.createCell(3).setCellValue("Renter");
+            headerRow.createCell(4).setCellValue("Payment");
             headerRow.createCell(5).setCellValue("Bank");
             headerRow.createCell(6).setCellValue("Total");
 
@@ -159,7 +164,7 @@ public class LaporanRuko extends Library implements Initializable {
                 row.createCell(6).setCellValue(data.getTotal());
             }
 
-            try(FileOutputStream fileOut = new FileOutputStream("C:/Users/Herdiansah/Mikhail/Laporan/ShopHouseReport"+LocalDate.now()+".xlsx")){
+            try(FileOutputStream fileOut = new FileOutputStream("C:/Users/Herdiansah/Mikhail/Laporan/ShopHouseReport"+LocalDate.now()+UUID.randomUUID()+".xlsx")){
                 workbook.write(fileOut);
             }
         }catch (IOException ex)
@@ -170,7 +175,22 @@ public class LaporanRuko extends Library implements Initializable {
 
     @FXML
     void filterButton(ActionEvent event) {
-
+        ObservableList<ShopHouseReport> filtering = FXCollections.observableArrayList();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        for (ShopHouseReport data : listLaporann) {
+            try {
+                Date fromDate = sdf.parse(startDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                Date toDate = sdf.parse(endDate.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                Date reportDate = sdf.parse(data.getTanggal());
+                if (reportDate.after(fromDate) && reportDate.before(toDate)) {
+                    filtering.add(data);
+                }
+            } catch (ParseException ex) {
+                System.out.println("Error: "+ex.getMessage());
+            }
+        }
+        tableView.setItems(filtering);
+        tableView.refresh();
     }
 
     @FXML
@@ -187,11 +207,11 @@ public class LaporanRuko extends Library implements Initializable {
 
     @FXML
     void filterPayment(ActionEvent event) {
-        listFilter.clear();
+        ObservableList<ShopHouseReport> filtering = FXCollections.observableArrayList();
         String selectedPayment = cbPayment.getSelectionModel().getSelectedItem();
             for (ShopHouseReport data : listLaporann) {
                 if (data.getPembayaran().equals(selectedPayment)) {
-                    listFilter.add(new ShopHouseReport(data.getInvoice(),
+                    filtering.add(new ShopHouseReport(data.getInvoice(),
                             data.getTanggal(),
                             data.getBlok(),
                             data.getPenyewa(),
@@ -201,12 +221,28 @@ public class LaporanRuko extends Library implements Initializable {
                 }
             }
 
-        tableView.setItems(listFilter);
-        tableView.refresh();
+            listFilter = filtering;
+            tableView.setItems(listFilter);
+            tableView.refresh();
     }
 
     @FXML
     void keySearch(KeyEvent event) {
+        String searchText = txtSearch.getText().toLowerCase();
+        ObservableList<ShopHouseReport> filtering = FXCollections.observableArrayList();
+        filtering.setAll(listLaporann);
 
+        filtering.clear();
+        for (ShopHouseReport shopHouseReport : listLaporann) {
+            if (shopHouseReport.getInvoice().toLowerCase().contains(searchText)
+                    || shopHouseReport.getBlok().toLowerCase().contains(searchText)
+                    || shopHouseReport.getPenyewa().toLowerCase().contains(searchText)
+                    || shopHouseReport.getBank().toLowerCase().contains(searchText)) {
+                filtering.add(shopHouseReport);
+            }
+        }
+        listFilter = filtering;
+        tableView.setItems(listFilter);
+        tableView.refresh();
     }
 }
