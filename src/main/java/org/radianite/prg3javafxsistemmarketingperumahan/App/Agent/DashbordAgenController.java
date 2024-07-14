@@ -99,6 +99,9 @@ public class DashbordAgenController {
                 } else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/TransaksiRuko.fxml")) {
                     TransaksiRukoController controller = loader.getController();
                     controller.setDataList(userList.get(0));
+                } else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/viewCicilan.fxml")) {
+                    TransaksiRukoController controller = loader.getController();
+                    controller.setDataList(userList.get(0));
                 }
                 GroupMenu.setTranslateX(-50);
                 TranslateTransition translate = new TranslateTransition(Duration.seconds(0.5), GroupMenu);

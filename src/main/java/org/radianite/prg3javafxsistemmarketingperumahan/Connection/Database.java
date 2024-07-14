@@ -10,7 +10,7 @@ public class Database {
 
     public Database() {
         try {
-            String url = "jdbc:sqlserver://localhost;database=Radianite;user=sa;password=123;";
+            String url = "jdbc:sqlserver://localhost;database=Radianite;user=sa;password=12345;";
             conn = DriverManager.getConnection(url);
             stat = conn.createStatement();
         } catch (SQLException e) {
@@ -39,7 +39,7 @@ public class Database {
     }
     public static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:sqlserver://localhost;database=Radianite;user=sa;password=123;");
+            return DriverManager.getConnection("jdbc:sqlserver://localhost;database=Radianite;user=sa;password=12345;");
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -85,7 +85,7 @@ public class Database {
         Database connect = new Database();
 
         // Contoh penggunaan: eksekusi query
-        try {
+        /*try {
             String query = "SELECT * FROM TableName";
             ResultSet rs = connect.stat.executeQuery(query);
             while (rs.next()) {
@@ -96,6 +96,6 @@ public class Database {
             System.out.println("Error executing query: " + e.getMessage());
         } finally {
             connect.close(); // Pastikan untuk menutup koneksi setelah selesai menggunakan
-        }
+        }*/
     }
 }
