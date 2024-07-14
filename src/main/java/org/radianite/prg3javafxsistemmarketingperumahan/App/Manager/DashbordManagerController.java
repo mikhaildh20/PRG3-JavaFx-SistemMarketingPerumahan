@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class DashbordManagerController {
 
+
     ArrayList<User> userList = new ArrayList<>();
     @FXML
     private AnchorPane GroupMenu;
