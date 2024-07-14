@@ -5,10 +5,14 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     requires com.dlsc.formsfx;
     requires java.sql;
     requires java.desktop;
+    requires org.apache.poi.poi;
+    requires org.apache.poi.ooxml;
+    requires jasperreports;
+    requires javafx.swing;
 
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah to javafx.fxml;
-   exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.User;
+    exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.User;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.User to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Ruko to javafx.fxml;
@@ -36,4 +40,6 @@ module org.radianite.prg3javafxsistemmarketingperumahan {
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank to javafx.fxml;
     exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah;
     opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah to javafx.fxml;
+    exports org.radianite.prg3javafxsistemmarketingperumahan.Controller.Laporan;
+    opens org.radianite.prg3javafxsistemmarketingperumahan.Controller.Laporan to javafx.fxml;
 }

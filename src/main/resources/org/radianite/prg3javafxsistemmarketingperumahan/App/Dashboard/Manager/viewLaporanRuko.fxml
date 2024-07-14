@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Laporan.LaporanRuko">
    <children>
-      <AnchorPane layoutX="15.0" layoutY="34.0" prefHeight="213.0" prefWidth="1495.0" style="-fx-border-radius: 10; -fx-border-color: darkblue; -fx-background-color: darkblue; -fx-background-radius: 10;">
+      <AnchorPane layoutX="17.0" layoutY="50.0" prefHeight="213.0" prefWidth="1495.0" style="-fx-border-radius: 10; -fx-border-color: darkblue; -fx-background-color: darkblue; -fx-background-radius: 10;">
          <children>
             <Label layoutX="488.0" layoutY="78.0" text="ShopHouse Report" textFill="WHITE">
                <font>
@@ -21,18 +21,18 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="17.0" layoutY="268.0" prefHeight="909.0" prefWidth="1495.0" style="-fx-border-radius: 10; -fx-border-color: darkblue; -fx-background-radius: 10; -fx-border-width: 2;" stylesheets="@../../Css/text.css">
+      <AnchorPane layoutX="17.0" layoutY="275.0" prefHeight="880.0" prefWidth="1496.0" style="-fx-border-radius: 10; -fx-border-color: darkblue; -fx-background-radius: 10; -fx-border-width: 2;" stylesheets="@../../Css/text.css">
          <children>
-            <TableView fx:id="tableView" layoutX="2.0" layoutY="156.0" prefHeight="624.0" prefWidth="1490.0">
+            <TableView fx:id="tableView" layoutX="2.0" layoutY="151.0" prefHeight="643.0" prefWidth="1490.0">
               <columns>
-                <TableColumn fx:id="colInvoice" prefWidth="83.20001220703125" text="Invoice" />
-                <TableColumn fx:id="colDate" prefWidth="266.0" text="Date" />
-                  <TableColumn fx:id="colAddress" prefWidth="203.0" text="Address" />
+                <TableColumn fx:id="colInvoice" prefWidth="212.0" text="Invoice" />
+                <TableColumn fx:id="colDate" prefWidth="192.0" text="Date" />
+                  <TableColumn fx:id="colAddress" prefWidth="149.0" text="Address" />
                   <TableColumn fx:id="colRenter" prefWidth="155.0" text="Renter" />
                   <TableColumn fx:id="colPayment" prefWidth="229.0" text="Payment" />
                   <TableColumn fx:id="colBank" prefWidth="145.0" text="Bank" />
-                  <TableColumn fx:id="colTotal" prefWidth="210.0" text="Total" />
-                  <TableColumn fx:id="colDocument" prefWidth="197.0" text="Document" />
+                  <TableColumn fx:id="colTotal" prefWidth="279.0" text="Total" />
+                  <TableColumn fx:id="colDocument" prefWidth="128.0" text="Document" />
               </columns>
             </TableView>
             <Button layoutX="141.0" layoutY="813.0" mnemonicParsing="false" onAction="#printButton" prefHeight="47.0" prefWidth="222.0" text="Export to Jasper" />

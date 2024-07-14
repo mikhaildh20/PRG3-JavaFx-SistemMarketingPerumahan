@@ -53,11 +53,11 @@ public class DashbordAgenController {
             connection.pstat.setString(1, userList.get(0).getUsn());
             connection.result = connection.pstat.executeQuery();
             connection.result.next();
-   /*         String logDate = connection.result.getString("logDate");
+            String logDate = connection.result.getString("logDate");
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
             DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy HH:mm ");
             LocalDateTime dateTime = LocalDateTime.parse(logDate, inputFormatter);
-            txtLastOnline.setText(dateTime.format(outputFormatter));*/
+            txtLastOnline.setText(dateTime.format(outputFormatter));
         }catch (SQLException ex){
             System.out.println("Error: "+ex.getMessage());
         }

@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Laporan.LaporanRumah">
    <children>
-      <AnchorPane layoutX="21.0" layoutY="32.0" prefHeight="213.0" prefWidth="1495.0" style="-fx-border-radius: 10; -fx-border-color: darkblue; -fx-background-color: darkblue; -fx-background-radius: 10;">
+      <AnchorPane layoutX="21.0" layoutY="50.0" prefHeight="209.0" prefWidth="1495.0" style="-fx-border-radius: 10; -fx-border-color: darkblue; -fx-background-color: darkblue; -fx-background-radius: 10;">
          <children>
             <Label layoutX="569.0" layoutY="73.0" text="House Report" textFill="WHITE">
                <font>
@@ -21,7 +21,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="21.0" layoutY="265.0" prefHeight="909.0" prefWidth="1495.0" style="-fx-border-radius: 10; -fx-border-color: darkblue; -fx-background-radius: 10; -fx-border-width: 2;" stylesheets="@../../Css/text.css">
+      <AnchorPane layoutX="21.0" layoutY="273.0" prefHeight="883.0" prefWidth="1495.0" style="-fx-border-radius: 10; -fx-border-color: darkblue; -fx-background-radius: 10; -fx-border-width: 2;" stylesheets="@../../Css/text.css">
          <children>
             <TableView fx:id="tableView" layoutX="3.0" layoutY="189.0" prefHeight="618.0" prefWidth="1487.0">
                <columns>
@@ -35,18 +35,18 @@
                   <TableColumn fx:id="colDocument" prefWidth="168.0" text="Document" />
                </columns>
             </TableView>
-            <Button layoutX="157.0" layoutY="829.0" mnemonicParsing="false" onAction="#printButton" prefHeight="47.0" prefWidth="226.0" text="Export to Jasper" />
+            <Button layoutX="157.0" layoutY="816.0" mnemonicParsing="false" onAction="#printButton" prefHeight="47.0" prefWidth="226.0" text="Export to Jasper" />
             <Label layoutX="50.0" layoutY="121.0" text="Search: " />
             <TextField fx:id="txtSearch" layoutX="154.0" layoutY="127.0" onKeyPressed="#keySearch" prefHeight="26.0" prefWidth="170.0" />
             <Label layoutX="51.0" layoutY="34.0" text="Payment: " />
             <ComboBox fx:id="cbPayment" layoutX="153.0" layoutY="35.0" onAction="#filterPayment" prefHeight="53.0" prefWidth="1035.0" promptText="-- Choose Payment --" />
-            <Button layoutX="19.0" layoutY="829.0" mnemonicParsing="false" onAction="#refreshButton" prefHeight="47.0" prefWidth="118.0" text="Refresh" />
+            <Button layoutX="19.0" layoutY="816.0" mnemonicParsing="false" onAction="#refreshButton" prefHeight="47.0" prefWidth="118.0" text="Refresh" />
             <Label layoutX="352.0" layoutY="122.0" text="Start: " />
             <DatePicker fx:id="startDate" layoutX="439.0" layoutY="125.0" />
             <Label layoutX="777.0" layoutY="122.0" text="End: " />
             <DatePicker fx:id="endDate" layoutX="840.0" layoutY="126.0" />
             <Button layoutX="1175.0" layoutY="123.0" mnemonicParsing="false" onAction="#filterButton" prefHeight="47.0" prefWidth="312.0" text="Filter" />
-            <Button fx:id="btnExcel" layoutX="399.0" layoutY="829.0" mnemonicParsing="false" onAction="#excelButton" text="Export to Excel" />
+            <Button fx:id="btnExcel" layoutX="399.0" layoutY="816.0" mnemonicParsing="false" onAction="#excelButton" text="Export to Excel" />
          </children>
       </AnchorPane>
    </children>
