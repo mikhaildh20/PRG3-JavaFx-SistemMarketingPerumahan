@@ -71,6 +71,7 @@ public class DashbordManagerController {
         }
     }
 
+
     @FXML
     public void initialize() {
 /*
