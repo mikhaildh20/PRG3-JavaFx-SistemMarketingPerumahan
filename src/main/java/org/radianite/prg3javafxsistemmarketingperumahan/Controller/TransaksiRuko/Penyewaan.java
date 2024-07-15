@@ -232,8 +232,12 @@ public class Penyewaan extends Library implements Initializable {
     }
 
     public void onActionFile(ActionEvent actionEvent) {
-        file = imageChooser(btnFile);
-        LabFile.setText(file.getName());
+        try{
+            file = documentChooser(btnFile);
+            LabFile.setText(file.getName());
+        }catch (Exception ex){
+            file = null;
+        }
     }
 
     public void onActionAdd(ActionEvent actionEvent) {
@@ -253,7 +257,7 @@ public class Penyewaan extends Library implements Initializable {
             connect.pstat = connect.conn.prepareStatement(query);
             connect.pstat.setString(1,txtId.getText());
             connect.pstat.setString(2,cbRuko.getSelectionModel().getSelectedItem().getId());
-            connect.pstat.setString(3,"1xvee");
+            connect.pstat.setString(3,userlist.get(0).getUsn());
             connect.pstat.setString(4,txtNIK.getText());
             connect.pstat.setString(5,txtNama.getText());
             connect.pstat.setString(6,txtTelp.getText());

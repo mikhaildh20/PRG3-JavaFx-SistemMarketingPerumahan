@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="GroupMenu" prefHeight="760.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer.Update">
+<AnchorPane fx:id="GroupMenu" prefHeight="760.0" prefWidth="1495.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Developer.Update">
    <children>
       <GridPane layoutX="429.0" prefHeight="676.0" prefWidth="547.0">
         <columnConstraints>
@@ -45,11 +40,6 @@
                   <Font name="Montserrat Bold" size="23.0" />
                </font>
             </Label>
-            <Button layoutX="285.0" layoutY="503.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="151.0" style="-fx-background-radius: 10;" stylesheets="@../../../../Css/Button.css" text="Clear" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="50.0" right="50.0" />
-               </GridPane.margin>
-            </Button>
          </children>
       </GridPane>
    </children>

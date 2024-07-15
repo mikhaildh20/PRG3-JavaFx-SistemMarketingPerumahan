@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="1200.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController">
+<AnchorPane prefHeight="1200.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Admin.DashbordAdminController">
    <children>
       <AnchorPane fx:id="Group1" layoutX="20.0" layoutY="20.0" prefHeight="1135.0" prefWidth="354.0" style="-fx-background-color: #050C9C; -fx-background-radius: 12;">
          <children>
@@ -79,7 +76,7 @@
                      <children>
                         <ImageView fx:id="Button11112" fitHeight="43.0" fitWidth="191.0" layoutX="28.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Resource/Dasboard/Group%2028.png" />
+                              <Image url="@../../Resource/Dasboard/btnShophouse.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -88,7 +85,7 @@
                      <children>
                         <ImageView fx:id="Button111121" fitHeight="43.0" fitWidth="191.0" layoutX="28.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Resource/Dasboard/Group%2025.png" />
+                              <Image url="@../../Resource/Dasboard/btnHouse.png" />
                            </image>
                         </ImageView>
                      </children>

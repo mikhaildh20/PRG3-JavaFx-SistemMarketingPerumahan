@@ -28,8 +28,6 @@ public class MainDashboardControllerManager extends Library {
     private List<User> users;
     private ArrayList<User> userList = new ArrayList<>();
 
-
-
     @FXML private AnchorPane GroupMenu;
     @FXML private Text tglLabel;
     @FXML private Text txtHalo;

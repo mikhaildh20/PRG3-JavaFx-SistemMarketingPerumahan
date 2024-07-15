@@ -25,6 +25,9 @@ public class updateUser extends Library implements Initializable {
     private TextField txtUsn,txtPass,txtName,txtEmail,txtAge;
     @FXML
     private TextArea txtAddress;
+    @FXML private Label validationLabel;
+    @FXML private Label validationpass;
+    @FXML private Label validationEmail;
     @FXML
     private ComboBox<Perumahan> cbResidence;
     @FXML
@@ -32,6 +35,7 @@ public class updateUser extends Library implements Initializable {
     @FXML
     private RadioButton rbMale,rbFemale;
     private ObservableList<Perumahan> listPerum = FXCollections.observableArrayList();
+    private ObservableList<User> listUser = FXCollections.observableArrayList();
     private ObservableList<Roles> listRole = FXCollections.observableArrayList();
     @FXML
     private Button btnFile;
@@ -92,6 +96,92 @@ public class updateUser extends Library implements Initializable {
                 return null;
             }
         });
+
+        txtUsn.textProperty().addListener((observable, oldValue, newValue) -> validateUsername(newValue));
+        txtPass.textProperty().addListener((observable, oldValue, newValue) -> validatePassword(newValue));
+        txtEmail.textProperty().addListener((observable, oldValue, newValue) -> validateEmail(newValue));
+        txtName.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z\\s]*")) {
+                txtName.setText(newValue.replaceAll("[^a-zA-Z\\s]", ""));
+            }
+        });
+        txtAge.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtAge.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            if (newValue.length() > 0 && Integer.parseInt(newValue) < 18) {
+                warningBox(btnFile, "Umur harus di atas 18 tahun.");
+            }
+        });
+    }
+
+    private int validateEmail(String email) {
+        validationEmail.setOpacity(1);
+        if (email.isEmpty()) {
+            validationEmail.setText("");
+            return 1;
+        }
+
+        if (!email.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")) {
+            validationEmail.setText("Invalid email format.");
+            validationEmail.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+            return 0;
+        } else {
+            validationEmail.setText("Email is valid.");
+            validationEmail.setStyle("-fx-text-fill: green; -fx-font-size: 12;");
+            return 1;
+        }
+
+    }
+
+    private int validateUsername(String username) {
+        validationLabel.setOpacity(1);
+        if (username.isEmpty()) {
+            validationLabel.setText("");
+            return 1;
+        }
+
+        if (username.length() < 8) {
+            validationLabel.setText("Username must be at least 8 characters.");
+            validationLabel.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+            return 0;
+        }
+
+        boolean isTaken = false;
+        for (User user : listUser) {
+            if (user.getUsn().equals(username)) {
+                isTaken = true;
+                break;
+            }
+        }
+        if (isTaken) {
+            validationLabel.setText("Username is already taken.");
+            validationLabel.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+            return 0;
+        } else {
+            validationLabel.setText("Username is available.");
+            validationLabel.setStyle("-fx-text-fill: green; -fx-font-size: 12;");
+            return 1;
+        }
+    }
+
+    private int validatePassword(String password) {
+        validationpass.setOpacity(1);
+        if (password.isEmpty()) {
+            validationpass.setText("");
+            return 1;
+        }else
+        if (password.length() < 8) {
+            validationpass.setText("Password must be at least 8 characters.");
+            validationpass.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+
+            return 0;
+
+        } else {
+            validationpass.setText("Password is valid.");
+            validationpass.setStyle("-fx-text-fill: green; -fx-font-size: 12;");
+            return 1;
+        }
     }
 
     public void setDataList(User data){

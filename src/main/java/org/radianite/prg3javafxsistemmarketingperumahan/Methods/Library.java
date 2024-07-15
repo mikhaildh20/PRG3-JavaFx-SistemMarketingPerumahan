@@ -164,6 +164,15 @@ public class Library {
         return fileChooser.showOpenDialog(stage);
     }
 
+    public File documentChooser(Button button){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Doc Files","*.pdf"));
+
+        Stage stage = (Stage) button.getScene().getWindow();
+
+        return fileChooser.showOpenDialog(stage);
+    }
+
     public byte[] imageToByte(File file) throws IOException {
         return Files.readAllBytes(file.toPath());
     }

@@ -24,6 +24,8 @@ import java.util.ArrayList;
 public class DashbordAgenController {
     ArrayList<User> userList = new ArrayList<>();
     @FXML
+    private AnchorPane Group1;
+    @FXML
     private AnchorPane GroupMenu;
     @FXML
     private AnchorPane btnDashboard;
@@ -40,6 +42,87 @@ public class DashbordAgenController {
     @FXML private Text txtLastOnline;
     @FXML private Text textNama;
     Database connection = new Database();
+
+    public void Animasi(){
+        Group1.setTranslateX(-100);
+        Group1.setOpacity(0.0);
+        btntrRumah.setOpacity(0.0);
+        btntrRumah.setTranslateY(-100);
+        btntrRuko.setOpacity(0.0);
+        btntrRuko.setTranslateY(-200);
+        btntrCicilan.setOpacity(0.0);
+        btntrCicilan.setTranslateY(-300);
+        btnsignout.setOpacity(0.0);
+
+        // Create TranslateTransition for GroupWelcome
+        TranslateTransition SwipeGroup1 = new TranslateTransition();
+        SwipeGroup1.setNode(Group1);
+        SwipeGroup1.setDuration(Duration.seconds(1));
+        SwipeGroup1.setToX(0);
+
+        // Create FadeTransition for GroupWelcome
+        FadeTransition FadeGroup1 = new FadeTransition();
+        FadeGroup1.setNode(Group1);
+        FadeGroup1.setDuration(Duration.seconds(1));
+        FadeGroup1.setFromValue(0.0);
+        FadeGroup1.setToValue(1.0);
+
+        TranslateTransition SwipeButton2 = new TranslateTransition();
+        SwipeButton2.setNode(btntrRumah);
+        SwipeButton2.setDuration(Duration.seconds(1));
+        SwipeButton2.setToY(0);
+
+        TranslateTransition SwipeButton3 = new TranslateTransition();
+        SwipeButton3.setNode(btntrRuko);
+        SwipeButton3.setDuration(Duration.seconds(1));
+        SwipeButton3.setToY(0);
+
+        TranslateTransition SwipeButton4 = new TranslateTransition();
+        SwipeButton4.setNode(btntrCicilan);
+        SwipeButton4.setDuration(Duration.seconds(1));
+        SwipeButton4.setToY(0);
+
+        TranslateTransition SwipeButton5 = new TranslateTransition();
+        SwipeButton5.setNode(btnsignout);
+        SwipeButton5.setDuration(Duration.seconds(1));
+        SwipeButton5.setToY(0);
+        ;
+
+
+
+        FadeTransition FadeButton2 = new FadeTransition();
+        FadeButton2.setNode(btntrRumah);
+        FadeButton2.setDuration(Duration.seconds(2));
+        FadeButton2.setFromValue(0.0);
+        FadeButton2.setToValue(1.0);
+
+        FadeTransition FadeButton3 = new FadeTransition();
+        FadeButton3.setNode(btntrRuko);
+        FadeButton3.setDuration(Duration.seconds(2));
+        FadeButton3.setFromValue(0.0);
+        FadeButton3.setToValue(1.0);
+
+        FadeTransition FadeButton4 = new FadeTransition();
+        FadeButton4.setNode(btntrCicilan);
+        FadeButton4.setDuration(Duration.seconds(2));
+        FadeButton4.setFromValue(0.0);
+        FadeButton4.setToValue(1.0);
+
+        FadeTransition FadeButton5 = new FadeTransition();
+        FadeButton5.setNode(btnsignout);
+        FadeButton5.setDuration(Duration.seconds(2));
+        FadeButton5.setFromValue(0.0);
+        FadeButton5.setToValue(1.0);
+
+
+
+        ParallelTransition parallelButton = new ParallelTransition(SwipeButton2,SwipeButton3,SwipeButton4,SwipeButton5,FadeButton2,FadeButton3,FadeButton4,FadeButton5);
+        parallelButton.play();
+
+        ParallelTransition parallelTransition = new ParallelTransition(SwipeGroup1, FadeGroup1);
+        parallelTransition.play();
+
+    }
 
     public void setDataList(User data) {
         userList.add(data);
@@ -77,7 +160,7 @@ public class DashbordAgenController {
     public void initialize() {
 /*
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/MainDashboard.fxml");
-*/
+*/      Animasi();
         btnDashboard();
     }
     private void setPane(String fxml) {

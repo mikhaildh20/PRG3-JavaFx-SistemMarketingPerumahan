@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 
 <AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TipeRumah.Update">
     <children>
@@ -21,7 +19,7 @@
             <children>
                 <Button fx:id="btnSimpan" onAction="#handleUpdateAction" prefHeight="47.0" prefWidth="129.0" text="Simpan" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <TextField fx:id="txtNama" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label text="Nama:" GridPane.rowIndex="1" />
+                <Label stylesheets="@../../../../Css/text.css" text="Nama:" GridPane.rowIndex="1" />
                 <TextField fx:id="txtIdTipe" editable="false" GridPane.columnIndex="1" />
                 <Label text="ID Tipe:" />
             </children>

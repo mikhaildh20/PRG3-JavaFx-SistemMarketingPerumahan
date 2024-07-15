@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah.Cicilan">
-   <children>
-      <Label layoutX="274.0" layoutY="36.0" text="Cicilan">
-         <font>
-            <Font name="System Bold" size="17.0" />
-         </font>
-      </Label>
-      <TableView fx:id="tableView" layoutX="51.0" layoutY="124.0" prefHeight="217.0" prefWidth="492.0">
-        <columns>
-          <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="colBlok" prefWidth="75.0" text="Blok" />
-            <TableColumn fx:id="colCicilan" prefWidth="119.0" text="Cicilan Terakhir" />
-            <TableColumn fx:id="colTunggakan" prefWidth="116.0" text="Tunggakan" />
-            <TableColumn fx:id="colAction" prefWidth="106.0" text="Action" />
-        </columns>
-      </TableView>
-   </children>
+<AnchorPane prefHeight="525.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah.Cicilan">
+    <children>
+        <Label layoutX="369.0" layoutY="56.0" text="Cicilan">
+            <font>
+                <Font name="System Bold" size="17.0" />
+            </font>
+        </Label>
+        <TableView fx:id="tableView" layoutX="51.0" layoutY="124.0" prefHeight="358.0" prefWidth="718.0">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="colBlok" prefWidth="75.0" text="Address" />
+                <TableColumn fx:id="colNama" prefWidth="105.59999084472656" text="Buyer" />
+                <TableColumn fx:id="colTelat" prefWidth="113.60003662109375" text="Late(Month)" />
+                <TableColumn fx:id="colDenda" prefWidth="110.39996337890625" text="Fines" />
+                <TableColumn fx:id="colTunggakan" prefWidth="107.199951171875" text="Tunggakan" />
+                <TableColumn fx:id="colAction" prefWidth="135.2000732421875" text="Action" />
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>

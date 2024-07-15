@@ -300,7 +300,7 @@ public class Pembelian extends Library implements Initializable {
 
     public void onActionDocument(ActionEvent actionEvent) {
         try {
-            file = imageChooser(btnFile);
+            file = documentChooser(btnFile);
             LabFile.setText(file.getName());
         } catch (Exception e) {
             file = null;

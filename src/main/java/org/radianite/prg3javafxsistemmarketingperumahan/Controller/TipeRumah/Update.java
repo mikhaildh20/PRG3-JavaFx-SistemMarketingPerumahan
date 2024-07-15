@@ -24,7 +24,13 @@ public class Update extends Library {
     private TipeRumah tipeRumah;
     private Database connection = new Database();
 
-    public Update() {
+    @FXML
+    public void initialize() {
+        txtNama.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z\\s]*")) {
+                txtNama.setText(newValue.replaceAll("[^a-zA-Z\\s]", ""));
+            }
+        });
 
     }
 

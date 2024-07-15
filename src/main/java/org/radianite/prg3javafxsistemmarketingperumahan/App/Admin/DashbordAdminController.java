@@ -502,12 +502,6 @@ public class DashbordAdminController {
         btnShopHouse.getStyleClass().removeAll("buttonDashboard-on");
         btnShopHouse.getStyleClass().add("buttonDashboard-off");
     }
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
     @FXML
     public void initialize() {
         Animasi();

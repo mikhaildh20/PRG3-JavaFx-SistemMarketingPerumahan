@@ -10,7 +10,7 @@ public class Database {
 
     public Database() {
         try {
-            String url = "jdbc:sqlserver://localhost;database=Radianite;user=sa;password=12345;";
+            String url = "jdbc:sqlserver://localhost;database=Radianite;user=sa;password=123;";
             conn = DriverManager.getConnection(url);
             stat = conn.createStatement();
         } catch (SQLException e) {
@@ -39,7 +39,7 @@ public class Database {
     }
     public static Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:sqlserver://localhost;database=Radianite;user=sa;password=12345;");
+            return DriverManager.getConnection("jdbc:sqlserver://localhost;database=Radianite;user=sa;password=123;");
         } catch (Exception e) {
             e.printStackTrace();
             return null;

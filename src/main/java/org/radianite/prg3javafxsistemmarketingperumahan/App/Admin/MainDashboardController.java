@@ -42,6 +42,8 @@ public class MainDashboardController {
     @FXML private Text txtJumlahHouseType;
     @FXML private Text txtJumlahBank;
     @FXML private Text txtJumlahHouse;
+    @FXML private AnchorPane cardDev, cardHousing, cardRole, cardUser, cardRuko, cardHouseType, cardBank, cardHouse,cardType;
+
 
     private Database connection;
 
@@ -63,6 +65,8 @@ public class MainDashboardController {
             txtHalo.setText("Halo, " + userList.get(0).getName());
         }
     }
+
+
 
     private int callUDFDev() {
         int count = 0;
@@ -202,4 +206,6 @@ private int callUDFCountMsRole() {
         alert.setContentText(contentText);
         alert.showAndWait();
     }
+
+
 }

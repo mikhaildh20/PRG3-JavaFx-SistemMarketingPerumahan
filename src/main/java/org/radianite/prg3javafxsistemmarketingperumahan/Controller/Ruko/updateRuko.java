@@ -65,6 +65,22 @@ public class updateRuko extends Library implements Initializable {
                 return null;
             }
         });
+
+        txtElec.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtElec.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        txtToilet.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtToilet.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        txtRent.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                txtRent.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
     }
 
     public void setDataList(Ruko data){
