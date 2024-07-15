@@ -8,8 +8,8 @@
    <children>
       <TableView fx:id="tableDeveloper" layoutY="59.0" prefHeight="702.0" prefWidth="1495.0" stylesheets="@../../../../Css/Button.css">
          <columns>
-            <TableColumn fx:id="idDeveloper" prefWidth="237.6666717529297" text="ID Developer" /> <!-- Ganti ID Role menjadi ID Developer -->
-            <TableColumn fx:id="namaDeveloper" prefWidth="598.6666870117188" text="Nama Developer" /> <!-- Ganti Nama menjadi Nama Developer -->
+            <TableColumn fx:id="idDeveloper" prefWidth="237.6666717529297" text="Developer ID" /> <!-- Ganti ID Role menjadi ID Developer -->
+            <TableColumn fx:id="namaDeveloper" prefWidth="598.6666870117188" text="Developer Name" /> <!-- Ganti Nama menjadi Nama Developer -->
             <TableColumn fx:id="status" prefWidth="524.0" text="Status" />
             <TableColumn fx:id="actionCol" prefWidth="133.0" text="Action" />
          </columns>

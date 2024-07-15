@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.geometry.Insets?>
-<AnchorPane prefHeight="466.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.User.updateUser">
+<AnchorPane prefHeight="466.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.User.updateUser">
    <children>
       <AnchorPane layoutX="-1.0" layoutY="6.0" prefHeight="754.0" prefWidth="1495.0" stylesheets="@../../../../Css/text.css">
          <children>
@@ -55,7 +47,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="cbRole" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Button fx:id="btnFile" mnemonicParsing="false" onAction="#onActionFile" prefHeight="47.0" prefWidth="174.0" text="Foto" GridPane.rowIndex="4" />
+                  <Button fx:id="btnFile" mnemonicParsing="false" onAction="#onActionFile" prefHeight="47.0" prefWidth="174.0" text="Photo" GridPane.rowIndex="4" />
                   <Label fx:id="LabFile" prefHeight="17.0" prefWidth="128.0" text="Choose file here" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label fx:id="validationLabel" prefHeight="27.0" prefWidth="60.0" text="Label" GridPane.columnIndex="1">
                      <GridPane.margin>

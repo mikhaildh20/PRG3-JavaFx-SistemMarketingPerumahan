@@ -45,6 +45,7 @@ public class Pembelian extends Library implements Initializable {
     private ComboBox<String> cbPayment;
     @FXML
     private ComboBox<String> cbPeriode;
+    @FXML private TextField txtBlok;
     @FXML
     private Button btnFile;
     @FXML
@@ -53,7 +54,7 @@ public class Pembelian extends Library implements Initializable {
     private Button btnback;
     @FXML
     private AnchorPane mainpane;
-    @FXML private TextField txtBlok;
+
 
     private ObservableList<Rumah> listRumah = FXCollections.observableArrayList();
     private ObservableList<Bank> listBank = FXCollections.observableArrayList();
@@ -64,7 +65,24 @@ public class Pembelian extends Library implements Initializable {
     private String idper;
     private ArrayList<User> userlist = new ArrayList<>();
     private ArrayList<Rumah> rumahlist = new ArrayList<>();
-    private int selected = 0;
+
+    private void clear() {
+        txtId.clear();
+        txtDate.clear();
+        txtNIK.clear();
+        txtNama.clear();
+        txtContact.clear();
+        txtRekening.clear();
+        txtTotal.clear();
+        txtMinCicil.clear();
+        txtCicil.clear();
+        txtPinjaman.clear();
+        txtBulanan.clear();
+        cbBlok.getSelectionModel().clearSelection();
+        cbBank.getSelectionModel().clearSelection();
+        cbPayment.getSelectionModel().clearSelection();
+        cbPeriode.getSelectionModel().clearSelection();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,16 +91,16 @@ public class Pembelian extends Library implements Initializable {
         cbPayment.setItems(listPayment);
         cbPeriode.setItems(listPeriode);
 
-        txtId.setEditable(false);
-        txtDate.setEditable(false);
-        cbBank.setEditable(false);
-        cbPeriode.setEditable(false);
-        txtRekening.setEditable(false);
-        txtTotal.setEditable(false);
-        txtMinCicil.setEditable(false);
-        txtCicil.setEditable(false);
-        txtPinjaman.setEditable(false);
-        txtBulanan.setEditable(false);
+        txtId.setDisable(true);
+        txtDate.setDisable(true);
+        cbBank.setDisable(true);
+        cbPeriode.setDisable(true);
+        txtRekening.setDisable(true);
+        txtTotal.setDisable(true);
+        txtMinCicil.setDisable(true);
+        txtCicil.setDisable(true);
+        txtPinjaman.setDisable(true);
+        txtBulanan.setDisable(true);
         txtId.setText(generateID("tr_rumah", "TRR", "id_trRumah"));
         txtDate.setText(LocalDate.now().toString());
 
@@ -337,6 +355,7 @@ public class Pembelian extends Library implements Initializable {
             // Execute the update
             connect.pstat.executeUpdate();
             connect.pstat.close();
+            clear();
             successBox(btnback, "Trasaction Success");
         } catch (SQLException | IOException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -397,9 +416,8 @@ public class Pembelian extends Library implements Initializable {
         Date currentDate = new Date(System.currentTimeMillis());
         connect.pstat.setDate(18, currentDate);
     }
-
+    @FXML
     public void onActionCbPay(ActionEvent actionEvent) {
-        if (selected == 0) return;
         if (cbPayment.getSelectionModel().isSelected(1)) {
             cbBank.setDisable(false);
             cbPeriode.setDisable(false);
@@ -452,7 +470,6 @@ public class Pembelian extends Library implements Initializable {
     }
 
     public void onActionBlok(ActionEvent actionEvent) {
-        selected = 1;
         txtTotal.setText(convertDoubleString(cbBlok.getSelectionModel().getSelectedItem().getHarga()));
         txtMinCicil.setText(convertDoubleString(minFirstPayment(cbBlok.getSelectionModel().getSelectedItem().getHarga())));
         if (cbPayment.getSelectionModel().isSelected(1)) {

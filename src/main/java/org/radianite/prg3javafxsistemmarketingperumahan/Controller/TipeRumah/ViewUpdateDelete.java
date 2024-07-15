@@ -86,13 +86,23 @@ public class ViewUpdateDelete extends Library implements Initializable {
         String searchText = txtSearch.getText().toLowerCase();
         ObservableList<TipeRumah> filteredList = FXCollections.observableArrayList();
 
-        for (TipeRumah tipeRumah : tableTipeRumah.getItems()) {
-            if (tipeRumah.getNama().toLowerCase().contains(searchText)) {
-                filteredList.add(tipeRumah);
+        if (searchText.isEmpty()) {
+            tableTipeRumah.setItems(TPList);
+            tableTipeRumah.refresh();
+        } else {
+            for (TipeRumah tipeRumah : tableTipeRumah.getItems()) {
+                if (tipeRumah.getNama().toLowerCase().contains(searchText)) {
+                    filteredList.add(tipeRumah);
+                }
             }
         }
 
-        tableTipeRumah.setItems(filteredList);
+        if (filteredList.isEmpty()) {
+            tableTipeRumah.getItems().clear(); // Menghapus data dari tabel jika tidak ada yang cocok
+        } else {
+            tableTipeRumah.setItems(filteredList);
+            tableTipeRumah.refresh(); // Menambahkan ini untuk mereset tampilan tabel
+        }
     }
 
     @Override

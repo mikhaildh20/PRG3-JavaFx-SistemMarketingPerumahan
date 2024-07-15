@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRumah.Cicilan">
+    <children>
+        <Label layoutX="369.0" layoutY="56.0" text="Cicilan">
+            <font>
+                <Font name="System Bold" size="17.0" />
+            </font>
+        </Label>
+        <TableView fx:id="tableView" layoutX="23.0" layoutY="231.0" prefHeight="935.0" prefWidth="1477.0" stylesheets="@../../Css/Button.css">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="100.33333587646484" text="ID" />
+                <TableColumn fx:id="colBlok" prefWidth="119.66666412353516" text="Address" />
+                <TableColumn fx:id="colNama" prefWidth="240.33331298828125" text="Buyer" />
+                <TableColumn fx:id="colTelat" prefWidth="362.6666259765625" text="Late(Month)" />
+                <TableColumn fx:id="colDenda" prefWidth="249.333251953125" text="Fines" />
+                <TableColumn fx:id="colTunggakan" prefWidth="196.666748046875" text="Arrears" />
+                <TableColumn fx:id="colAction" prefWidth="212.33331298828125" text="Action" />
+            </columns>
+        </TableView>
+      <AnchorPane layoutX="19.0" layoutY="52.0" prefHeight="148.0" prefWidth="1482.0" style="-fx-background-color: #050C9C; -fx-background-radius: 10;">
+         <children>
+            <Label layoutX="619.0" layoutY="39.0" prefHeight="71.0" prefWidth="212.0" text="Arrears" textFill="WHITE">
+               <font>
+                  <Font name="Montserrat Bold" size="49.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

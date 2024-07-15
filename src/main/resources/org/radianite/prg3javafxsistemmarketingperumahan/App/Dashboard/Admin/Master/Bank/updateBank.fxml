@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Bank.updateBank">
    <children>
@@ -22,9 +21,9 @@
                <children>
                   <Label text="ID" />
                   <TextField fx:id="txtId" GridPane.columnIndex="1" />
-                  <Label text="Nama" GridPane.rowIndex="1" />
+                  <Label text="Name" GridPane.rowIndex="1" />
                   <TextField fx:id="txtNama" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Bunga" GridPane.rowIndex="2" />
+                  <Label text="Rate" GridPane.rowIndex="2" />
                   <TextField fx:id="txtBunga" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
@@ -32,4 +31,3 @@
       </AnchorPane>
    </children>
 </AnchorPane>
-

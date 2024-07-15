@@ -59,6 +59,7 @@ public class Cicilan implements Initializable {
                 btnDelete.setOnAction(event -> {
                     storedCicilan(listCicilan.get(getIndex()).getId());
                     loadCicilan();
+                    tableView.refresh();
                 });
             }
 

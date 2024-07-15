@@ -61,15 +61,15 @@ public class MainDashboardControllerManager extends Library {
             }
         loadRumah();
         System.out.println(listRumah.get(0).getHarga());
-
+/*
         lblBlok.setText(listRumah.get(0).getBlok());
-        lblHarga.setText("Rp " + String.format("%,.0f", listRumah.get(0).getHarga()).replace(",", "."));
+        lblHarga.setText("Rp " + String.format("%,.0f", listRumah.get(0).getHarga()).replace(",", "."));*/
 
 
-        fotoRumah.setImage(listRumah.get(0).getFoto());
+/*        fotoRumah.setImage(listRumah.get(0).getFoto());
         fotoRumah.setFitHeight(679);
         fotoRumah.setFitWidth(706);
-        fotoRumah.setPreserveRatio(false);
+        fotoRumah.setPreserveRatio(false);*/
     }
 
     private int callUDFTotal(String usn) {

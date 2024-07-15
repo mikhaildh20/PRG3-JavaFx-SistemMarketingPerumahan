@@ -20,9 +20,9 @@
                <Button fx:id="btnSimpan" onAction="#onBtnSimpanClick" prefHeight="47.0" prefWidth="129.0" text="Simpan" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                <Button onAction="#onBatalSimpanClick" prefHeight="47.0" prefWidth="135.0" text="Batal" GridPane.rowIndex="2" />
                <TextField fx:id="txtNama" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               <Label text="Nama:" GridPane.rowIndex="1" />
+               <Label text="Name" GridPane.rowIndex="1" />
                <TextField fx:id="txtIdTipe" editable="false" GridPane.columnIndex="1" />
-               <Label text="ID Tipe:" />
+               <Label text="Type ID" />
          </children>
       </GridPane>
    </children>

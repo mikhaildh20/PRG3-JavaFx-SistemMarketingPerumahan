@@ -84,6 +84,51 @@ public class viewBank extends Library implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadData();
+
+    }
+    @FXML
+    private void handleSearch(ActionEvent event) {
+        String searchText = txtSearch.getText().toLowerCase();
+        ObservableList<Bank> filteredList = FXCollections.observableArrayList();
+
+        if (searchText.isEmpty()) {
+            filteredList.addAll(listBank);
+            tableView.refresh(); // Menambahkan ini untuk mereset tampilan tabel
+        } else {
+            for (Bank bank : listBank) {
+                if (bank.getName().toLowerCase().contains(searchText) || 
+                    bank.getId().toLowerCase().contains(searchText) ||
+                    String.valueOf(bank.getBunga()).contains(searchText)) {
+                    filteredList.add(bank);
+                }
+            }
+        }
+
+        tableView.setItems(filteredList);
+    }
+    public void loadData()
+    {
+        listBank.clear();
+        try{
+            Database connect = new Database();
+            connect.stat = connect.conn.createStatement();
+            String query = "SELECT * FROM ms_bank";
+            connect.result = connect.stat.executeQuery(query);
+            while (connect.result.next())
+            {
+                listBank.add(new Bank(
+                        connect.result.getString("id_bank"),
+                        connect.result.getString("nama_bank"),
+                        connect.result.getInt("suku_bunga"),
+                        connect.result.getInt("status") // Added status
+                ));
+            }
+            connect.result.close();
+            connect.stat.close();
+        }catch (SQLException ex)
+        {
+            System.out.println("Error: "+ex.getMessage());
+        }
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colBank.setCellValueFactory(new PropertyValueFactory<>("name"));
         colBunga.setCellValueFactory(cellData -> {
@@ -147,47 +192,6 @@ public class viewBank extends Library implements Initializable {
                 }
             }
         });
-    }
-
-    @FXML
-    private void handleSearch(ActionEvent event) {
-        String searchText = txtSearch.getText().toLowerCase();
-        ObservableList<Bank> filteredList = FXCollections.observableArrayList();
-
-        for (Bank bank : listBank) {
-            if (bank.getName().toLowerCase().contains(searchText) || 
-                bank.getId().toLowerCase().contains(searchText) ||
-                String.valueOf(bank.getBunga()).contains(searchText)) {
-                filteredList.add(bank);
-            }
-        }
-
-        tableView.setItems(filteredList);
-    }
-
-    public void loadData()
-    {
-        listBank.clear();
-        try{
-            Database connect = new Database();
-            connect.stat = connect.conn.createStatement();
-            String query = "SELECT * FROM ms_bank";
-            connect.result = connect.stat.executeQuery(query);
-            while (connect.result.next())
-            {
-                listBank.add(new Bank(
-                        connect.result.getString("id_bank"),
-                        connect.result.getString("nama_bank"),
-                        connect.result.getInt("suku_bunga"),
-                        connect.result.getInt("status") // Added status
-                ));
-            }
-            connect.result.close();
-            connect.stat.close();
-        }catch (SQLException ex)
-        {
-            System.out.println("Error: "+ex.getMessage());
-        }
         tableView.setItems(listBank);
     }
 

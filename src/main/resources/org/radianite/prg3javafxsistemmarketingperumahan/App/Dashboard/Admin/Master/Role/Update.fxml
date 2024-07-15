@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role.UpdateRole">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.Role.UpdateRole">
     <children>
         <Label fx:id="messageLabel" layoutX="663.0" layoutY="445.0" textFill="red" />
         <GridPane layoutX="427.0" layoutY="51.0" prefHeight="709.0" prefWidth="551.0" stylesheets="@../../../../Css/text.css">
@@ -22,9 +17,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="ID Role:" />
+                <Label text="Role ID" />
                 <TextField fx:id="txtIdRole" editable="false" GridPane.columnIndex="1" />
-                <Label text="Nama Role:" GridPane.rowIndex="1" />
+                <Label text="Role Name" GridPane.rowIndex="1" />
                 <TextField fx:id="txtNamaRole" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Button fx:id="btnSave" onAction="#handleUpdateAction" prefHeight="47.0" prefWidth="124.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>

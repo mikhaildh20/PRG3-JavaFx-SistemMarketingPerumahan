@@ -109,7 +109,7 @@ public class ViewUpdateDelete extends Library implements Initializable  {
     developerList.clear();
         try {
             connection.stat = connection.conn.createStatement();
-            String query = "SELECT * FROM ms_developer"; // Ganti dari ms_role menjadi ms_developer
+            String query = "SELECT * FROM ms_developer";
             connection.result = connection.stat.executeQuery(query);
 
             while (connection.result.next()) {
@@ -148,7 +148,7 @@ public class ViewUpdateDelete extends Library implements Initializable  {
             }
         });
 
-        tableDeveloper.setItems(developerList); // Ganti dari roleList menjadi developerList
+        tableDeveloper.setItems(developerList);
     }
 
     public class TableCellWithButton extends TableCell<Developer, Void> {

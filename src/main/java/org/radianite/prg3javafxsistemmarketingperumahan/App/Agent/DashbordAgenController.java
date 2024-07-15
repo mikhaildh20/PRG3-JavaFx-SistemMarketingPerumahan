@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.radianite.prg3javafxsistemmarketingperumahan.App.HelloApplication;
 import org.radianite.prg3javafxsistemmarketingperumahan.Connection.Database;
+import org.radianite.prg3javafxsistemmarketingperumahan.Models.Cicilan;
 import org.radianite.prg3javafxsistemmarketingperumahan.Models.User;
 
 import java.io.IOException;
@@ -183,8 +184,8 @@ public class DashbordAgenController {
                     TransaksiRukoController controller = loader.getController();
                     controller.setDataList(userList.get(0));
                 } else if (fxml.equals("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/viewCicilan.fxml")) {
-                    TransaksiRukoController controller = loader.getController();
-                    controller.setDataList(userList.get(0));
+                    /*Cicilan controller = loader.getController();
+                    controller.setDataList(userList.get(0));*/
                 }
                 GroupMenu.setTranslateX(-50);
                 TranslateTransition translate = new TranslateTransition(Duration.seconds(0.5), GroupMenu);
@@ -246,6 +247,18 @@ public class DashbordAgenController {
         btntrCicilan.getStyleClass().add("buttonDashboard-off");
     }
     public void btntransaksiCicilan() {
+        setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/viewCicilan.fxml");
+        btnDashboard.getStyleClass().removeAll("buttonDashboard-on");
+        btnDashboard.getStyleClass().add("buttonDashboard-off");
+
+        btntrRumah.getStyleClass().removeAll("buttonDashboard-on");
+        btntrRumah.getStyleClass().add("buttonDashboard-off");
+
+        btntrRuko.getStyleClass().removeAll("buttonDashboard-on");
+        btntrRuko.getStyleClass().add("buttonDashboard-off");
+
+        btntrCicilan.getStyleClass().removeAll("buttonDashboard-off");
+        btntrCicilan.getStyleClass().add("buttonDashboard-on");
     }
     public void btnlog() {
         try {

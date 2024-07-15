@@ -96,11 +96,11 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="btntrCicilan" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
+                  <AnchorPane fx:id="btntrCicilan" onMouseClicked="#btntransaksiCicilan" prefHeight="63.05" prefWidth="268.73" style="-fx-background-radius: 10;" styleClass="buttonDashboard-off" stylesheets="@../../Css/Button.css">
                      <children>
-                        <ImageView fx:id="Button111" fitHeight="36.0" fitWidth="119.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="Button111" fitHeight="48.0" fitWidth="201.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../Resource/Dasboard/Group%2030-1.png" />
+                              <Image url="@../../Resource/Dasboard/Group%2030%20(1).png" />
                            </image>
                         </ImageView>
                      </children>

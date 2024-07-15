@@ -26,7 +26,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nama Lengkap" textFill="DARKBLUE">
+            <Label text="Full Name" textFill="DARKBLUE">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
@@ -37,17 +37,17 @@
                </font>
             </Label>
             
-            <Label text="Alamat" textFill="DARKBLUE" GridPane.rowIndex="2">
+            <Label text="Address" textFill="DARKBLUE" GridPane.rowIndex="2">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="Jenis Kelamin" textFill="DARKBLUE" GridPane.rowIndex="3">
+            <Label text="Gender" textFill="DARKBLUE" GridPane.rowIndex="3">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="Umur" textFill="DARKBLUE" GridPane.rowIndex="4">
+            <Label text="Age" textFill="DARKBLUE" GridPane.rowIndex="4">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>

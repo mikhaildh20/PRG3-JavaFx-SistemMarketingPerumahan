@@ -17,9 +17,9 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-               <Label text="ID Role:" />
+               <Label text="Role ID" />
                <TextField fx:id="txtIdRole" editable="false" GridPane.columnIndex="1" />
-               <Label text="Nama Role:" GridPane.rowIndex="1" />
+               <Label text="Role Name" GridPane.rowIndex="1" />
                <TextField fx:id="txtNamaRole" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                <Button onAction="#onBtnSimpanClick" prefHeight="51.0" prefWidth="149.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                <Button onAction="#onBatalSimpanClick" prefHeight="51.0" prefWidth="152.0" text="Clear" GridPane.rowIndex="2" />

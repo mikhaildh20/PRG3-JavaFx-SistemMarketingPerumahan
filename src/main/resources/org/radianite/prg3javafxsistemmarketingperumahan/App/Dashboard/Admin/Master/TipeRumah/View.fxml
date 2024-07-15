@@ -7,8 +7,8 @@
    <children>
        <TableView fx:id="tableTipeRumah" layoutY="59.0" prefHeight="701.0" prefWidth="1495.0" stylesheets="@../../../../Css/Button.css">
            <columns>
-               <TableColumn fx:id="idTipe" prefWidth="216.0" text="ID Tipe" />
-               <TableColumn fx:id="nama" prefWidth="527.0" text="Nama" />
+               <TableColumn fx:id="idTipe" prefWidth="216.0" text="Type ID" />
+               <TableColumn fx:id="nama" prefWidth="527.0" text="Name" />
                <TableColumn fx:id="status" prefWidth="590.0" text="Status" />
                <TableColumn fx:id="actionCol" prefWidth="161.0" text="Action" />
            </columns>

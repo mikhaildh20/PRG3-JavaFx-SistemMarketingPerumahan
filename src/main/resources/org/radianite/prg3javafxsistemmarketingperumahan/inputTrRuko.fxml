@@ -14,20 +14,15 @@
 
 <AnchorPane fx:id="mainpane" prefHeight="1200.0" prefWidth="1535.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.Controller.TransaksiRuko.Penyewaan">
    <children>
-      <AnchorPane prefHeight="341.0" prefWidth="739.0" style="-fx-background-color: white;" stylesheets="@App/Css/text.css">
+      <AnchorPane prefHeight="341.0" prefWidth="739.0" style="-fx-background-color: white;">
          <children>
             <ImageView fitHeight="1103.0" fitWidth="1542.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@App/Resource/Dasboard/background.png" />
                </image>
             </ImageView>
-            <Label layoutX="686.0" layoutY="71.0" text="Penyewaan Ruko">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Button layoutX="696.0" layoutY="1059.0" mnemonicParsing="false" onAction="#onActionAdd" prefHeight="47.0" prefWidth="190.0" text="Buy" />
-            <GridPane layoutX="53.0" layoutY="129.0" prefHeight="875.0" prefWidth="1427.0">
+            <Button layoutX="671.0" layoutY="1104.0" mnemonicParsing="false" onAction="#onActionAdd" prefHeight="47.0" prefWidth="190.0" stylesheets="@App/Css/text.css" text="Buy" />
+            <GridPane layoutX="35.0" layoutY="218.0" prefHeight="875.0" prefWidth="1427.0" stylesheets="@App/Css/text.css">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,13 +41,13 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="ID Transaksi" />
+                  <Label text="Transaction ID" />
                   <TextField fx:id="txtId" GridPane.columnIndex="1" />
-                  <Label text="ID Ruko" GridPane.rowIndex="1" />
+                  <Label text="ShopHouse ID" GridPane.rowIndex="1" />
                   <ComboBox fx:id="cbRuko" onAction="#onActionRuko" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="NIK" GridPane.rowIndex="2" />
                   <TextField fx:id="txtNIK" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label text="Nama" GridPane.rowIndex="3" />
+                  <Label text="Name" GridPane.rowIndex="3" />
                   <TextField fx:id="txtNama" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="Telephone" GridPane.rowIndex="4" />
                   <TextField fx:id="txtTelp" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -64,12 +59,21 @@
                   <ComboBox fx:id="cbPayment" onAction="#onActionCbPay" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label text="Bank" GridPane.rowIndex="8" />
                   <ComboBox fx:id="cbBank" prefHeight="25.0" prefWidth="145.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <Label text="Rekening" GridPane.rowIndex="9" />
+                  <Label text="Account" GridPane.rowIndex="9" />
                   <TextField fx:id="txtRek" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <Button fx:id="btnFile" mnemonicParsing="false" onAction="#onActionFile" prefHeight="47.0" prefWidth="226.0" text="File" GridPane.rowIndex="10" />
+                  <Button fx:id="btnFile" mnemonicParsing="false" onAction="#onActionFile" prefHeight="47.0" prefWidth="226.0" text="Document" GridPane.rowIndex="10" />
                   <Label fx:id="LabFile" text="Choose file here.." GridPane.columnIndex="1" GridPane.rowIndex="10" />
                </children>
             </GridPane>
+            <AnchorPane layoutX="19.0" layoutY="52.0" prefHeight="148.0" prefWidth="1482.0" style="-fx-background-color: #050C9C; -fx-background-radius: 10;">
+               <children>
+                  <Label layoutX="600.0" layoutY="39.0" prefHeight="71.0" prefWidth="305.0" text="Transaction" textFill="WHITE">
+                     <font>
+                        <Font name="Montserrat Bold" size="49.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>

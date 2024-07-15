@@ -80,13 +80,20 @@ public class ViewUpdateDelete extends Library implements Initializable {
         String searchText = txtSearch.getText().toLowerCase();
         ObservableList<Role> filteredList = FXCollections.observableArrayList();
 
-        for (Role role : tableRole.getItems()) {
-            if (role.getNamaRole().toLowerCase().contains(searchText)) {
-                filteredList.add(role);
+        // Jika search text kosong, load semua data dan atur ulang tombol edit dan delete
+        if (searchText.isEmpty()) {
+            tableRole.setItems(roleList);
+            tableRole.refresh(); // Menambahkan ini untuk mereset tampilan tabel
+            tableRole.refresh(); // Menambahkan ini untuk mereset tampilan tabel
+        } else {
+            for (Role role : tableRole.getItems()) {
+                if (role.getNamaRole().toLowerCase().contains(searchText)) {
+                    filteredList.add(role);
+                }
             }
+            tableRole.setItems(filteredList);
+            tableRole.refresh(); // Menambahkan ini untuk mereset tampilan tabel
         }
-
-        tableRole.setItems(filteredList);
     }
 
     @Override

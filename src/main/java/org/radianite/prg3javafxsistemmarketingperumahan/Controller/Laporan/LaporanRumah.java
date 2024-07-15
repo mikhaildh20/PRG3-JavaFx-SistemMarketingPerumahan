@@ -98,7 +98,7 @@ public class LaporanRumah extends Library implements Initializable {
             {
                 btnExport.setOnAction(event -> {
                     downloadPDF(listFilter.get(getIndex()).getInvoice(),
-                            "C:/Users/Herdiansah/Mikhail/Laporan/HouseBuyer_"+ listFilter.get(getIndex()).getPenyewa()+ UUID.randomUUID()+".pdf",
+                            "E:/SOURCE CODE CODINGAN/JAVA/Project ver mek/PRG3-JavaFx-SistemMarketingPerumahan/Reporting/HouseBuyer_"+ listFilter.get(getIndex()).getPenyewa()+ UUID.randomUUID()+".pdf",
                             "tr_rumah",
                             "dokumen_pembelian",
                             "id_trRumah");
@@ -178,7 +178,7 @@ public class LaporanRumah extends Library implements Initializable {
                 row.createCell(6).setCellValue(data.getTotal());
             }
 
-            try(FileOutputStream fileOut = new FileOutputStream("C:/Users/Herdiansah/Mikhail/Laporan/HouseReport"+LocalDate.now()+UUID.randomUUID()+".xlsx")){
+            try(FileOutputStream fileOut = new FileOutputStream("E:/SOURCE CODE CODINGAN/JAVA/Project ver mek/PRG3-JavaFx-SistemMarketingPerumahan/Reporting/HouseReport"+LocalDate.now()+UUID.randomUUID()+".xlsx")){
                 workbook.write(fileOut);
             }
             successBox(btnExcel,"Data has been exported successfully.");
@@ -252,7 +252,7 @@ public class LaporanRumah extends Library implements Initializable {
         ObservableList<ShopHouseReport> filtering = FXCollections.observableArrayList();
         String selectedPayment = cbPayment.getSelectionModel().getSelectedItem();
         for (ShopHouseReport data : listLaporann) {
-            if (data.getPembayaran().equals(selectedPayment)) {
+            if (data.getPembayaran().equalsIgnoreCase(selectedPayment)) {
                 filtering.add(new ShopHouseReport(data.getInvoice(),
                         data.getTanggal(),
                         data.getBlok(),

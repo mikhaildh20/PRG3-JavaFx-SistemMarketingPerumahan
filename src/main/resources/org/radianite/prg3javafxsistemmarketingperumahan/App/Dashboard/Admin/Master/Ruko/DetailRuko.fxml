@@ -42,7 +42,7 @@
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
             </Label>
-            <Label text="availability" textFill="DARKBLUE" GridPane.rowIndex="3">
+            <Label text="Availability" textFill="DARKBLUE" GridPane.rowIndex="3">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>

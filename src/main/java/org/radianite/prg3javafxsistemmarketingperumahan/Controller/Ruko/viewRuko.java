@@ -48,7 +48,7 @@ public class viewRuko extends Library implements Initializable {
     @FXML
     private AnchorPane GroupMenu;
     private ObservableList<Ruko> listRuko = FXCollections.observableArrayList();
-
+    Database connect = new Database();
     @FXML
     private Button btnSerach;
     @FXML
@@ -91,7 +91,8 @@ public class viewRuko extends Library implements Initializable {
         ObservableList<Ruko> filteredList = FXCollections.observableArrayList();
 
         if (searchText.isEmpty()) {
-            loadData();
+            tableView.refresh();
+            tableView.setItems(listRuko);
         } else {
             for (Ruko ruko : listRuko) {
                 if (ruko.getBlok().toLowerCase().contains(searchText) ||
@@ -101,6 +102,7 @@ public class viewRuko extends Library implements Initializable {
             }
             tableView.setItems(filteredList);
         }
+
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -191,7 +193,7 @@ public class viewRuko extends Library implements Initializable {
     public void loadData(){
         listRuko.clear();
         try{
-            Database connect = new Database();
+
             connect.stat = connect.conn.createStatement();
             String query = "EXEC sp_viewRuko";
             connect.result = connect.stat.executeQuery(query);
@@ -216,9 +218,6 @@ public class viewRuko extends Library implements Initializable {
         tableView.setItems(listRuko);
     }
 
-    public void onActionAdd(ActionEvent actionEvent) {
-        loadPage(actionEvent,"inputRuko");
-    }
 
 /*    public void loadPage(ActionEvent event, String page, Ruko data){
         Node node = (Node) event.getSource();

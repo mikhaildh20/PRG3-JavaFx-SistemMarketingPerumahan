@@ -35,7 +35,7 @@
                   <Font name="Montserrat Regular" size="18.0" />
                </font>
             </TextField>
-            <Label text="Nama Developer" GridPane.rowIndex="1">
+            <Label text="Developer Name" GridPane.rowIndex="1">
                <font>
                   <Font name="Montserrat Bold" size="23.0" />
                </font>
