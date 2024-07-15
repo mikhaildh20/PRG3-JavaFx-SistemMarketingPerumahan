@@ -2,6 +2,8 @@ package org.radianite.prg3javafxsistemmarketingperumahan.Methods;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -271,5 +273,45 @@ public class Library {
         {
             System.out.println("Error: "+ex.getMessage());
         }
+    }
+
+    public String removeDots(String input) {
+        if (input == null) {
+            return null;
+        }
+        return input.replace(".", "");
+    }
+
+    private void addNumericValidatorWithCurrencyFormat(TextField textField) {
+        textField.textProperty().addListener(new ChangeListener<String>() {
+            private boolean changing = false;
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (changing) return;
+
+                changing = true;
+
+                // Remove all non-digit characters for parsing
+                String numericValue = newValue.replaceAll("[^\\d]", "");
+
+                // Format the numeric value with thousand separators
+                StringBuilder formattedValue = new StringBuilder();
+                int length = numericValue.length();
+                for (int i = 0; i < length; i++) {
+                    // Append the character
+                    formattedValue.append(numericValue.charAt(i));
+                    // Insert a separator after every three digits, except for the last group
+                    if ((length - i) % 3 == 1 && i != length - 1) {
+                        formattedValue.append(".");
+                    }
+                }
+
+                // Update the text field
+                textField.setText(formattedValue.toString());
+
+                changing = false;
+            }
+        });
     }
 }
