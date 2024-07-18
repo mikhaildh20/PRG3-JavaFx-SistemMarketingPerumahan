@@ -40,7 +40,7 @@ public class DetailRuko {
         labelBlok.setText(ruko.getBlok());
         labelPerumahan.setText(ruko.getNamaperum());
         labelHarga.setText("Rp " + String.format("%,.0f", ruko.getRent()));
-        labelTegangan.setText(String.valueOf(ruko.getElectric()));
+        labelTegangan.setText(String.valueOf(ruko.getElectric()+"Va"));
         labelToilet.setText(String.valueOf(ruko.getToilet()));
         labelDeskripsi.setText(ruko.getDesc());
         labelKetersediaan.setText(ruko.getKetersediaan() == 0 ? "Available" : "Rented");

@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,8 +38,6 @@ public class viewPerumahan extends Library implements Initializable {
     private TableView tableView;
     @FXML
     private TableColumn<Perumahan, String> colId, colDeveloper, colResidence;
-    @FXML
-    private TableColumn<Perumahan, String> colStatus; // Changed to String type
     @FXML
     private TableColumn<Perumahan, Void> colAction;
     @FXML
@@ -86,24 +85,6 @@ public class viewPerumahan extends Library implements Initializable {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colDeveloper.setCellValueFactory(new PropertyValueFactory<>("namadev"));
         colResidence.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colStatus.setCellValueFactory(cellData -> {
-            int status = cellData.getValue().getStatus();
-            return new SimpleStringProperty(status == 1 ? "Available" : "Not Available"); // Changed to display "Available" or "Not Available"
-        });
-
-        colStatus.setCellFactory(column -> new TableCell<Perumahan, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    setStyle(item.equals("Available") ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
-                }
-            }
-        });
         colAction.setCellFactory(param->new TableCell<>(){
             private final Button btnUpdate = new Button("Edit");
             private final Button btnDelete = new Button("Delete");
@@ -140,6 +121,7 @@ public class viewPerumahan extends Library implements Initializable {
                     setGraphic(null);
                 } else {
                     HBox buttons = new HBox(btnUpdate, btnDelete);
+                    buttons.setAlignment(Pos.CENTER);
                     buttons.setSpacing(5);
                     setGraphic(buttons);
                 }
@@ -173,11 +155,13 @@ public class viewPerumahan extends Library implements Initializable {
             String query = "EXEC sp_viewPerumahan";
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next()){
-                listResidence.add(new Perumahan(connect.result.getString("id_perumahan"),
-                        connect.result.getString("id_developer"),
-                        connect.result.getString("nama_perumahan"),
-                        connect.result.getString("nama_developer"),
-                        connect.result.getInt("status"))); // Added status
+                if (connect.result.getInt("status") == 1) {
+                    listResidence.add(new Perumahan(connect.result.getString("id_perumahan"),
+                            connect.result.getString("id_developer"),
+                            connect.result.getString("nama_perumahan"),
+                            connect.result.getString("nama_developer"),
+                            connect.result.getInt("status"))); // Added status
+                }
             }
             connect.stat.close();
             connect.result.close();

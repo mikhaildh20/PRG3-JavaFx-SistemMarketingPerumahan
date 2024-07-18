@@ -11,9 +11,8 @@
           <TableColumn fx:id="colResidence" prefWidth="171.0" text="Residence" />
           <TableColumn fx:id="colRole" prefWidth="261.0" text="Role" />
           <TableColumn fx:id="colName" prefWidth="295.0" text="Name" />
-          <TableColumn fx:id="colEmail" prefWidth="263.0" text="Email" />
-          <TableColumn fx:id="colStatus" prefWidth="160.0" text="Status" />
-          <TableColumn fx:id="colAction" prefWidth="215.0" text="Action" />
+          <TableColumn fx:id="colEmail" prefWidth="407.0" text="Email" />
+          <TableColumn fx:id="colAction" prefWidth="231.0" text="Action" />
         </columns>
       </TableView>
        <TextField fx:id="txtSearch" layoutX="171.0" layoutY="2.0" prefHeight="49.0" prefWidth="1322.0" promptText="Search" style="-fx-background-radius: 10; -fx-border-color: darkblue; -fx-border-radius: 10;" />

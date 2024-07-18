@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -40,8 +41,6 @@ public class viewBank extends Library implements Initializable {
     private TableColumn<Bank, String> colId, colBank;
     @FXML
     private TableColumn<Bank, String> colBunga; // Changed data type to String
-    @FXML
-    private TableColumn<Bank, String> colStatus; // Changed data type to String
     @FXML
     private TableColumn<Bank, Void> colAction;
     @FXML private Button btnSerach;
@@ -116,12 +115,14 @@ public class viewBank extends Library implements Initializable {
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next())
             {
-                listBank.add(new Bank(
-                        connect.result.getString("id_bank"),
-                        connect.result.getString("nama_bank"),
-                        connect.result.getInt("suku_bunga"),
-                        connect.result.getInt("status") // Added status
-                ));
+                if (connect.result.getInt("status") == 1) {
+                    listBank.add(new Bank(
+                            connect.result.getString("id_bank"),
+                            connect.result.getString("nama_bank"),
+                            connect.result.getInt("suku_bunga"),
+                            connect.result.getInt("status") // Added status
+                    ));
+                }
             }
             connect.result.close();
             connect.stat.close();
@@ -134,22 +135,6 @@ public class viewBank extends Library implements Initializable {
         colBunga.setCellValueFactory(cellData -> {
             int bunga = cellData.getValue().getBunga();
             return new SimpleStringProperty(bunga + "%"); // Menambahkan % di belakang nilai bunga
-        });
-        colStatus.setCellValueFactory(cellData -> {
-            int status = cellData.getValue().getStatus();
-            return new SimpleStringProperty(status == 1 ? "Available" : "Not Available"); // Changed status to text
-        });
-        colStatus.setCellFactory(column -> new TableCell<Bank, String>() {
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    setStyle(item.equals("Available") ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
-                }
-            }
         });
 
         colAction.setCellFactory(param->new TableCell<>(){
@@ -187,7 +172,8 @@ public class viewBank extends Library implements Initializable {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    HBox buttons = new HBox(btnUpdate, btnDelete);
+                    HBox buttons = new HBox(5,btnUpdate, btnDelete);
+                    buttons.setAlignment(Pos.CENTER);
                     setGraphic(buttons);
                 }
             }

@@ -8,9 +8,8 @@
        <TableView fx:id="tableTipeRumah" layoutY="59.0" prefHeight="701.0" prefWidth="1495.0" stylesheets="@../../../../Css/Button.css">
            <columns>
                <TableColumn fx:id="idTipe" prefWidth="216.0" text="Type ID" />
-               <TableColumn fx:id="nama" prefWidth="527.0" text="Name" />
-               <TableColumn fx:id="status" prefWidth="590.0" text="Status" />
-               <TableColumn fx:id="actionCol" prefWidth="161.0" text="Action" />
+               <TableColumn fx:id="nama" prefWidth="1045.0" text="Name" />
+               <TableColumn fx:id="actionCol" prefWidth="233.0" text="Action" />
            </columns>
        </TableView>
        <TextField fx:id="txtSearch" layoutX="171.0" layoutY="2.0" prefHeight="49.0" prefWidth="1322.0" promptText="Search" style="-fx-background-radius: 10; -fx-border-color: darkblue; -fx-border-radius: 10;" />

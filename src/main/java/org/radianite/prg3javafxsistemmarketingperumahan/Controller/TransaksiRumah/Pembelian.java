@@ -121,7 +121,12 @@ public class Pembelian extends Library implements Initializable {
                 txtContact.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-
+        
+        txtContact.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() > 13) {
+                txtContact.setText(newValue.substring(0, 13));
+            }
+        });
         txtRekening.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 txtRekening.setText(newValue.replaceAll("[^\\d]", ""));

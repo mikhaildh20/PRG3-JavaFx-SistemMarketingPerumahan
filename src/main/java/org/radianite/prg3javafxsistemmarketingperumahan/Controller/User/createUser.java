@@ -142,8 +142,8 @@ public class createUser extends Library implements Initializable {
             return 1;
         }
 
-        if (username.length() < 8) {
-            validationLabel.setText("Username must be at least 8 characters.");
+        if (username.length() < 5) {
+            validationLabel.setText("Username must be at least 5 characters.");
             validationLabel.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
             return 0;
         }

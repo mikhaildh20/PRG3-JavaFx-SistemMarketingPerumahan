@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,8 +33,6 @@ public class ViewUpdateDelete extends Library implements Initializable {
     private TableColumn<Role, String> idRole;
     @FXML
     private TableColumn<Role, String> namaRole;
-    @FXML
-    private TableColumn<Role, Integer> status;
     @FXML
     private TableColumn<Role, Void> actionCol;
     ObservableList<Role> roleList = FXCollections.observableArrayList();
@@ -109,9 +108,11 @@ public class ViewUpdateDelete extends Library implements Initializable {
             connection.result = connection.stat.executeQuery(query);
 
             while (connection.result.next()) {
-                roleList.add(new Role(connection.result.getString("id_role"),
-                        connection.result.getString("nama_role"),
-                        connection.result.getInt("status")));
+                if (connection.result.getInt("status") == 1) {
+                    roleList.add(new Role(connection.result.getString("id_role"),
+                            connection.result.getString("nama_role"),
+                            connection.result.getInt("status")));
+                }
             }
             connection.stat.close();
             connection.result.close();
@@ -121,22 +122,6 @@ public class ViewUpdateDelete extends Library implements Initializable {
 
         idRole.setCellValueFactory(new PropertyValueFactory<>("idRole"));
         namaRole.setCellValueFactory(new PropertyValueFactory<>("namaRole"));
-        status.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        status.setCellFactory(column -> new TableCell<Role, Integer>() {
-            @Override
-            protected void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item == 1 ? "Available" : "Not Available");
-                    setStyle(item == 1 ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
-                }
-            }
-        });
-
         actionCol.setCellFactory(new Callback<TableColumn<Role, Void>, TableCell<Role, Void>>() {
             @Override
             public TableCell<Role, Void> call(final TableColumn<Role, Void> param) {
@@ -176,6 +161,7 @@ public class ViewUpdateDelete extends Library implements Initializable {
             HBox hbox = new HBox(5);
             hbox.getChildren().addAll(editButton, deleteButton);
             hbox.setSpacing(10);
+            hbox.setAlignment(Pos.CENTER);
             setGraphic(hbox);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         }
@@ -187,8 +173,9 @@ public class ViewUpdateDelete extends Library implements Initializable {
                 // Jika baris tabel kosong, tidak menampilkan tombol edit dan delete
                 setGraphic(null);
             } else {
-                // Menampilkan tombol edit dan delete pada setiap baris tabel
-                setGraphic(new HBox(5, editButton, deleteButton));
+                HBox hbox = new HBox(10, editButton, deleteButton);
+                hbox.setAlignment(Pos.CENTER);
+                setGraphic(hbox);
             }
         }
     }

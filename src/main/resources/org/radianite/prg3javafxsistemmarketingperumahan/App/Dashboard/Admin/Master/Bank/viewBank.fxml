@@ -8,11 +8,10 @@
    <children>
       <TableView fx:id="tableView" layoutY="59.0" prefHeight="702.0" prefWidth="1495.0">
         <columns>
-          <TableColumn fx:id="colId" prefWidth="97.0" text="ID" />
-          <TableColumn fx:id="colBank" prefWidth="449.0" text="Bank" />
-            <TableColumn fx:id="colBunga" prefWidth="580.0" text="Rate" />
-            <TableColumn fx:id="colStatus" prefWidth="227.0" text="Status" /> <!-- Added colStatus column -->
-            <TableColumn fx:id="colAction" minWidth="0.0" prefWidth="141.0" text="Action" />
+          <TableColumn fx:id="colId" prefWidth="258.0" text="ID" />
+          <TableColumn fx:id="colBank" prefWidth="414.0" text="Bank" />
+            <TableColumn fx:id="colBunga" prefWidth="570.0" text="Rate" /> <!-- Added colStatus column -->
+            <TableColumn fx:id="colAction" minWidth="0.0" prefWidth="252.0" text="Action" />
         </columns>
       </TableView>
        <TextField fx:id="txtSearch" layoutX="171.0" layoutY="2.0" prefHeight="49.0" prefWidth="1322.0" promptText="Search" style="-fx-background-radius: 10; -fx-border-color: darkblue; -fx-border-radius: 10;">

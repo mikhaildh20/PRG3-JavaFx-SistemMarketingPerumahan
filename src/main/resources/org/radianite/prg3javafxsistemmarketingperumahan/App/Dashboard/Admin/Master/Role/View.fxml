@@ -8,9 +8,8 @@
        <TableView fx:id="tableRole" layoutY="59.0" prefHeight="701.0" prefWidth="1495.0" stylesheets="@../../../../Css/Button.css">
            <columns>
                <TableColumn fx:id="idRole" prefWidth="186.0" text="Role ID" /> <!-- Ganti ID Tipe menjadi ID Role -->
-               <TableColumn fx:id="namaRole" prefWidth="661.0" text="Name" />
-               <TableColumn fx:id="status" prefWidth="512.0" text="Status" />
-               <TableColumn fx:id="actionCol" prefWidth="135.0" text="Action" />
+               <TableColumn fx:id="namaRole" prefWidth="1141.0" text="Name" />
+               <TableColumn fx:id="actionCol" prefWidth="167.0" text="Action" />
            </columns>
        </TableView>
        <TextField fx:id="txtSearch" layoutX="171.0" layoutY="2.0" prefHeight="49.0" prefWidth="1319.0" promptText="Search" style="-fx-background-radius: 10; -fx-border-color: darkblue; -fx-border-radius: 10;" />

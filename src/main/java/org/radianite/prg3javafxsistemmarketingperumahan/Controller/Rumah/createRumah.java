@@ -155,6 +155,7 @@ public class createRumah extends Library implements Initializable {
             System.out.println("Error: "+ex.getMessage());
         }
         cbType.setItems(listTipe);
+        cbType.selectionModelProperty().get().select(0);
     }
 
     public void onActionSave(ActionEvent actionEvent) {

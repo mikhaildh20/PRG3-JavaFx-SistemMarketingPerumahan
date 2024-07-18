@@ -9,9 +9,8 @@
       <TableView fx:id="tableDeveloper" layoutY="59.0" prefHeight="702.0" prefWidth="1495.0" stylesheets="@../../../../Css/Button.css">
          <columns>
             <TableColumn fx:id="idDeveloper" prefWidth="237.6666717529297" text="Developer ID" /> <!-- Ganti ID Role menjadi ID Developer -->
-            <TableColumn fx:id="namaDeveloper" prefWidth="598.6666870117188" text="Developer Name" /> <!-- Ganti Nama menjadi Nama Developer -->
-            <TableColumn fx:id="status" prefWidth="524.0" text="Status" />
-            <TableColumn fx:id="actionCol" prefWidth="133.0" text="Action" />
+            <TableColumn fx:id="namaDeveloper" prefWidth="1004.0" text="Developer Name" />
+            <TableColumn fx:id="actionCol" prefWidth="252.0" text="Action" />
          </columns>
       </TableView>
       <TextField fx:id="txtSearch" layoutX="171.0" layoutY="2.0" prefHeight="49.0" prefWidth="1322.0" promptText="Search" style="-fx-background-radius: 10; -fx-border-color: darkblue; -fx-border-radius: 10;">

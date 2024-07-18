@@ -51,8 +51,8 @@ public class DetailRumah {
         labelTegangan.setText(String.valueOf(rumah.getWatt()));
         labelToilet.setText(String.valueOf(rumah.getBed()));
         labelDeskripsi.setText(rumah.getDesc());
-        labelKetersediaan.setText(rumah.getKetersediaan() == 0 ? "Available" : "Sold");
-        labelKetersediaan.setStyle(rumah.getKetersediaan() == 0 ? "-fx-text-fill: green;" : "-fx-text-fill: red;");
+        labelKetersediaan.setText(rumah.getKetersediaan() == 1 ? "Available" : "Sold");
+        labelKetersediaan.setStyle(rumah.getKetersediaan() == 1 ? "-fx-text-fill: green;" : "-fx-text-fill: red;");
         imageFoto.setImage(rumah.getFoto());
         labelType.setText(rumah.getType());
         labelBedroom.setText(String.valueOf(rumah.getRest()));

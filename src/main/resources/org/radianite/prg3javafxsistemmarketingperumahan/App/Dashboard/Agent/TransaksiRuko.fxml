@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="mainpane" focusTraversable="true" prefHeight="1200.0" prefWidth="1535.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.TransaksiRukoController">
+<AnchorPane fx:id="mainpane" focusTraversable="true" prefHeight="1200.0" prefWidth="1535.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.radianite.prg3javafxsistemmarketingperumahan.App.Agent.TransaksiRukoController">
    <children>
       <ImageView fitHeight="1104.0" fitWidth="1897.0" layoutX="-1.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -81,7 +73,10 @@
                         <Font name="Montserrat Bold" size="21.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="txtDesc" prefHeight="81.0" prefWidth="210.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #050C9C;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextArea fx:id="txtDesc" prefHeight="81.0" prefWidth="210.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #050C9C;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextArea>
                   <Text fill="DARKBLUE" strokeType="OUTSIDE" strokeWidth="0.0" text="Price" wrappingWidth="152.13671875" GridPane.rowIndex="5">
                      <font>
                         <Font name="Montserrat Bold" size="21.0" />

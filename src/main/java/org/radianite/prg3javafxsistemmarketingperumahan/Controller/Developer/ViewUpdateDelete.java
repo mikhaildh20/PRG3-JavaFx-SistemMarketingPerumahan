@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -39,8 +40,6 @@ public class ViewUpdateDelete extends Library implements Initializable  {
     private TableColumn<Developer, String> idDeveloper; // Ganti dari idRole menjadi idDeveloper
     @FXML
     private TableColumn<Developer, String> namaDeveloper; // Ganti dari namaRole menjadi namaDeveloper
-    @FXML
-    private TableColumn<Developer, Integer> status;
     @FXML
     private TableColumn<Developer, Void> actionCol;
     @FXML
@@ -113,9 +112,11 @@ public class ViewUpdateDelete extends Library implements Initializable  {
             connection.result = connection.stat.executeQuery(query);
 
             while (connection.result.next()) {
-                developerList.add(new Developer(connection.result.getString("id_developer"), // Ganti dari id_role menjadi id_developer
-                        connection.result.getString("nama_developer"), // Ganti dari nama_role menjadi nama_developer
-                        connection.result.getInt("status")));
+                if (connection.result.getInt("status") == 1) {
+                    developerList.add(new Developer(connection.result.getString("id_developer"), // Ganti dari id_role menjadi id_developer
+                            connection.result.getString("nama_developer"), // Ganti dari nama_role menjadi nama_developer
+                            connection.result.getInt("status")));
+                }
             }
             connection.stat.close();
             connection.result.close();
@@ -125,22 +126,6 @@ public class ViewUpdateDelete extends Library implements Initializable  {
 
         idDeveloper.setCellValueFactory(new PropertyValueFactory<>("idDeveloper")); // Ganti dari idRole menjadi idDeveloper
         namaDeveloper.setCellValueFactory(new PropertyValueFactory<>("namaDeveloper")); // Ganti dari namaRole menjadi namaDeveloper
-        status.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        status.setCellFactory(column -> new TableCell<Developer, Integer>() {
-            @Override
-            protected void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item == 1 ? "Available" : "Not Available");
-                    setStyle(item == 1 ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
-                }
-            }
-        });
-
         actionCol.setCellFactory(new Callback<TableColumn<Developer, Void>, TableCell<Developer, Void>>() {
             @Override
             public TableCell<Developer, Void> call(final TableColumn<Developer, Void> param) {
@@ -179,7 +164,8 @@ public class ViewUpdateDelete extends Library implements Initializable  {
             });
 
             HBox hbox = new HBox(5);
-            hbox.getChildren().addAll(editButton, deleteButton);
+            hbox.getChildren().addAll();
+
             hbox.setSpacing(10);
             setGraphic(hbox);
             setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
@@ -192,8 +178,10 @@ public class ViewUpdateDelete extends Library implements Initializable  {
                 // Jika baris tabel kosong, tidak menampilkan tombol edit dan delete
                 setGraphic(null);
             } else {
-                // Menampilkan tombol edit dan delete pada setiap baris tabel
-                setGraphic(new HBox(5, editButton, deleteButton));
+                // Menampilkan tombol edit dan delete pada setiap baris tabel dengan posisi di tengah
+                HBox hbox = new HBox(10, editButton, deleteButton);
+                hbox.setAlignment(Pos.CENTER);
+                setGraphic(hbox);
             }
         }
     }

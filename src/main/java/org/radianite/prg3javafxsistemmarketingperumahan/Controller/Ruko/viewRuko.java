@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,8 +42,6 @@ public class viewRuko extends Library implements Initializable {
     private TableColumn<Ruko,String> colId,colResidence,colBlok;
     @FXML
     private TableColumn<Ruko, Double> colRent;
-    @FXML
-    private TableColumn<Ruko, String> colStatus; // Changed to String
     @FXML
     private TableColumn<Ruko, Void> colAction;
     @FXML
@@ -122,24 +121,6 @@ public class viewRuko extends Library implements Initializable {
                 }
             }
         });
-        colStatus.setCellValueFactory(cellData -> {
-            int status = cellData.getValue().getStatus();
-            return new SimpleStringProperty(status == 1 ? "Available" : "Not Available"); // Changed to display "Available" or "Not Available"
-        });
-
-        colStatus.setCellFactory(column -> new TableCell<Ruko, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    setStyle(item.equals("Available") ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
-                }
-            }
-        });
         colAction.setCellFactory(param->new TableCell<>(){
             private final Button btnUpdate = new Button("Edit");
             private final Button btnDelete = new Button("Delete");
@@ -184,6 +165,7 @@ public class viewRuko extends Library implements Initializable {
                 } else {
                     HBox buttons = new HBox(btnUpdate, btnDelete,btnDetail);
                     buttons.setSpacing(10);
+                    buttons.setAlignment(Pos.CENTER);
                     setGraphic(buttons);
                 }
             }
@@ -198,17 +180,20 @@ public class viewRuko extends Library implements Initializable {
             String query = "EXEC sp_viewRuko";
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next()){
-                listRuko.add(new Ruko(connect.result.getString("id_ruko"),
-                        connect.result.getString("id_perumahan"),
-                        convertToImage(connect.result.getBytes("foto_ruko")),
-                        connect.result.getString("blok"),
-                        connect.result.getInt("daya_listrik"),
-                        connect.result.getInt("jml_kmr_mdn"),
-                        connect.result.getString("descrption"),
-                        connect.result.getDouble("harga_sewa"),
-                        connect.result.getString("nama_perumahan"),
-                        connect.result.getInt("status"),
-                        connect.result.getInt("ketersediaan"))); // Added status
+                if (connect.result.getInt("status") == 1) {
+                    listRuko.add(new Ruko(connect.result.getString("id_ruko"),
+                            connect.result.getString("id_perumahan"),
+                            convertToImage(connect.result.getBytes("foto_ruko")),
+                            connect.result.getString("blok"),
+                            connect.result.getInt("daya_listrik"),
+                            connect.result.getInt("jml_kmr_mdn"),
+                            connect.result.getString("descrption"),
+                            connect.result.getDouble("harga_sewa"),
+                            connect.result.getString("nama_perumahan"),
+                            connect.result.getInt("status"),
+                            connect.result.getInt("ketersediaan"))); // Added status
+                }
+
             }
             connect.stat.close();
             connect.result.close();

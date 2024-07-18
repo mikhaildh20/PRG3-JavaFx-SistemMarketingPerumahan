@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,11 +38,9 @@ public class viewRumah extends Library implements Initializable {
     @FXML
     private TableView<Rumah> tableView;
     @FXML
-    private TableColumn<Rumah, String> colId, colResidence, colType;
+    private TableColumn<Rumah, String> colId, colResidence, colType,colBlok;
     @FXML
     private TableColumn<Rumah, Double> colPrice;
-    @FXML
-    private TableColumn<Rumah, String> colStatus; // Changed data type to String
     @FXML
     private TableColumn<Rumah, Void> colAction;
     @FXML
@@ -109,6 +108,7 @@ public class viewRumah extends Library implements Initializable {
         colResidence.setCellValueFactory(new PropertyValueFactory<>("residence"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("harga"));
+        colBlok.setCellValueFactory(new PropertyValueFactory<>("blok"));
         colPrice.setCellFactory(column -> new TableCell<Rumah, Double>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
@@ -117,24 +117,6 @@ public class viewRumah extends Library implements Initializable {
                     setText(null);
                 } else {
                     setText(String.format("Rp %,.0f", item).replace(",", "."));
-                }
-            }
-        });
-        colStatus.setCellValueFactory(cellData -> {
-            int status = cellData.getValue().getStatus();
-            SimpleStringProperty statusProperty = new SimpleStringProperty(status == 1 ? "Available" : "Not Available");
-            return statusProperty;
-        });
-        colStatus.setCellFactory(column -> new TableCell<Rumah, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    setStyle(item.equals("Available") ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
                 }
             }
         });
@@ -182,6 +164,7 @@ public class viewRumah extends Library implements Initializable {
                 } else {
                     HBox buttons = new HBox(btnUpdate, btnDelete, btnDetail);
                     buttons.setSpacing(10);
+                    buttons.setAlignment(Pos.CENTER);
                     setGraphic(buttons);
                 }
             }
@@ -196,24 +179,24 @@ public class viewRumah extends Library implements Initializable {
             String query = "EXEC sp_viewRumah";
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next()) {
-
-                listRumah.add(new Rumah(connect.result.getString("id_rumah"),
-                        connect.result.getString("id_perumahan"),
-                        convertToImage(connect.result.getBytes("foto_rumah")),
-                        connect.result.getString("blok"),
-                        connect.result.getInt("daya_listrik"),
-                        connect.result.getString("interior"),
-                        connect.result.getInt("jml_kmr_tdr"),
-                        connect.result.getInt("jml_kmr_mdn"),
-                        connect.result.getString("id_tipe"),
-                        connect.result.getString("descrption"),
-                        connect.result.getDouble("harga"),
-                        connect.result.getInt("thn_bangun"),
-                        connect.result.getString("nama_perumahan"),
-                        connect.result.getString("nama_tipe"),
-                        connect.result.getInt("status"),
-                        connect.result.getInt("ketersediaan"))); // Added status
-
+                if (connect.result.getInt("status") == 1) {
+                    listRumah.add(new Rumah(connect.result.getString("id_rumah"),
+                            connect.result.getString("id_perumahan"),
+                            convertToImage(connect.result.getBytes("foto_rumah")),
+                            connect.result.getString("blok"),
+                            connect.result.getInt("daya_listrik"),
+                            connect.result.getString("interior"),
+                            connect.result.getInt("jml_kmr_tdr"),
+                            connect.result.getInt("jml_kmr_mdn"),
+                            connect.result.getString("id_tipe"),
+                            connect.result.getString("descrption"),
+                            connect.result.getDouble("harga"),
+                            connect.result.getInt("thn_bangun"),
+                            connect.result.getString("nama_perumahan"),
+                            connect.result.getString("nama_tipe"),
+                            connect.result.getInt("status"),
+                            connect.result.getInt("ketersediaan")));
+                }
             }
             connect.stat.close();
             connect.result.close();

@@ -17,8 +17,7 @@ public class Input extends Library {
     @FXML
     private TextField txtNamaRole;
     @FXML
-    private Button simpanButton;
-    @FXML
+    private Button btnSave;
     private Button batalButton;
     @FXML
     private Label messageLabel;
@@ -53,11 +52,12 @@ public class Input extends Library {
             connection.pstat.executeUpdate();
             connection.pstat.close();
 
-            successBox(simpanButton, "Data Successfully Saved");
+
             clear();
         } catch (SQLException ex) {
             System.out.println("Terjadi error saat insert data role: " + ex);
         }
+        successBox(btnSave, "Data Successfully Saved");
         txtIdRole.setText(generateID("ms_role","RLE","id_role"));
     }
 

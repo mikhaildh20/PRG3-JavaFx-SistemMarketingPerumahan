@@ -156,7 +156,7 @@ public class DashbordManagerController {
 /*
         setPane("/org/radianite/prg3javafxsistemmarketingperumahan/App/Dashboard/Agent/MainDashboard.fxml");
 */      Animasi();
-        btnDashboard();
+        btntLaporanRumah();
     }
     private void setPane(String fxml) {
         try {

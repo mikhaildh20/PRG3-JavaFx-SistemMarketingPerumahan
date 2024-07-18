@@ -53,10 +53,10 @@ public class Cicilan implements Initializable {
         colTunggakan.setCellValueFactory(new PropertyValueFactory<>("tunggakan"));
 
         colAction.setCellFactory(param->new TableCell<>(){
-            private final Button btnDelete = new Button("Confirm");
+            private final Button btnConfrm = new Button("Confirm");
 
             {
-                btnDelete.setOnAction(event -> {
+                btnConfrm.setOnAction(event -> {
                     storedCicilan(listCicilan.get(getIndex()).getId());
                     loadCicilan();
                     tableView.refresh();
@@ -70,7 +70,7 @@ public class Cicilan implements Initializable {
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    HBox buttons = new HBox(btnDelete);
+                    HBox buttons = new HBox(btnConfrm);
                     setGraphic(buttons);
                 }
             }

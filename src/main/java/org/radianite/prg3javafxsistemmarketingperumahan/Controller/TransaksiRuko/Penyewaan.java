@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 
 public class Penyewaan extends Library implements Initializable {
     @FXML
-    private TextField txtId,txtNIK,txtNama,txtTelp,txtPeriode,txtTotal,txtRek;
+    private TextField txtId,txtNIK,txtNama,txtContaxt,txtPeriode,txtTotal,txtRek;
     @FXML
     private ComboBox<Ruko> cbRuko;
     @FXML
@@ -69,9 +69,15 @@ public class Penyewaan extends Library implements Initializable {
             }
         });
 
-        txtTelp.textProperty().addListener((observable, oldValue, newValue) -> {
+        txtContaxt.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                txtTelp.setText(newValue.replaceAll("[^\\d]", ""));
+                txtContaxt.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        txtContaxt.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() > 13) {
+                txtContaxt.setText(newValue.substring(0, 13));
             }
         });
 
@@ -260,7 +266,7 @@ public class Penyewaan extends Library implements Initializable {
             connect.pstat.setString(3,userlist.get(0).getUsn());
             connect.pstat.setString(4,txtNIK.getText());
             connect.pstat.setString(5,txtNama.getText());
-            connect.pstat.setString(6,txtTelp.getText());
+            connect.pstat.setString(6,txtContaxt.getText());
             connect.pstat.setString(7,cbPayment.getSelectionModel().getSelectedItem());
             if (choice == 1) {
                 connect.pstat.setString(8, cbBank.getSelectionModel().getSelectedItem().getId());
@@ -285,7 +291,7 @@ public class Penyewaan extends Library implements Initializable {
 
     public boolean isEmpty()
     {
-        if (txtNIK.getText().isEmpty() || txtNama.getText().isEmpty() || txtTelp.getText().isEmpty() || txtPeriode.getText().isEmpty() || txtTotal.getText().isEmpty() || file == null){
+        if (txtNIK.getText().isEmpty() || txtNama.getText().isEmpty() || txtContaxt.getText().isEmpty() || txtPeriode.getText().isEmpty() || txtTotal.getText().isEmpty() || file == null){
             return true;
         }
         return false;
@@ -295,7 +301,7 @@ public class Penyewaan extends Library implements Initializable {
         txtId.setText("");
         txtNama.setText("");
         txtNIK.setText("");
-        txtTelp.setText("");
+        txtContaxt.setText("");
         txtTotal.setText("");
         txtPeriode.setText("");
         txtRek.setText("");

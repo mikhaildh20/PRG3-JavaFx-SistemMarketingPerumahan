@@ -21,7 +21,7 @@
                <TextField fx:id="txtIdRole" editable="false" GridPane.columnIndex="1" />
                <Label text="Role Name" GridPane.rowIndex="1" />
                <TextField fx:id="txtNamaRole" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               <Button onAction="#onBtnSimpanClick" prefHeight="51.0" prefWidth="149.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <Button fx:id="btnSave" onAction="#onBtnSimpanClick" prefHeight="51.0" prefWidth="149.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                <Button onAction="#onBatalSimpanClick" prefHeight="51.0" prefWidth="152.0" text="Clear" GridPane.rowIndex="2" />
          </children>
       </GridPane>

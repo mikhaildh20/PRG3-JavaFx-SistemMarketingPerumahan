@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,8 +40,6 @@ public class viewUser extends Library implements Initializable {
     private TableView<User> tableView;
     @FXML
     private TableColumn<User, String> colUsn, colResidence, colRole, colName, colEmail;
-    @FXML
-    private TableColumn<User, String> colStatus; // Ubah tipe data kolom status menjadi String
     @FXML
     private TableColumn<User, Void> colAction;
     @FXML
@@ -117,24 +116,6 @@ public class viewUser extends Library implements Initializable {
         colRole.setCellValueFactory(new PropertyValueFactory<>("rName"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colStatus.setCellValueFactory(cellData -> {
-            int status = cellData.getValue().getStatus();
-            return new SimpleStringProperty(status == 1 ? "Available" : "Not Available"); // Ubah status menjadi teks
-        });
-
-        colStatus.setCellFactory(column -> new TableCell<User, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setStyle("");
-                } else {
-                    setText(item);
-                    setStyle(item.equals("Available") ? "-fx-text-fill: green; -fx-font-weight: bold;" : "-fx-text-fill: red; -fx-font-weight: bold;");
-                }
-            }
-        });
         colAction.setCellFactory(param -> new TableCell<>() {
             private final Button btnUpdate = new Button("Edit");
             private final Button btnDelete = new Button("Delete");
@@ -177,6 +158,7 @@ public class viewUser extends Library implements Initializable {
                     setGraphic(null);
                 } else {
                     HBox buttons = new HBox(btnUpdate, btnDelete, btnDetail);
+                    buttons.setAlignment(Pos.CENTER);
                     buttons.setSpacing(10);
                     setGraphic(buttons);
                 }
@@ -192,20 +174,22 @@ public class viewUser extends Library implements Initializable {
             String query = "EXEC sp_viewUser";
             connect.result = connect.stat.executeQuery(query);
             while (connect.result.next()) {
-                listUser.add(new User(connect.result.getString("username"),
-                        connect.result.getString("password"),
-                        connect.result.getString("id_perumahan"),
-                        connect.result.getString("id_role"),
-                        connect.result.getString("nama_lengkap"),
-                        connect.result.getString("email"),
-                        connect.result.getString("alamat"),
-                        connect.result.getString("jenis_kelamin"),
-                        connect.result.getInt("umur"),
-                        convertToImage(connect.result.getBytes("photo")),
-                        connect.result.getString("nama_perumahan"),
-                        connect.result.getString("nama_role"),
-                        connect.result.getInt("status") // Tambahkan status
-                ));
+                if (connect.result.getInt("status") == 1) {
+                    listUser.add(new User(connect.result.getString("username"),
+                            connect.result.getString("password"),
+                            connect.result.getString("id_perumahan"),
+                            connect.result.getString("id_role"),
+                            connect.result.getString("nama_lengkap"),
+                            connect.result.getString("email"),
+                            connect.result.getString("alamat"),
+                            connect.result.getString("jenis_kelamin"),
+                            connect.result.getInt("umur"),
+                            convertToImage(connect.result.getBytes("photo")),
+                            connect.result.getString("nama_perumahan"),
+                            connect.result.getString("nama_role"),
+                            connect.result.getInt("status") // Tambahkan status
+                    ));
+                }
             }
             connect.result.close();
             connect.stat.close();
